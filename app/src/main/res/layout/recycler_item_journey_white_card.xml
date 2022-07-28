@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="@dimen/journey_card_sides_margin"
+    android:layout_marginEnd="@dimen/journey_card_sides_margin"
+    android:background="@drawable/card_default"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/journeyLogo"
+            android:layout_width="@dimen/journey_white_card_logo_size"
+            android:layout_height="@dimen/journey_white_card_logo_size"
+            android:layout_margin="10dp"
+            android:background="@drawable/card_light"
+            android:padding="4dp"
+            android:src="@drawable/happy_life"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:id="@+id/journeyText"
+            android:textSize="@dimen/journey_white_card_title_size"
+            app:layout_constraintBottom_toBottomOf="@+id/journeyLogo"
+            app:layout_constraintEnd_toStartOf="@+id/journeyNext"
+            app:layout_constraintStart_toEndOf="@+id/journeyLogo"
+            app:layout_constraintTop_toTopOf="@+id/journeyLogo" />
+
+        <ImageView
+            android:id="@+id/journeyNext"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

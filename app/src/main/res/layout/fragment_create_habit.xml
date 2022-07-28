@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/fragment_create_habit_content"
+        android:id="@+id/content"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/habit_sides_margin"
+        android:paddingTop="15dp"
+        app:liftOnScroll="true"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:elevation="@dimen/dimen_0dp"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="@dimen/title_card_size"
+                    android:layout_height="@dimen/title_card_size"
+                    android:layout_marginStart="@dimen/habit_sides_margin"
+                    android:layout_marginTop="@dimen/habit_sides_margin"
+                    android:background="@drawable/card_default"
+                    android:padding="@dimen/root_view_padding"
+                    android:src="@drawable/bottle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/habit_sides_margin"
+                    android:layout_marginEnd="55dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView">
+
+                    <TextView
+                        android:id="@+id/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:textAllCaps="true"
+                        android:text="@string/default_habit_title"
+                        android:textSize="@dimen/activity_title_size"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/titleTextEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/default_habit_title"
+                        android:textSize="@dimen/activity_title_size"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Regular Habits"
+                        android:textSize="@dimen/activity_sub_title_size" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/editHabitName"
+                    android:layout_width="@dimen/edit_pen_size"
+                    android:layout_height="@dimen/edit_pen_size"
+                    android:layout_marginEnd="@dimen/habit_sides_margin"
+                    android:src="@drawable/pen"
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintVertical_bias="0.19999999" />
+
+                <TextView
+                    android:id="@+id/saveHabitName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/habit_sides_margin"
+                    android:background="@drawable/tiny_button_background"
+                    android:text="@string/save"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+                    app:layout_constraintVertical_bias="0.19" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/saveHabitButton"
+        app:backgroundTint="@null"
+        android:layout_marginBottom="@dimen/habit_bottom_separation"
+        android:background="@drawable/button_background3"
+        android:layout_gravity="center|bottom"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

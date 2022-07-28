@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:id="@+id/mainLayout"
+    android:orientation="vertical"
+    android:background="@drawable/card_light"
+    android:layout_height="wrap_content">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="300dp"
+        android:visibility="gone"
+        android:padding="12dp"
+        android:id="@+id/deleteAnimation"
+        android:src="@drawable/delete_animation"
+        android:layout_height="300dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_main"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/delete_basket"/>
+
+        <TextView
+            android:layout_width="280dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/delete_all_confirmation"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="-10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="130dp"
+                android:id="@+id/cancelDelete"
+                android:layout_marginEnd="16dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cancel_btn"/>
+
+            <ImageView
+                android:layout_width="130dp"
+                android:id="@+id/deleteYes"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete_btn"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

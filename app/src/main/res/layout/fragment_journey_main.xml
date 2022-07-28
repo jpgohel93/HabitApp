@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingBottom="@dimen/fragment_bottom_padding_in_navigation"
+    android:clipToPadding="false"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@string/journey_title"
+            android:textSize="@dimen/title_text_size"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/journey_sides_margin"
+            android:layout_marginEnd="@dimen/journey_sides_margin"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_sub_title_size"
+            android:layout_marginStart="@dimen/journey_sides_margin"
+            android:layout_marginEnd="@dimen/journey_sides_margin"
+            android:text="@string/journey_heading"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/myJourneyRecycler"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_sub_title_size"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/journey_sides_margin"
+            android:layout_marginEnd="@dimen/journey_sides_margin"
+            android:text="@string/journey_all"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/suggestedJourneyRecycler"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:layout_marginTop="@dimen/habit_top_separation"
+        android:layout_marginEnd="@dimen/habit_sides_margin"
+        android:background="@drawable/card_black"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_light"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGULAR" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_light"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NEGATIVE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/card_light"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ONE TIME" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/presetCategorryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_marginTop="@dimen/habit_top_separation"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:textSize="@dimen/title_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+    <TextView
+        android:id="@+id/categoryInfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Category Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:layout_marginEnd="@dimen/habit_sides_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/presetCategorryText" />
+
+    <TextView
+        android:id="@+id/createNewText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:layout_marginTop="@dimen/habit_top_separation"
+        android:text="Create A new habit"
+        android:textAllCaps="true"
+        android:textSize="@dimen/title_text_size"
+        app:layout_constraintEnd_toStartOf="@+id/newHabitButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/categoryInfoText" />
+
+    <TextView
+        android:id="@+id/newSubText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or choose from presets"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createNewText" />
+
+    <ImageView
+        android:id="@+id/newHabitButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/habit_add"
+        android:layout_marginEnd="@dimen/habit_sides_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/newSubText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/createNewText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/habitPresetRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/habit_top_separation"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:layout_marginEnd="@dimen/habit_sides_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newSubText" />
+</androidx.constraintlayout.widget.ConstraintLayout>

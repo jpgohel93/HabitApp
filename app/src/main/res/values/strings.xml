@@ -1,0 +1,142 @@
+<resources>
+    <string name="app_name">Habit App</string>
+
+    <string name="default_habit_title">Habit Name</string>
+    <string name="eat_and_drink_healthy">Eat and Drink healthy</string>
+    <string name="create_new_habit">Create a new habit</string>
+    <string name="choose_from_presents">or choose from presents</string>
+    <string name="repeatation_caps">Repeatation</string>
+    <string name="goal">Goal</string>
+    <string name="daily_goal">Daily Goal</string>
+    <string name="duration">Duration</string>
+    <string name="repeat">Repeat</string>
+    <string name="everyday">Everyday</string>
+    <string name="habit_in_trends">Habits In trends</string>
+    <string name="do_it_at">Do It At</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="advance_settings">Advance Settings</string>
+    <string name="reminder">Reminder</string>
+    <string name="reminder_sub_text">Reminder for this habit</string>
+    <string name="yet_to_implement">Yet to Implement</string>
+    <string name="sound_effect">Sound Effect</string>
+    <string name="default_text">Default</string>
+    <string name="encouragement">Encouragement</string>
+    <string name="typing_hint">Type here</string>
+    <string name="encouragement_hint">Write something to encourage yourself</string>
+    <string name="end_on">END ON</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+    <string name="days">DAYS</string>
+    <string name="date">DATE</string>
+    <string name="save">Save</string>
+    <string name="title_activity_habit_main">HabitMain</string>
+    <string name="title_activity_bottom_navigation_main">BT</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Create Habit</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_categor">One Time</string>
+    <string name="discription_category_onetime">Remind you of important One-Time events one a specific date you set. E. G. Take a medical test on Friday</string>
+    <string name="discription_category_regular">Remind you of important One-Time events one a specific date you set. E. G. Take a medical test on Friday</string>
+    <string name="discription_category_negative">Remind you of important One-Time events one a specific date you set. E. G. Take a medical test on Friday</string>
+    <string name="regular">Regular </string>
+    <string name="negative">Negative </string>
+    <string name="one_time">One time </string>
+    <string name="go_sugar_free">Go sugar free</string>
+    <string name="cat_desc">See your body change with being Sugar-Free</string>
+
+    <string name="journey_title">JOURNEY</string>
+    <string name="journey_heading">Recommended Journeys for you</string>
+    <string name="journey_all">All Journeys</string>
+    <string name="facebook_app_id">791805568271603</string>
+    <string name="fb_login_protocol_scheme">fb791805568271603</string>
+    <string name="my_preference" formatted="true">"com.tjcg.habitapp.MyPref"</string>
+    <string name="my_preference_key" formatted="true">"com.tjcg.habitapp.MyPrefkey"</string>
+    <!--        <string name="default_web_client_id">829333526368-sm1eful5i6god9r9ig0qd7nis0m8o1ms.apps.googleusercontent.com</string>-->
+
+    <string name="key_results">Key Results</string>
+    <string name="more_to_expect">More to Expect</string>
+    <string name="your_personalized_journey">Your Personalized Journey</string>
+
+    <!-- for HistoryMain -->
+    <string name="history_title">History</string>
+    <string name="calendar">Calendar</string>
+    <string name="all_habits">All Habits</string>
+    <string name="achievement">Achievement</string>
+
+    <!-- for HistoryMain/Calendar -->
+    <string name="current_streak">Current\nStreak</string>
+    <string name="best_streak">Best Streak :</string>
+    <string name="habit_finished">Habit Finished</string>
+    <string name="this_week">This Week:</string>
+    <string name="completion_rate">Completion Rate</string>
+    <string name="completion_rate2">Completion\nRate</string>
+    <string name="perfect_days">Perfect Days</string>
+    <string name="avg_completion_rate">Avg Completion Rate</string>
+    <string name="habit_finished2">Habits\nFinished</string>
+    <string name="habit_scheduled2">Habit\nScheduled</string>
+
+    <!-- for HistoryAllHabits -->
+    <string name="active">Active</string>
+    <string name="anytime">Anytime</string>
+    <string name="no_habit_set">No Habit Set</string>
+
+    <!-- for HistoryMain/Achievements -->
+    <string name="habit_finished_in_ach">@string/habit_finished2</string>
+    <string name="archived">Archived</string>
+    <string name="perfect_days2">Perfect\nDays</string>
+    <string name="best_streak2">Best\nStreaks</string>
+
+    <!-- for HabitAchievements -->
+    <string name="habit_finished_3">Habit Finished For the 3rd Time</string>
+    <string name="habit_finished_10">Habit Finished For the 10th Time</string>
+    <string name="habit_finished_20">Habit Finished For the 20th Time</string>
+    <string name="habit_finished_50">Habit Finished For the 50th Time</string>
+    <string name="habit_finished_100">Habit Finished For the 100th Time</string>
+    <string name="habit_finished_300">Habit Finished For the 300th Time</string>
+
+    <!-- for DaysAchievement -->
+    <string name="day_perfect">Days\nPerfect</string>
+
+    <!-- for StreaksAchievement -->
+    <string name="day_streak">Days\nStreak</string>
+
+    <!-- for Go Premium -->
+    <string name="premium_title">Go Premium</string>
+    <string name="premium_heading">Enjoy your journey of becoming a better you</string>
+    <string name="benefit1">Unlimited Number of Habits</string>
+    <string name="benefit2">Join Journey Well-Designed By Experts</string>
+    <string name="benefit3">Remove Ads</string>
+    <string name="premium_offer_text">Free 7-Day Trial, Then 1050/- Year</string>
+    <string name="premium_offer_text2">Cancel Anytime During The Trial</string>
+    <string name="continue_button">Continue</string>
+    <string name="terms1">All Payments Made Through Play Store Are Controlled And Managed By Google</string>
+
+    <!-- For My Profile -->
+    <string name="my_profile_title">My Profile</string>
+    <string name="backup_restore">Backup &amp; Restore</string>
+    <string name="sign_in_info">Sign in and synchronize your data</string>
+    <string name="option_notification">Notification</string>
+    <string name="options_general_settings">General Settings</string>
+    <string name="option_languages">Language Options</string>
+    <string name="option_share">Share With Friends</string>
+    <string name="option_rate_us">Rate Us</string>
+    <string name="option_feedback">Feedback</string>
+    <string name="continue_with">Continue With</string>
+    <string name="time_periods">Time Periods</string>
+    <string name="starts_at">Starts at </string>
+    <string name="First_day_of_week">First Day Of Week</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="delete_all_data">Delete All Data</string>
+    <string name="delete_all_confirmation">Are you sure you want to delete all data and reset app?</string>
+    <string name="feedback_info">Type your feedback or suggestion here</string>
+
+    <!-- For Rate us -->
+    <string name="rate_main">We would greatly appreciate if you can rate us.</string>
+    <string name="rate_1">Oh, no!\nPlease, leave us some feedback.</string>
+    <string name="rate_3">Thanks! Feel free to write if you have any feedback.</string>
+    <string name="rate_4">We like you too!\nThanks for your feedback.</string>
+    <string name="rate_5">We love you, too!\nThank you for your feedback.</string>
+
+</resources>

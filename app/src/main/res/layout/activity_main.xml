@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/nav_padding_bottom"
+        android:id="@+id/nav_view"
+        android:translationZ="5dp"
+        android:background="@drawable/rounded_dark"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:id="@+id/navPage1"
+            android:layout_width="@dimen/nav_icon_size"
+            android:layout_height="@dimen/nav_icon_size"
+            android:layout_marginRight="@dimen/nav_side_margins"
+            android:layout_marginLeft="@dimen/nav_side_margins"
+            android:layout_marginTop="@dimen/nav_top_margin"
+            android:src="@drawable/nav1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/navPage2"
+            android:layout_width="@dimen/nav_icon_size"
+            android:layout_height="@dimen/nav_icon_size"
+            android:layout_marginRight="@dimen/nav_side_margins"
+            android:layout_marginLeft="@dimen/nav_side_margins"
+            android:layout_marginTop="@dimen/nav_top_margin"
+            android:src="@drawable/nav2"
+            app:layout_constraintStart_toEndOf="@+id/navPage1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/navPage4"
+            android:layout_marginRight="@dimen/nav_side_margins"
+            android:layout_marginLeft="@dimen/nav_side_margins"
+            android:layout_width="@dimen/nav_icon_size"
+            android:layout_height="@dimen/nav_icon_size"
+            android:layout_marginTop="@dimen/nav_top_margin"
+            android:src="@drawable/nav4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/navPage3"
+            android:layout_marginRight="@dimen/nav_side_margins"
+            android:layout_marginLeft="@dimen/nav_side_margins"
+            android:layout_width="@dimen/nav_icon_size"
+            android:layout_height="@dimen/nav_icon_size"
+            android:layout_marginTop="@dimen/nav_top_margin"
+            android:src="@drawable/nav3"
+            app:layout_constraintEnd_toStartOf="@+id/navPage4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/nav_underline_top_margin"
+            android:id="@+id/navActive1"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/navPage1"
+            app:layout_constraintStart_toStartOf="@+id/navPage1"
+            app:layout_constraintTop_toBottomOf="@+id/navPage1" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:id="@+id/navActive2"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/nav_underline_top_margin"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/navPage2"
+            app:layout_constraintStart_toStartOf="@+id/navPage2"
+            app:layout_constraintTop_toBottomOf="@+id/navPage2" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:id="@+id/navActive3"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/nav_underline_top_margin"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/navPage3"
+            app:layout_constraintStart_toStartOf="@+id/navPage3"
+            app:layout_constraintTop_toBottomOf="@+id/navPage3" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:id="@+id/navActive4"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/nav_underline_top_margin"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/navPage4"
+            app:layout_constraintStart_toStartOf="@+id/navPage4"
+            app:layout_constraintTop_toBottomOf="@+id/navPage4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.utils.widget.ImageFilterView
+        android:id="@+id/nav_add_button"
+        android:layout_width="@dimen/add_button_size"
+        android:layout_height="@dimen/add_button_size"
+        android:layout_marginBottom="@dimen/add_button_bottom_margin"
+        android:src="@drawable/habit_add"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <fragment
+        android:id="@+id/mainNavFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/main_navigation"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

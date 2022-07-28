@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#209AE8</color>
+    <color name="colorPrimary">#209AE8</color>
+    <color name="login_bg">#f0faff</color>
+    <color name="teal_200">#209AE8</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#000</color>
+    <color name="black_light">#333</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FF6D00</color>
+    <color name="yellow">#ffac03</color>
+    <color name="green">#00C853</color>
+    <color name="red">#FF0202</color>
+    <color name="button">#a6bfa0</color>
+
+    <color name="pos_screen_bg">#002f4a</color>
+
+    <color name="light_bg">#f4f5f6</color>
+    <color name="button_bg">#383838</color>
+
+    <color name="light_grey">#686868</color>
+    <color name="dark_grey">#5C5959</color>
+    <color name="transparent">#00000000</color>
+    <color name="black_20">#33000000</color>
+
+    <color name="colorBottomNav">#018786</color>
+    <color name="colorBottomNavItemChecked">#ffffff</color>
+    <color name="colorBottomNavItemUnchecked">#4dffffff</color>
+    <color name="button_main">#1296eb</color>
+    <color name="button_dark">#0984db</color>
+    <color name="TextViewBg">#3a404e</color>
+    <color name="cashierLoginBG">#02a4ff</color>
+
+    <!-- added for habit app -->
+    <color name="card_view_color">#f4f4f4</color>
+    <color name="unselected_color">#999</color>
+
+    <color name="divider">#FFFFFF</color>
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="darkblue" type="color">#FF0099CC</item>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="darkorange" type="color">#FFFF8800</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkred</item>
+    </integer-array>
+
+</resources>

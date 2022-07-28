@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/fragment_bottom_padding_in_navigation"
+    android:clipToPadding="false"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="0dp"
+                android:layout_height="136dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/card_default2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="-10dp"
+                android:src="@drawable/achievement_illustration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="@+id/imageView8"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/progText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBar2"
+                app:layout_constraintEnd_toEndOf="@+id/progressBar2"
+                app:layout_constraintStart_toStartOf="@+id/progressBar2"
+                app:layout_constraintTop_toTopOf="@+id/progressBar2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:paddingStart="8dp"
+            android:clipToPadding="false"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/tabA_width"
+                    android:id="@+id/tabA1"
+                    android:layout_margin="@dimen/root_view_padding"
+                    android:background="@drawable/tabs_background2"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView1A1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/habit_finished2"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/history_achievement_tabs_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/textView3A1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView2A1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="2/6"
+                        android:textSize="@dimen/history_achievement_tabs_count_text"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView1A1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView3A1"
+                        app:layout_constraintTop_toTopOf="@+id/textView1A1" />
+
+                    <TextView
+                        android:id="@+id/textView3A1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/history_achievement_archived_top_margin"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/archived"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:textSize="@dimen/card_view_inside_text_tiny"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2A1" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/tabA_width"
+                    android:background="@drawable/tabs_background2"
+                    android:layout_margin="@dimen/root_view_padding"
+                    android:id="@+id/tabA3"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView1A3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/best_streak2"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/history_achievement_tabs_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/textView3A3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView2A3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="2/6"
+                        android:textSize="@dimen/history_achievement_tabs_count_text"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView1A3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView3A3"
+                        app:layout_constraintTop_toTopOf="@+id/textView1A3" />
+
+                    <TextView
+                        android:id="@+id/textView3A3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/archived"
+                        android:layout_marginTop="@dimen/history_achievement_archived_top_margin"
+                        android:textSize="@dimen/card_view_inside_text_tiny"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2A3" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/tabA_width"
+                    android:id="@+id/tabA2"
+                    android:layout_margin="@dimen/root_view_padding"
+                    android:background="@drawable/tabs_background2"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView1A2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/perfect_days2"
+                        android:textAllCaps="true"
+                        android:textSize="@dimen/history_achievement_tabs_text_size"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/textView3A2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView2A2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-8dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="2/6"
+                        android:textSize="@dimen/history_achievement_tabs_count_text"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView1A2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView3A2"
+                        app:layout_constraintTop_toTopOf="@+id/textView1A2" />
+
+                    <TextView
+                        android:id="@+id/textView3A2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/archived"
+                        android:textSize="@dimen/card_view_inside_text_tiny"
+                        android:layout_marginTop="@dimen/history_achievement_archived_top_margin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2A2" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/card_default2"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="4dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/habitFinishedRecycler"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_marginStart="16dp"
+                android:id="@+id/daysPerfectRecycler"
+                android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bestStreakRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

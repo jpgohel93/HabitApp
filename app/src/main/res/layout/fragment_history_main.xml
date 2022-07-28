@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        app:liftOnScroll="true"
+        android:theme="@style/Theme.HabitApp.NoActionBar.AppBarOverlay"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/history_appbar_sides_margin"
+            android:layout_marginEnd="@dimen/history_appbar_sides_margin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/history_title"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_text_size"
+                android:layout_weight="1"
+                android:textAllCaps="true"/>
+
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/statics"/>
+            <ImageView
+                android:layout_width="@dimen/menu_icon_size"
+                android:layout_height="@dimen/menu_icon_size"
+                android:src="@drawable/share_icon"/>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/tabs"
+            layout="@layout/tabs_history"/>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/historyViewPager"
+        android:layout_height="match_parent"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

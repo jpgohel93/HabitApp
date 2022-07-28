@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/rateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/option_rate_us"
+        android:textSize="@dimen/activity_title_size"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/rate_main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35000002" />
+
+    <TextView
+        android:id="@+id/rateInfoText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:text="@string/rate_main"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/gifImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gifImageView">
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/rate1"
+            android:src="@drawable/star2"
+            android:layout_width="@dimen/rate_star_size"
+            android:layout_marginEnd="@dimen/rate_star_sides_margin"
+            android:layout_height="@dimen/rate_star_size" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/rate2"
+            android:src="@drawable/star2"
+            android:layout_width="@dimen/rate_star_size"
+            android:layout_marginStart="@dimen/rate_star_sides_margin"
+            android:layout_marginEnd="@dimen/rate_star_sides_margin"
+            android:layout_height="@dimen/rate_star_size" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/rate3"
+            android:src="@drawable/star2"
+            android:layout_marginStart="@dimen/rate_star_sides_margin"
+            android:layout_marginEnd="@dimen/rate_star_sides_margin"
+            android:layout_width="@dimen/rate_star_size"
+            android:layout_height="@dimen/rate_star_size" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/rate4"
+            android:src="@drawable/star2"
+            android:layout_marginStart="@dimen/rate_star_sides_margin"
+            android:layout_marginEnd="@dimen/rate_star_sides_margin"
+            android:layout_width="@dimen/rate_star_size"
+            android:layout_height="@dimen/rate_star_size" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/rate5"
+            android:src="@drawable/star2"
+            android:layout_marginStart="@dimen/rate_star_sides_margin"
+            android:layout_width="@dimen/rate_star_size"
+            android:layout_height="@dimen/rate_star_size" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Rate"
+        app:backgroundTint="@null"
+        android:background="@drawable/card_black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

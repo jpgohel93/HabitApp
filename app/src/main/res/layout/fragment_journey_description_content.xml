@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#dddddd"
+    android:paddingBottom="400dp"
+    android:clipToPadding="false"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/fragment_bottom_padding_in_navigation"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/journey_card_title_size"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="@dimen/journey_card_sides_margin"
+            android:layout_marginEnd="@dimen/journey_card_sides_margin"
+            android:textAllCaps="true"
+            android:text="@string/key_results"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:paddingTop="12dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_marginStart="@dimen/journey_card_sides_margin"
+            android:layout_marginEnd="@dimen/journey_card_sides_margin"
+            android:background="@drawable/card_light"
+            android:id="@+id/journeyKeyResultsRecycler"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more_to_expect"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:textSize="@dimen/journey_card_title_size"
+            android:layout_marginStart="@dimen/journey_card_sides_margin"
+            android:layout_marginEnd="@dimen/journey_card_sides_margin"
+            android:textAllCaps="true"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/journey_card_sides_margin"
+            android:layout_marginEnd="@dimen/journey_card_sides_margin"
+            android:background="@drawable/card_light"
+            android:id="@+id/journeyMoreToExpectRecycler"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/card_light"
+            android:layout_marginStart="@dimen/journey_card_sides_margin"
+            android:layout_marginEnd="@dimen/journey_card_sides_margin"
+            android:layout_marginTop="32dp"
+            android:layout_height="400dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/your_personalized_journey"
+                android:textAllCaps="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:textSize="@dimen/journey_card_title_size"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yet_to_implement"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingTop="@dimen/standard_50" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

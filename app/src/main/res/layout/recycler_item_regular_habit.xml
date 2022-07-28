@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="@dimen/habit_top_separation"
+    android:animateLayoutChanges="true"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mainCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardBackgroundColor="@color/card_view_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:translationZ="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/habit_sides_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/card_light"
+                android:padding="8dp"
+                android:src="@drawable/habit_icon" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/habit_sides_margin"
+                android:layout_marginEnd="@dimen/habit_sides_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:maxLines="1"
+                    android:text="Habit Title"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:id="@+id/titleText"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Habit Info"
+                    android:maxLines="1"
+                    android:id="@+id/habitInfoText"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/round_checked_size"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/checkboxUnchecked"
+                    android:src="@drawable/checkbox_unchecked"/>
+
+                <ImageView
+                    android:layout_width="@dimen/round_checked_size"
+                    android:layout_height="@dimen/round_checked_size"
+                    android:id="@+id/timerClock"
+                    android:visibility="gone"
+                    android:src="@drawable/clock_dark"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        android:animateLayoutChanges="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="85dp"
+            android:paddingBottom="4dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:id="@+id/goalCountLayout"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/habit_top_separation"
+                android:layout_marginBottom="4dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/finish1RepLayout"
+                    android:layout_marginStart="@dimen/habit_sides_margin"
+                    android:layout_marginEnd="@dimen/habit_sides_margin"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finish"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" 1 Rep"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/white"/>
+
+                <NumberPicker
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:theme="@style/Theme.AppCompat"
+                    android:layout_marginStart="4dp"
+                    android:id="@+id/countPicker"/>
+
+                <ImageView
+                    android:layout_width="@dimen/round_checked_size"
+                    android:layout_height="@dimen/round_checked_size"
+                    android:layout_marginStart="8dp"
+                    android:id="@+id/applyNumberPicker"
+                    android:src="@drawable/checkbox_checked"/>
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/habit_sides_margin"
+                    android:src="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/habit_sides_margin"
+                    android:gravity="end"
+                    android:id="@+id/finishAllLayout"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/round_checked_size"
+                        android:layout_height="@dimen/round_checked_size"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/checkbox_checked"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finish All"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/goalCountFinishedLayout"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/habit_top_separation"
+                android:layout_marginStart="@dimen/habit_sides_margin"
+                android:layout_marginEnd="@dimen/habit_sides_margin"
+                android:layout_marginBottom="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="0.8"
+                    android:gravity="center"
+                    android:id="@+id/undoLayout">
+
+                    <ImageView
+                        android:layout_width="@dimen/habit_card_option_image_size"
+                        android:layout_height="@dimen/habit_card_option_image_size"
+                        android:src="@drawable/undo_option"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Undo"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:id="@+id/takeANoteLayout"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/habit_card_option_image_size"
+                        android:layout_height="@dimen/habit_card_option_image_size"
+                        android:src="@drawable/note_option"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Take A Note"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="0.8"
+                    android:id="@+id/editLayout"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/habit_card_option_image_size"
+                        android:layout_height="@dimen/habit_card_option_image_size"
+                        android:src="@drawable/edit_option"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                android:id="@+id/goalTimerLayout">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/extraTimerButton">
+
+                    <ImageView
+                        android:layout_width="@dimen/round_checked_size"
+                        android:layout_height="@dimen/round_checked_size"
+                        app:tint="@color/white"
+                        android:src="@drawable/clock_dark"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="4dp"
+                        android:text="Timer"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/white"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/extraFinishButton">
+
+                    <ImageView
+                        android:layout_width="@dimen/round_checked_size"
+                        android:layout_height="@dimen/round_checked_size"
+                        android:src="@drawable/checkbox_checked"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="4dp"
+                        android:text="Finished"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/extraOptButton"
+                android:src="@drawable/down_arrow" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/options_general_settings"
+        android:textSize="@dimen/activity_title_size"
+        android:textAllCaps="true"
+        android:layout_marginTop="24dp"
+        android:textStyle="bold"
+        android:layout_marginStart="24dp"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_default"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
+        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
+        android:paddingStart="@dimen/g_settings_card_sides_padding"
+        android:paddingEnd="@dimen/g_settings_card_sides_padding"
+        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
+        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/g_settings_card_text"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/time_periods"/>
+
+        <ImageView
+            android:layout_width="@dimen/expand_arrow_height"
+            android:layout_height="@dimen/expand_arrow_height"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_default"
+        android:layout_marginTop="12dp"
+        android:animateLayoutChanges="true"
+        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
+        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
+        android:paddingStart="@dimen/g_settings_card_sides_padding"
+        android:paddingEnd="@dimen/g_settings_card_sides_padding"
+        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
+        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstDayExpandLayout"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/g_settings_card_text"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/First_day_of_week"/>
+
+            <ImageView
+                android:id="@+id/firstDayArrow"
+                android:layout_width="@dimen/expand_arrow_height"
+                android:layout_height="@dimen/expand_arrow_height"
+                android:src="@drawable/arrow" />
+        </LinearLayout>
+        <NumberPicker
+            android:id="@+id/day_picker"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_default"
+        android:id="@+id/privacy_policy_card"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
+        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
+        android:paddingStart="@dimen/g_settings_card_sides_padding"
+        android:paddingEnd="@dimen/g_settings_card_sides_padding"
+        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
+        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/g_settings_card_text"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/privacy_policy"/>
+
+        <ImageView
+            android:layout_width="@dimen/expand_arrow_height"
+            android:layout_height="@dimen/expand_arrow_height"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_pink"
+        android:id="@+id/deleteDataCard"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
+        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
+        android:paddingStart="@dimen/g_settings_card_sides_padding"
+        android:paddingEnd="@dimen/g_settings_card_sides_padding"
+        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
+        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/g_settings_card_text"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#df0001"
+            android:text="@string/delete_all_data"/>
+
+        <ImageView
+            android:layout_width="@dimen/expand_arrow_height"
+            android:layout_height="@dimen/expand_arrow_height"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+</LinearLayout>

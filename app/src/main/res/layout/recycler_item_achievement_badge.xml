@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/root_view_padding"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:id="@+id/habit_ach_image"
+        android:layout_gravity="center"
+        android:src="@drawable/habit_unf"
+        android:layout_height="@dimen/standard_100"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/achievement_badge_text"
+        android:text="@string/habit_finished2"
+        android:id="@+id/habit_ach_text"/>
+</LinearLayout>

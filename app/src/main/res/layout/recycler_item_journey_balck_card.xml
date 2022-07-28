@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/black"
+    android:layout_marginStart="@dimen/journey_card_sides_margin"
+    android:layout_marginEnd="@dimen/journey_card_sides_margin"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/MyJourneyImage"
+            android:layout_width="@dimen/journey_black_card_logo_size"
+            android:layout_height="@dimen/journey_black_card_logo_size"
+            android:src="@drawable/working"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/myJourneyText"
+            android:layout_width="@dimen/journey_black_card_title_width"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="50dp"
+            android:textAlignment="viewStart"
+            android:textAllCaps="true"
+            android:shadowColor="#000"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="4"
+            android:text="@string/journey_all"
+            android:lineSpacingExtra="8dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/journey_black_card_title_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

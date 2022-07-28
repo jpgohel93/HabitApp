@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/habit_sides_margin"
+        android:layout_marginEnd="@dimen/habit_sides_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/repeatation_head"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAllCaps="true"
+            android:text="@string/repeatation_caps"
+            android:textSize="@dimen/habit_card_title_size"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/editRepeatation"
+            android:layout_width="@dimen/edit_pen_size"
+            android:layout_height="@dimen/edit_pen_size"
+            android:layout_gravity="center"
+            android:background="@drawable/pen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/saveRepeatation"
+            android:visibility="gone"
+            android:text="@string/save"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/repetationInfoLayout"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="17dp"
+            android:layout_marginEnd="18dp"
+            android:id="@+id/repeatationWeekdaysLayout">
+
+            <CheckBox
+                android:id="@+id/sun"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:textSize="@dimen/checkbox_text_size"
+                android:text="S"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/mon"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="M"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/tue"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="T"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/wed"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="W"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/thu"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="T"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/fri"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="F"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/sat"
+                android:layout_width="@dimen/weekday_button_size"
+                android:layout_height="@dimen/weekday_button_size"
+                android:layout_margin="@dimen/weekday_button_margin"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox_background"
+                android:button="@null"
+                android:text="S"
+                android:textSize="@dimen/checkbox_text_size"
+                android:checked="true"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/habit_sides_margin"
+            android:id="@+id/perDayRepeatationText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/repeatationSettingsCollapsed"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/habit_top_separation"
+            android:background="@drawable/card_default"
+            android:padding="@dimen/root_view_padding"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/repeatationWeekdaysLayoutCollapsed">
+
+                <CheckBox
+                    android:id="@+id/sunCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:text="S"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/monCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="M"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/tueCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="T"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/wedCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="W"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/thuCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="T"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/friCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="F"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <CheckBox
+                    android:id="@+id/satCollapsed"
+                    android:layout_width="@dimen/weekday_button_size"
+                    android:layout_height="@dimen/weekday_button_size"
+                    android:layout_margin="@dimen/weekday_button_margin"
+                    android:layout_weight="1"
+                    android:background="@drawable/checkbox_background"
+                    android:button="@null"
+                    android:text="S"
+                    android:textSize="@dimen/checkbox_text_size"
+                    android:checked="true"
+                    android:textAlignment="center"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="@dimen/round_checked_size"
+                    android:layout_height="@dimen/round_checked_size"
+                    android:layout_gravity="center"
+                    android:id="@+id/repChecked1"
+                    android:src="@drawable/checkbox_checked"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/habit_top_separation"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/card_default"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="X days per week"
+                android:paddingBottom="16dp"
+                android:textSize="@dimen/card_view_inside_text_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="@dimen/round_checked_size"
+                android:layout_height="@dimen/round_checked_size"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/repChecked2"
+                android:src="@drawable/checkbox_unchecked"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView8" />
+
+            <LinearLayout
+                android:id="@+id/xDaysPerWeekCollapsed"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/daysPerWeekText"
+                    android:textSize="@dimen/card_view_inside_text_tiny" />
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="1"
+                            android:checked="true"
+                            android:id="@+id/weekRadio1"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="2"
+                            android:id="@+id/weekRadio2"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="3"
+                            android:id="@+id/weekRadio3"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="4"
+                            android:id="@+id/weekRadio4"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="5"
+                            android:id="@+id/weekRadio5"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                        <RadioButton
+                            android:layout_width="@dimen/round_radio_size"
+                            android:layout_height="@dimen/round_radio_size"
+                            android:background="@drawable/radio_round_selector"
+                            android:button="@null"
+                            android:text="6"
+                            android:id="@+id/weekRadio6"
+                            android:textSize="@dimen/round_radio_text_size"
+                            android:layout_marginEnd="@dimen/round_radio_btn_separation"
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
+
+                    </RadioGroup>
+                </HorizontalScrollView>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/card_default"
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="X days per Month"
+                android:paddingBottom="16dp"
+                android:textSize="@dimen/card_view_inside_text_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="@dimen/round_checked_size"
+                android:layout_height="@dimen/round_checked_size"
+                android:layout_marginEnd="16dp"
+                android:id="@+id/repChecked3"
+                android:src="@drawable/checkbox_unchecked"
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintVertical_bias="0.1"
+                app:layout_constraintTop_toTopOf="@+id/textView9" />
+
+            <LinearLayout
+                android:id="@+id/xDaysPerMonthCollapsed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 day per month"
+                    android:id="@+id/monthDayPickerText"
+                    android:textSize="@dimen/card_view_inside_text_tiny" />
+                <NumberPicker
+                    android:id="@+id/monthDayPicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/card_default"
+            android:animateLayoutChanges="true"
+            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="X days per week"
+                android:paddingBottom="16dp"
+                android:textSize="@dimen/card_view_inside_text_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/repChecked4"
+                android:layout_width="@dimen/round_checked_size"
+                android:layout_height="@dimen/round_checked_size"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/checkbox_unchecked"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintVertical_bias="0.1" />
+
+            <LinearLayout
+                android:id="@+id/xDaysPerYearCollapsed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 day per Year"
+                    android:id="@+id/yearDayPickerText"
+                    android:textSize="@dimen/card_view_inside_text_tiny" />
+
+                <NumberPicker
+                    android:id="@+id/yearDayPicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>

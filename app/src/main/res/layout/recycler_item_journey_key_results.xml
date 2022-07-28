@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/journey_key_result_logo_size"
+        android:layout_height="@dimen/journey_key_result_logo_size"
+        android:id="@+id/resultImage"
+        android:padding="@dimen/root_view_padding"
+        android:layout_gravity="center"
+        android:background="@drawable/button_background1"
+        android:src="@drawable/sleeping"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="@string/default_habit_title"
+        android:layout_marginStart="@dimen/root_view_padding"
+        android:id="@+id/resultText"
+        android:textSize="@dimen/journey_key_result_text_size" />
+</LinearLayout>
