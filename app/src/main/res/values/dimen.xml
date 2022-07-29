@@ -71,6 +71,8 @@
 
     <dimen name="app_bar_size">100dp</dimen>
 
+    <dimen name="sneak_card_radius">60dp</dimen>
+
     <!--MARGIN AND PADDING-->
     <dimen name="dimen_0dp">0dp</dimen>
     <dimen name="dimen_5dp">5dp</dimen>

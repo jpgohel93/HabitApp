@@ -7,22 +7,37 @@
     android:animateLayoutChanges="true"
     android:layout_height="wrap_content">
 
+
+    <TextView
+        android:id="@+id/daysCompletionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginStart="32dp"
+        android:text="0/0 days Completed"
+        android:visibility="gone"
+        android:background="@drawable/sneak_small_bottom"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/mainCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardBackgroundColor="@color/card_view_color"
-        app:layout_constraintEnd_toEndOf="parent"
         android:translationZ="2dp"
+        app:cardBackgroundColor="@color/card_view_color"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/daysCompletionText">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/habit_sides_margin"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/habit_sides_margin">
 
             <ImageView
                 android:layout_width="50dp"
@@ -34,26 +49,26 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginStart="@dimen/habit_sides_margin"
                 android:layout_marginEnd="@dimen/habit_sides_margin"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:maxLines="1"
                     android:text="Habit Title"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:id="@+id/titleText"/>
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/habitInfoText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Habit Info"
                     android:maxLines="1"
-                    android:id="@+id/habitInfoText"/>
+                    android:text="Habit Info" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,18 +77,18 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/checkboxUnchecked"
                     android:layout_width="@dimen/round_checked_size"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/checkboxUnchecked"
-                    android:src="@drawable/checkbox_unchecked"/>
+                    android:src="@drawable/checkbox_unchecked" />
 
                 <ImageView
+                    android:id="@+id/timerClock"
                     android:layout_width="@dimen/round_checked_size"
                     android:layout_height="@dimen/round_checked_size"
-                    android:id="@+id/timerClock"
-                    android:visibility="gone"
-                    android:src="@drawable/clock_dark"/>
+                    android:src="@drawable/clock_dark"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -87,7 +102,7 @@
         android:layout_marginTop="8dp"
         android:animateLayoutChanges="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/mainCard">
 
         <LinearLayout
             android:layout_width="match_parent"

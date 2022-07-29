@@ -111,22 +111,51 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
                         thatHabit.isFinished = true
                     }
                 }
-          /*      if (incr) {
-                    if (thatHabit.goalTimesCount < (thatHabitData?.repetitionGoalCount ?: 99)) {
-                        thatHabit.goalTimesCount += 1
-                    }
-                } else {
-                    if (thatHabit.goalTimesCount > 0) {
-                        thatHabit.goalTimesCount -= 1
-                    }
-                }
-                if (thatHabit.goalTimesCount >= (thatHabitData?.repetitionGoalCount ?: 99)) {
-                    thatHabit.isFinished = true
-                }  */
                 thatDayCalendar.habitsInADay = thatAllHabits
                 calendarDao.updateHabitsInCalendar(thatDayCalendar)
             } else {
                 Log.e("GoalCountFailure", "Habit with id $id not found")
+            }
+        }
+    }
+
+    fun changeHabitDurationCount(count: Int, dateStr: String, id: Int) {
+        exeService.execute {
+            val thatDayCalendar = calendarDao.getHabitsByDate(dateStr)
+            val thatAllHabits = thatDayCalendar?.habitsInADay
+            val thatHabit = thatAllHabits?.find { it.habitId == id }
+            if (thatHabit != null) {
+                val thatHabitData = habitDao.getHabitById(id)
+                if (count == -1) {
+                    thatHabit.goalDurationCount = (thatHabitData?.repetitionGoalDuration ?: 99)
+                    thatHabit.isFinished = true
+                } else if (count == 0){
+                    thatHabit.goalDurationCount = 0
+                    thatHabit.isFinished = false
+                }else {
+                    thatHabit.goalDurationCount = count
+                    if (thatHabit.goalDurationCount >= (thatHabitData?.repetitionGoalDuration ?: 99)) {
+                        thatHabit.goalDurationCount = (thatHabitData?.repetitionGoalDuration ?: 99)
+                        thatHabit.isFinished = true
+                    }
+                }
+                thatDayCalendar.habitsInADay = thatAllHabits
+                calendarDao.updateHabitsInCalendar(thatDayCalendar)
+            } else {
+                Log.e("GoalCountFailure", "Habit with id $id not found")
+            }
+        }
+    }
+
+    fun updateHabitDayCount(count: Int, habitID: Int) {
+        exeService.execute {
+            val thatHabit = habitDao.getHabitById(habitID)
+            if (thatHabit != null) {
+                thatHabit.repetitionDaysCompleted =  count
+                habitDao.updateHabit(thatHabit)
+                Log.d("updateHabitCount", "changed")
+            } else {
+                Log.e("updateHabitCount", "Habit with id $habitID not found")
             }
         }
     }

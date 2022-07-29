@@ -101,4 +101,38 @@ object Constant {
         }
         return arrayOf(dateToday, monthToday)
     }
+
+    fun provideShotDay(day: Int) : String {
+        return when(day) {
+            1 -> "SUN"
+            2 -> "MON"
+            3 -> "TUE"
+            4 -> "WED"
+            5 -> "THU"
+            6 -> "FRI"
+            7 -> "SAT"
+            else -> "ERR"
+        }
+    }
+
+    fun convertSecondsToText(secs: Int, talkable: Boolean = false) : String {
+        val hour = secs / 3600
+        val min = (secs % 3600) / 60
+        val sec = (secs % 3600) % 60
+        val minStr = if (min < 10) "0$min" else "$min"
+        val secStr = if (sec < 10) "0$sec" else "$sec"
+        return if (talkable) {
+            if (hour == 0) {
+                "$min Minutes"
+            } else {
+                "$hour Hour $min Minutes"
+            }
+        } else {
+            if (hour == 0) {
+                "$minStr:$secStr"
+            } else {
+                "$hour:$minStr:$secStr"
+            }
+        }
+    }
 }

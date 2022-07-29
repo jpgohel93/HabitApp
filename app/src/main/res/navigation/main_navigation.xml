@@ -13,7 +13,11 @@
         android:id="@+id/navigation_today"
         tools:layout="@layout/fragment_today"
         android:name="com.tjcg.habitapp.fragment.TodayFragment"
-        android:label="TodayFragment" />
+        android:label="TodayFragment" >
+        <action
+            android:id="@+id/action_navigation_today_to_timerFragment"
+            app:destination="@id/timerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/naviation_journey_main"
         android:name="com.tjcg.habitapp.fragment.JourneyMainFragment"
@@ -90,4 +94,9 @@
             android:id="@+id/action_habitPresetsFragment_to_navigation_new_habit"
             app:destination="@id/navigation_new_habit" />
     </fragment>
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.tjcg.habitapp.fragment.TimerFragment"
+        tools:layout="@layout/fragment_timer"
+        android:label="TimerFragment" />
 </navigation>

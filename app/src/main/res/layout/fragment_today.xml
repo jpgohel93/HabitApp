@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginBottom="@dimen/habit_top_separation"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -39,10 +40,40 @@
                     android:id="@+id/completedCountText"/>
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/calendar"/>
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="70dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendar_space"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/todayCalendarView"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="01"
+                        android:id="@+id/mainDateText"
+                        android:layout_marginBottom="-8dp"
+                        android:textSize="22sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:id="@+id/mainDayText"
+                        android:layout_marginBottom="-8dp"
+                        android:text="MON"/>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <include android:id="@+id/includedWeekCalendar"

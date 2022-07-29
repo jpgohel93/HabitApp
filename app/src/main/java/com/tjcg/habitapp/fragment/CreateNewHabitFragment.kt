@@ -19,10 +19,7 @@ import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.Habit
 import com.tjcg.habitapp.data.HabitDataSource
-import com.tjcg.habitapp.databinding.BottomsheetDailyGoalBinding
-import com.tjcg.habitapp.databinding.FragmentCreateHabitBinding
-import com.tjcg.habitapp.databinding.FragmentCreateHabitContentBinding
-import com.tjcg.habitapp.databinding.OtherHabitRepeatationSetupBinding
+import com.tjcg.habitapp.databinding.*
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -361,9 +358,50 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
 
 
         // TODO("handle Ends on selection")
+        binding.endOnOff.isSelected = true
+        binding.endOnOff.setOnClickListener {
+            binding.endOnOff.isSelected = true
+            binding.endOnDate.isSelected = false
+            binding.endOnDays.isSelected = false
+        }
+        binding.endOnDate.setOnClickListener {
+            val bottomDialog = BottomSheetDialog(ctx)
+            val bBinding = BottomSheetChooseTheDateBinding.inflate(layoutInflater)
+            bBinding.cancelButton.setOnClickListener {
+                bottomDialog.dismiss()
+            }
+            bBinding.saveButton.setOnClickListener {
+                binding.endOnOff.isSelected = false
+                binding.endOnDate.isSelected = true
+                binding.endOnDays.isSelected = false
+                bottomDialog.dismiss()
+            }
+            bottomDialog.setContentView(bBinding.root)
+            bottomDialog.show()
+        }
+        binding.endOnDays.setOnClickListener {
+            val bottomDialog = BottomSheetDialog(ctx)
+            val bBinding = BottomSheetChooseTheDaysBinding.inflate(layoutInflater)
+            bBinding.daysPicker.minValue = 3
+            bBinding.daysPicker.maxValue = 100
+            bBinding.cancelButton.setOnClickListener {
+                bottomDialog.dismiss()
+            }
+            bBinding.saveButton.setOnClickListener {
+                bottomDialog.dismiss()
+                binding.endOnOff.isSelected = false
+                binding.endOnDate.isSelected =false
+                binding.endOnDays.isSelected = true
+            }
+            bottomDialog.setContentView(bBinding.root)
+            bottomDialog.show()
+        }
+
+
+        // save Habit
         bindingMain.saveHabitButton.setOnClickListener {
             val habitTitle = bindingMain.titleText.text.toString()
-            val repetitionGoalDuration = (goalHours * 60) + goalMinutes
+            val repetitionGoalDuration = ((goalHours * 60) + goalMinutes) * 60 // in seconds
             val newHabit = Habit(0, habitTitle, 0,
             currentlySelectedRepetition, createSelectedWeekdayArray(), daysRepetitionCount,
             repetitionGoalDuration, goalRepetitionCount, doItTime, "", 0,

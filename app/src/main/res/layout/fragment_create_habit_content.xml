@@ -322,9 +322,10 @@
                         android:layout_marginStart="@dimen/habit_sides_margin"
                         android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_weight="1"
-                        android:background="@drawable/button_background1"
+                        android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/off"
+                        android:id="@+id/endOnOff"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_inside_text_large" />
 
@@ -334,9 +335,10 @@
                         android:layout_marginStart="@dimen/habit_sides_margin"
                         android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_weight="1"
-                        android:background="@drawable/button_background1"
+                        android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/date"
+                        android:id="@+id/endOnDate"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_inside_text_large" />
 
@@ -346,41 +348,12 @@
                         android:layout_marginStart="@dimen/habit_sides_margin"
                         android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_weight="1"
-                        android:background="@drawable/button_background1"
+                        android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/days"
+                        android:id="@+id/endOnDays"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_inside_text_large" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/app_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_background1"
-                        android:text="@string/off"
-                        android:visibility="gone"
-                        app:backgroundTint="@null" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/app_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_background1"
-                        android:text="@string/date"
-                        android:visibility="gone"
-                        app:backgroundTint="@null" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/app_margin"
-                        android:layout_weight="1"
-                        android:background="@drawable/button_background1"
-                        android:text="@string/days"
-                        android:visibility="gone"
-                        app:backgroundTint="@null" />
 
                 </LinearLayout>
             </LinearLayout>

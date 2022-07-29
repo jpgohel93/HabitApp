@@ -35,6 +35,7 @@ import kotlin.collections.ArrayList
 const val EXTRA_OPTIONS_TYPE_GOAL_COUNTER = 1
 const val EXTRA_OPTIONS_TYPE_GOAL_TIMER = 2
 const val EXTRA_OPTIONS_TYPE_GOAL_COUNTER_FINISHED = 3
+const val EXTRA_OPTIONS_TYPE_GOAL_TIMER_FINISHED = 4
 
 @AndroidEntryPoint
 class TodayFragment : Fragment() {
@@ -127,6 +128,15 @@ class TodayFragment : Fragment() {
                 totalScroll += dx
             }
         })
+
+        // set today Calendar View
+        binding.mainDateText.text = cal.get(Calendar.DAY_OF_MONTH).toString()
+        binding.mainDayText.text = Constant.provideShotDay(cal.get(Calendar.DAY_OF_WEEK))
+        binding.todayCalendarView.setOnClickListener {
+            updateHabitData(cal)
+            weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
+        }
+
         viewModel.selectedWeekCalendarDate.observe(viewLifecycleOwner, { calArray ->
             val cal1 = Calendar.getInstance()
             cal1.set(Calendar.MONTH, calArray[1])
@@ -206,12 +216,15 @@ class TodayFragment : Fragment() {
                 val habit = dataSource.getHabitByIdAsync(habitInT.habitId).await()
                 if (habit != null) {
                     Log.d("HabitToShow", "Found ${habit.id}")
-                    val newHabitToShow = TodayHabit(habit, habitInT.isFinished, habitInT.goalTimesCount)
+                    val newHabitToShow = TodayHabit(habit, habitInT.isFinished, habitInT.goalTimesCount, habitInT.goalDurationCount)
                     if (habitInT.isFinished) {
                         finishedHabits += 1f
                     }
                     if (habitInT.goalTimesCount < habit.repetitionGoalCount) {
                         finishedHabits += (habitInT.goalTimesCount.toFloat()/habit.repetitionGoalCount)
+                    }
+                    if (habitInT.goalDurationCount < habit.repetitionGoalDuration) {
+                        finishedHabits += (habitInT.goalDurationCount.toFloat() / habit.repetitionGoalDuration)
                     }
                     habitsToShow.add(newHabitToShow)
                 }
@@ -312,9 +325,31 @@ class TodayFragment : Fragment() {
             //    holder.binding.timerClock.visibility = View.GONE
                 return
             }
+            if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                holder.binding.daysCompletionText.visibility = View.VISIBLE
+                val afterText = when(habit.habit.repetitionType) {
+                    Constant.HABIT_REPEAT_IN_WEEK -> "Days in A Week"
+                    Constant.HABIT_REPEAT_IN_MONTH -> "Days in A month"
+                    Constant.HABIT_REPEAT_IN_YEAR -> "Days in A year"
+                    else -> "Error"
+                }
+                holder.binding.daysCompletionText.text =
+                    "${habit.habit.repetitionDaysCompleted} / ${habit.habit.repetitionDaysCount} $afterText"
+            }
             if (habit.habit.repetitionGoalDuration > 0) {
                 holder.binding.timerClock.visibility = View.VISIBLE
-                extraOptionType = EXTRA_OPTIONS_TYPE_GOAL_TIMER
+                holder.binding.checkboxUnchecked.visibility = View.GONE
+                holder.binding.timerClock.setOnClickListener {
+                    setExtraCardOptions(extraOptionType, !isExtraCardOpen, holder.binding, habit, position, holder.binding.daysCompletionText)
+                    isExtraCardOpen = !isExtraCardOpen
+                }
+                holder.binding.habitInfoText.text =
+                    Constant.convertSecondsToText(habit.durationCount) + " / "+ Constant.convertSecondsToText(habit.habit.repetitionGoalDuration)
+                extraOptionType = if (habit.finished) {
+                    EXTRA_OPTIONS_TYPE_GOAL_TIMER_FINISHED
+                } else {
+                    EXTRA_OPTIONS_TYPE_GOAL_TIMER
+                }
             }
             if (habit.habit.repetitionGoalCount > 1) {
                 holder.binding.habitInfoText.text = "${habit.goalCount}/${habit.habit.repetitionGoalCount} repetition completed"
@@ -329,7 +364,7 @@ class TodayFragment : Fragment() {
                 changeCardColor(holder.binding, true)
             }
             holder.binding.extraOptButton.setOnClickListener {
-                setExtraCardOptions(extraOptionType, !isExtraCardOpen, holder.binding, habit, position)
+                setExtraCardOptions(extraOptionType, !isExtraCardOpen, holder.binding, habit, position, holder.binding.daysCompletionText)
                 isExtraCardOpen = !isExtraCardOpen
             }
             holder.binding.checkboxUnchecked.setOnClickListener {
@@ -338,6 +373,13 @@ class TodayFragment : Fragment() {
                 changeHabitStatus(habit.habit.id, habit.finished)
                 val countChange = if (habit.finished) 1f else -1f
                 updateCounters(false, countChange)
+                if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                    if (habit.finished) {
+                        changeHabitDaysCount(1, habit, holder.binding.daysCompletionText)
+                    } else {
+                        changeHabitDaysCount(-1, habit, holder.binding.daysCompletionText)
+                    }
+                }
             }
         }
 
@@ -363,7 +405,8 @@ class TodayFragment : Fragment() {
             }
         }
 
-        private fun setExtraCardOptions(optionTypes: Int, toOpen: Boolean, binding: RecyclerItemRegularHabitBinding, habit: TodayHabit, position: Int) {
+        private fun setExtraCardOptions(optionTypes: Int, toOpen: Boolean, binding: RecyclerItemRegularHabitBinding, habit: TodayHabit, position: Int,
+            completionText: TextView) {
             if (toOpen) {
                 when(optionTypes) {
                     EXTRA_OPTIONS_TYPE_GOAL_COUNTER -> {
@@ -379,25 +422,38 @@ class TodayFragment : Fragment() {
                             }
                             if (habit.goalCount == habit.habit.repetitionGoalCount) {
                                 habit.finished = true
+                                if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                    changeHabitDaysCount(1, habit, completionText)
+                                }
                             }
                             notifyItemChanged(position)
                             binding.goalCountLayout.visibility = View.GONE
                         }
                         binding.applyNumberPicker.setOnClickListener {
                             Log.d("NumberPickerSelected", "${binding.countPicker.value}")
+                            updateCounters(false, -(habit.goalCount.toFloat()/habit.habit.repetitionGoalCount))
                             habit.goalCount = (binding.countPicker.value - 1)
                             dataSource.changeHabitGoalCount(habit.goalCount, selectedDate, habit.habit.id)
+                            updateCounters(false, (habit.goalCount.toFloat()/habit.habit.repetitionGoalCount))
                             if (habit.goalCount == habit.habit.repetitionGoalCount) {
                                 habit.finished = true
+                                if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                    changeHabitDaysCount(1, habit, completionText)
+                                }
                             }
                             notifyItemChanged(position)
                             binding.goalCountLayout.visibility = View.GONE
                         }
                         binding.finishAllLayout.setOnClickListener {
+                            updateCounters(false, -(habit.goalCount.toFloat()/habit.habit.repetitionGoalCount))
                             dataSource.changeHabitGoalCount(-1, selectedDate, habit.habit.id)
                             habit.goalCount = habit.habit.repetitionGoalCount
                             habit.finished = true
+                            if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                changeHabitDaysCount(1, habit, completionText)
+                            }
                             notifyItemChanged(position)
+                            updateCounters(false, 1f)
                             binding.goalCountLayout.visibility = View.GONE
                         }
                     }
@@ -407,6 +463,9 @@ class TodayFragment : Fragment() {
                             dataSource.changeHabitGoalCount(0, selectedDate, habit.habit.id)
                             habit.goalCount = 0
                             habit.finished = false
+                            if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                changeHabitDaysCount(-1, habit, completionText)
+                            }
                             notifyItemChanged(position)
                             binding.goalCountFinishedLayout.visibility = View.GONE
                             updateCounters(false,-1f)
@@ -420,6 +479,46 @@ class TodayFragment : Fragment() {
                     }
                     EXTRA_OPTIONS_TYPE_GOAL_TIMER -> {
                         binding.goalTimerLayout.visibility = View.VISIBLE
+                        binding.extraTimerButton.setOnClickListener {
+                            TimerFragment.habitGoalDuration = habit.habit.repetitionGoalDuration
+                            TimerFragment.habitDurationFinished = habit.durationCount
+                            TimerFragment.habitName = habit.habit.title
+                            TimerFragment.selectedDate = selectedDate
+                            TimerFragment.habitId = habit.habit.id
+                            findNavController().navigate(R.id.action_navigation_today_to_timerFragment)
+                        }
+                        binding.extraFinishButton.setOnClickListener {
+                            updateCounters(false, -(habit.durationCount.toFloat()/habit.habit.repetitionGoalDuration))
+                            dataSource.changeHabitDurationCount(-1, selectedDate, habit.habit.id)
+                            habit.durationCount = habit.habit.repetitionGoalDuration
+                            habit.finished = true
+                            if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                changeHabitDaysCount(1, habit, completionText)
+                            }
+                            notifyItemChanged(position)
+                            updateCounters(false, 1f)
+                            binding.goalCountLayout.visibility = View.GONE
+                        }
+                    }
+                    EXTRA_OPTIONS_TYPE_GOAL_TIMER_FINISHED -> {
+                        binding.goalCountFinishedLayout.visibility = View.VISIBLE
+                        binding.undoLayout.setOnClickListener {
+                            dataSource.changeHabitDurationCount(0, selectedDate, habit.habit.id)
+                            habit.durationCount = 0
+                            habit.finished = false
+                            if (habit.habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                                changeHabitDaysCount(-1, habit, completionText)
+                            }
+                            notifyItemChanged(position)
+                            binding.goalCountFinishedLayout.visibility = View.GONE
+                            updateCounters(false,-1f)
+                        }
+                        binding.takeANoteLayout.setOnClickListener {
+
+                        }
+                        binding.editLayout.setOnClickListener {
+
+                        }
                     }
                 }
             } else {
@@ -433,12 +532,28 @@ class TodayFragment : Fragment() {
                     EXTRA_OPTIONS_TYPE_GOAL_TIMER -> {
                         binding.goalTimerLayout.visibility = View.GONE
                     }
+                    EXTRA_OPTIONS_TYPE_GOAL_TIMER_FINISHED -> {
+                        binding.goalCountFinishedLayout.visibility = View.GONE
+                    }
                 }
             }
         }
+
+        private fun changeHabitDaysCount(diff: Int, habit: TodayHabit, completionText: TextView) {
+            habit.habit.repetitionDaysCompleted += diff
+            val afterText = when(habit.habit.repetitionType) {
+                Constant.HABIT_REPEAT_IN_WEEK -> "Days in a Week"
+                Constant.HABIT_REPEAT_IN_MONTH -> "Days in a month"
+                Constant.HABIT_REPEAT_IN_YEAR -> "Days in a year"
+                else -> "Error"
+            }
+            dataSource.updateHabitDayCount(habit.habit.repetitionDaysCompleted, habit.habit.id)
+            completionText.text =
+                "${habit.habit.repetitionDaysCompleted} / ${habit.habit.repetitionDaysCount} $afterText"
+        }
     }
 
-    class TodayHabit(val habit: Habit, var finished: Boolean = false, var goalCount: Int)
+    class TodayHabit(val habit: Habit, var finished: Boolean = false, var goalCount: Int, var durationCount : Int)
 
     private fun isCurrentSelectionIsFuture() : Boolean {
         val month = viewModel.selectedWeekCalendarDate.value?.get(1) ?: 0
