@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- habit preset screen -->
+    <dimen name="habit_type_select_card_text" tools:ignore="MissingDefaultResource">12sp</dimen>
+
+    <!-- bottom navigation -->
+    <dimen name="nav_icon_size">28dp</dimen>
+    <dimen name="nav_side_margins">38dp</dimen>
+    <dimen name="nav_top_margin">8dp</dimen>
+    <dimen name="nav_underline_top_margin">8dp</dimen>
+    <dimen name="nav_padding_bottom">8dp</dimen>
+    <dimen name="add_button_size">65dp</dimen>
+    <dimen name="add_button_bottom_margin">20dp</dimen>
+
+    <!-- morning cards -->
+    <dimen name="morning_card_length">90dp</dimen>
+    <dimen name="morning_card_width">45dp</dimen>
+    <dimen name="morning_card_text_top_margin">4dp</dimen>
+    <dimen name="day_period_card_length">120dp</dimen>
+</resources>

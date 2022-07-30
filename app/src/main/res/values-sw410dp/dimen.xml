@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- habit preset screen -->
+    <dimen name="habit_type_select_card_text" tools:ignore="MissingDefaultResource">14sp</dimen>
+
+    <!-- bottom navigation -->
+    <dimen name="nav_icon_size">30dp</dimen>
+    <dimen name="nav_side_margins">40dp</dimen>
+    <dimen name="nav_top_margin">8dp</dimen>
+    <dimen name="nav_underline_top_margin">8dp</dimen>
+    <dimen name="nav_padding_bottom">8dp</dimen>
+    <dimen name="add_button_size">70dp</dimen>
+    <dimen name="add_button_bottom_margin">20dp</dimen>
+</resources>
