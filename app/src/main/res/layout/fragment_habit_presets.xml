@@ -26,6 +26,7 @@
             android:layout_weight="1"
             android:background="@drawable/card_light"
             android:gravity="center"
+            android:id="@+id/regularHabitCard"
             android:orientation="vertical"
             android:padding="10dp">
 
@@ -47,6 +48,7 @@
             android:layout_gravity="center"
             android:layout_margin="15dp"
             android:layout_weight="1"
+            android:id="@+id/negativeHabitCard"
             android:background="@drawable/card_light"
             android:gravity="center"
             android:orientation="vertical"
@@ -72,6 +74,7 @@
             android:layout_weight="1"
             android:background="@drawable/card_light"
             android:gravity="center"
+            android:id="@+id/oneTimeHabitCard"
             android:orientation="vertical"
             android:padding="10dp">
 

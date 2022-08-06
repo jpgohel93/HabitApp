@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- habit preset screen -->
-    <dimen name="habit_type_select_card_text" tools:ignore="MissingDefaultResource">12sp</dimen>
+    <dimen name="habit_type_select_card_text" tools:ignore="MissingDefaultResource">10sp</dimen>
 
     <!-- bottom navigation -->
     <dimen name="nav_icon_size">28dp</dimen>
@@ -18,4 +18,10 @@
     <dimen name="morning_card_width">45dp</dimen>
     <dimen name="morning_card_text_top_margin">4dp</dimen>
     <dimen name="day_period_card_length">120dp</dimen>
+
+    <!-- history Fragment -->
+    <!-- calendar  -->
+    <dimen name="history_calendar_4card_title_size">13sp</dimen>
+    <dimen name="history_calendar_4card_subtitle_size"></dimen>
+
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/card_default"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/habit_icon_in_grid"
+        android:layout_height="@dimen/habit_icon_in_grid"
+        android:src="@drawable/bottle"
+        android:id="@+id/habitIcon"
+        android:padding="24dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Habit Name"
+        android:id="@+id/habitTitle"
+        android:textSize="@dimen/dialog_title_text_size"
+        android:gravity="center"/>
+
+</LinearLayout>

@@ -20,6 +20,10 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var viewModel : HabitViewModel
 
+    private val mainHandler by lazy {
+        Handler(Looper.getMainLooper())
+    }
+
     fun setupViewModel(ctx: Context) {
         viewModel = ViewModelProvider(ctx as MainActivity)[HabitViewModel::class.java]
     }
@@ -27,9 +31,6 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     fun provideViewModel() = viewModel
 
     private val exeService = Executors.newFixedThreadPool(4)
-    private val mainHandler by lazy {
-        Handler(Looper.getMainLooper())
-    }
 
     override fun addHabit(habit: Habit) {
         exeService.execute {
@@ -66,18 +67,31 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         }
     }
 
-    override fun getByCalendar(dateStr: String, callback: (HabitCalendar?) -> Unit) {
-        exeService.execute {
-            val calendarHabits = calendarDao.getHabitsByDate(dateStr)
-            mainHandler.post {
-                callback(calendarHabits)
+    override suspend fun getByCalendarAsync(dateStr: String): Deferred<HabitCalendar?> =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                val calendarHabit = calendarDao.getHabitsByDate(dateStr)
+                return@async calendarHabit
             }
         }
-    }
 
     override fun updateHabitsInCalendar(habitCalendar: HabitCalendar) {
         exeService.execute {
             calendarDao.updateHabitsInCalendar(habitCalendar)
+        }
+    }
+
+    override suspend fun getFullCalendarAsync() : Deferred<List<HabitCalendar>?> =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                return@async calendarDao.getFullCalendar()
+            }
+        }
+
+    override fun updateCompletedInCalendar(dateStr: String, completed: Int, callback: (Int) -> Unit) {
+        exeService.execute {
+            val completed1 = calendarDao.updateCompletionRate(dateStr, completed)
+            mainHandler.post { callback(completed1) }
         }
     }
 

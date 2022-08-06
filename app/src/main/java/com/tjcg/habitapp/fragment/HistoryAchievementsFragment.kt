@@ -3,6 +3,7 @@ package com.tjcg.habitapp.fragment
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +13,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.Animator
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentHistoryAchievementsBinding
 import com.tjcg.habitapp.databinding.RecyclerItemAchievementBadgeBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val BADGES_SPAN = 3
 const val BADGES_FADE_DURATION = 500L
 
+@AndroidEntryPoint
 class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
 
+    @Inject lateinit var dataSource : HabitDataSource
     private lateinit var binding : FragmentHistoryAchievementsBinding
     private lateinit var ctx: Context
     private var colorBlack : Int = 0
@@ -39,9 +48,32 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
         binding.tabA2.setOnClickListener(this)
         binding.tabA3.setOnClickListener(this)
         setTabA(0)
-        generateHabitAchievementBadges(17)
-        generatePerfectDaysBadges(18)
-        generateBestStreaksBadges(19)
+        CoroutineScope(Dispatchers.Main).launch {
+            val fullCalendar = dataSource.getFullCalendarAsync().await()
+            var finishedHabits = 0
+            var totalHabits = 0
+            var perfectDays = 0
+            for (calendar in (fullCalendar ?: emptyList())) {
+                val allHabits = calendar.habitsInADay
+                Log.d("Habits", "${allHabits.size}")
+                var perfectDay = allHabits.isNotEmpty()
+                for (habit in allHabits) {
+                    totalHabits += 1
+                    if (habit.isFinished) {
+                        finishedHabits += 1
+                    } else {
+                        perfectDay = false
+                    }
+                }
+                if (perfectDay) {
+                    perfectDays += 1
+                }
+            }
+            generateHabitAchievementBadges(finishedHabits)
+            generatePerfectDaysBadges(perfectDays)
+            generateBestStreaksBadges(19)
+        }
+
         return binding.root
     }
 
@@ -104,6 +136,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
     private fun generateHabitAchievementBadges(finishHabits: Int) {
         val list = ArrayList<BadgePreview>()
         if (finishHabits >= 3) {
+            binding.textView2A1.text = "1/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_3_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_3)))
@@ -113,6 +146,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 ctx.resources.getString(R.string.habit_finished_3)))
         }
         if (finishHabits >= 10) {
+            binding.textView2A1.text = "2/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_10_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_10)))
@@ -122,6 +156,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 ctx.resources.getString(R.string.habit_finished_10)))
         }
         if (finishHabits >= 20) {
+            binding.textView2A1.text = "3/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_20_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_20)))
@@ -131,6 +166,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 ctx.resources.getString(R.string.habit_finished_20)))
         }
         if (finishHabits >= 50) {
+            binding.textView2A1.text = "4/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_50_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_50)))
@@ -140,6 +176,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 ctx.resources.getString(R.string.habit_finished_50)))
         }
         if (finishHabits >= 100) {
+            binding.textView2A1.text = "5/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_100_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_100)))
@@ -149,6 +186,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 ctx.resources.getString(R.string.habit_finished_100)))
         }
         if (finishHabits >= 300) {
+            binding.textView2A1.text = "6/6"
             list.add(BadgePreview
                 (ResourcesCompat.getDrawable(ctx.resources, R.drawable.habit_300_fin, ctx.theme)!!,
                 ctx.resources.getString(R.string.habit_finished_300)))
@@ -164,6 +202,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
     private fun generatePerfectDaysBadges(perfectDays : Int) {
         val list = ArrayList<BadgePreview>()
         if (perfectDays >= 3) {
+            binding.textView2A2.text = "1/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_3_fin, ctx.theme)!!,
@@ -175,6 +214,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "3 ${resources.getString(R.string.day_perfect)}"))
         }
         if (perfectDays >= 10) {
+            binding.textView2A2.text = "2/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_10_fin, ctx.theme)!!,
@@ -186,6 +226,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "10 ${resources.getString(R.string.day_perfect)}"))
         }
         if (perfectDays >= 20) {
+            binding.textView2A2.text = "3/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_20_fin, ctx.theme)!!,
@@ -197,6 +238,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "20 ${resources.getString(R.string.day_perfect)}"))
         }
         if (perfectDays >= 30) {
+            binding.textView2A2.text = "4/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_30_fin, ctx.theme)!!,
@@ -208,6 +250,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "30 ${resources.getString(R.string.day_perfect)}"))
         }
         if (perfectDays >= 50) {
+            binding.textView2A2.text = "5/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_50_fin, ctx.theme)!!,
@@ -219,6 +262,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "50 ${resources.getString(R.string.day_perfect)}"))
         }
         if (perfectDays >= 100) {
+            binding.textView2A2.text = "6/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.day_100_fin, ctx.theme)!!,

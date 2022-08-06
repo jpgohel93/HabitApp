@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 class HabitCalendar(
     @PrimaryKey var calendarDate: String = "",
     var weekdayInt: Int ,
-    var habitsInADay : List<HabitInADay>
+    var habitsInADay : List<HabitInADay>,
+    var completed : Int = 0
 )

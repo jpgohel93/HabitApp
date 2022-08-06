@@ -1,7 +1,11 @@
 package com.tjcg.habitapp.data
 
+import kotlinx.coroutines.Deferred
+
 interface HabitCalendarInterface {
     fun addInCalendar(habitCalendar : HabitCalendar)
-    fun getByCalendar(dateStr: String, callback: (HabitCalendar?) -> Unit)
+    suspend fun getByCalendarAsync(dateStr: String) : Deferred<HabitCalendar?>
     fun updateHabitsInCalendar(habitCalendar: HabitCalendar)
+    suspend fun getFullCalendarAsync() : Deferred<List<HabitCalendar>?>
+    fun updateCompletedInCalendar(dateStr: String, completed: Int, callback: (Int) -> Unit)
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -137,12 +138,12 @@ class TodayFragment : Fragment() {
             weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
         }
 
-        viewModel.selectedWeekCalendarDate.observe(viewLifecycleOwner, { calArray ->
+        viewModel.selectedWeekCalendarDate.observe(viewLifecycleOwner) { calArray ->
             val cal1 = Calendar.getInstance()
             cal1.set(Calendar.MONTH, calArray[1])
             cal1.set(Calendar.DAY_OF_MONTH, calArray[0])
             updateHabitData(cal1)
-        })
+        }
         weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
         return binding.root
     }
@@ -153,8 +154,28 @@ class TodayFragment : Fragment() {
         selectedWeekDay = cal.get(Calendar.DAY_OF_WEEK)
         Log.d("SelectedWeekday", "$selectedWeekDay")
         // search if there is any data in the calendar if no data then generate new data
-        dataSource.getByCalendar(selectedDate) { habitCalendar ->
-            if (habitCalendar == null) {
+        val todayDateString = Constant.generateDateString(Calendar.getInstance())
+        mainScope.launch {
+            val habitCalendar = dataSource.getByCalendarAsync(selectedDate).await()
+            if (isCurrentSelectionIsFuture()) {
+                mainScope.launch {
+                    val habitsInADay = ArrayList<HabitInADay>()
+                    val habits = dataSource.getAllHabitsAsync().await()
+                    for (habit in habits) {
+                        if ((habit.repetitionType == Constant.HABIT_REPEAT_AS_WEEKDAY) &&
+                            habit.repetitionDaysArray.contains(selectedWeekDay.toString())) {
+                            habitsInADay.add(HabitInADay(habit.id))
+                        }
+                        if (habit.repetitionType != Constant.HABIT_REPEAT_AS_WEEKDAY) {
+                            habitsInADay.add(HabitInADay(habit.id))
+                        }
+                    }
+                    todayInCalendar = HabitCalendar(selectedDate, selectedWeekDay, habitsInADay)
+                    generateTodayHabitList()
+                }
+                return@launch
+            }
+            if (habitCalendar == null && (selectedDate==todayDateString)) {
                 mainScope.launch {
                     val habits = dataSource.getAllHabitsAsync().await()
                     val weekDayInt = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
@@ -172,8 +193,11 @@ class TodayFragment : Fragment() {
                     todayInCalendar = HabitCalendar(selectedDate, weekDayInt, dayHabits)
                     dataSource.addInCalendar(todayInCalendar)
                     Log.e("availableToday1", "${todayInCalendar.habitsInADay.size}")
+                    generateTodayHabitList()
                 }
-            } else {
+                return@launch
+            }
+            if (habitCalendar != null && (selectedDate==todayDateString)) {
                 todayInCalendar = habitCalendar
                 todayHabits = todayInCalendar.habitsInADay as ArrayList<HabitInADay>
                 mainScope.launch {
@@ -203,7 +227,16 @@ class TodayFragment : Fragment() {
                     Log.e("availableToday2", "${todayInCalendar.habitsInADay.size}")
                     generateTodayHabitList()
                 }
+                return@launch
             }
+            if (habitCalendar != null && (selectedDate!=todayDateString)) {
+                todayInCalendar = habitCalendar
+                todayHabits = todayInCalendar.habitsInADay as ArrayList<HabitInADay>
+                generateTodayHabitList()
+                return@launch
+            }
+            todayInCalendar = HabitCalendar(selectedDate, selectedWeekDay, emptyList())
+            generateTodayHabitList()
         }
     }
 
@@ -247,6 +280,7 @@ class TodayFragment : Fragment() {
         binding.completedCountText.text = "$totalHabitOfDay Habits"
         val completed = (finishedHabitCountInDay *100 / totalHabitOfDay).toInt()
         binding.completedPercentageText.text = "COMPLETED $completed %"
+        dataSource.updateCompletedInCalendar(selectedDate, completed) { }
     }
 
     private fun setDoItCardListeners() {
@@ -322,6 +356,13 @@ class TodayFragment : Fragment() {
             holder.binding.titleText.text = habit.habit.title
             if (isFuture) {
                 holder.binding.checkboxUnchecked.visibility = View.GONE
+                if (habit.habit.repetitionGoalCount > 1) {
+                    holder.binding.habitInfoText.text = "0/${habit.habit.repetitionGoalCount} repetition completed"
+                }
+                if (habit.habit.repetitionGoalDuration > 0) {
+                    holder.binding.habitInfoText.text =
+                        Constant.convertSecondsToText(habit.durationCount) + " / "+ Constant.convertSecondsToText(habit.habit.repetitionGoalDuration)
+                }
             //    holder.binding.timerClock.visibility = View.GONE
                 return
             }

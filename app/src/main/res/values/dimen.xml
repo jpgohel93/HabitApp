@@ -213,6 +213,7 @@
     <dimen name="history_achievement_tabs_count_text">35sp</dimen>
     <dimen name="history_achievement_archived_top_margin">-18dp</dimen>
     <dimen name="achievement_badge_text">12sp</dimen>
+    <dimen name="habit_icon_in_grid">170dp</dimen>
 
     <dimen name="habit_card_option_image_size">25dp</dimen>
 
@@ -236,5 +237,14 @@
 
     <!-- Week Calendar -->
     <dimen name="date_text_size">22sp</dimen>
+
+
+    <!-- weekday graph -->
+    <dimen name="bar_height">300dp</dimen>
+    <dimen name="bar_width">20dp</dimen>
+    <dimen name="bar_side_margin">15dp</dimen>
+    <dimen name="bar_text">20sp</dimen>
+
+    <dimen name="history_calendar_4card_subtitle_size"></dimen>
 
 </resources>

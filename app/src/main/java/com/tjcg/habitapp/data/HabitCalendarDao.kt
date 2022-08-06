@@ -15,6 +15,12 @@ interface HabitCalendarDao {
     @Query("select * from HabitCalendar where calendarDate=:dateStr")
     fun getHabitsByDate(dateStr : String) : HabitCalendar?
 
+    @Query("select * from HabitCalendar")
+    fun getFullCalendar() : List<HabitCalendar>?
+
     @Update()
     fun updateHabitsInCalendar(habitCalendar: HabitCalendar)
+
+    @Query("update HabitCalendar set completed=:completed where calendarDate=:dateStr")
+    fun updateCompletionRate(dateStr: String, completed: Int) : Int
 }

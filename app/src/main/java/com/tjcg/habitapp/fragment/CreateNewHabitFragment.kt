@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -358,15 +359,21 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
 
 
         // TODO("handle Ends on selection")
+        var habitEndType = Constant.HABIT_END_ON_NULL
+        var endOnDate = ""
+        var endOnDays = 3
         binding.endOnOff.isSelected = true
         binding.endOnOff.setOnClickListener {
             binding.endOnOff.isSelected = true
             binding.endOnDate.isSelected = false
             binding.endOnDays.isSelected = false
+            habitEndType = Constant.HABIT_END_ON_NULL
         }
         binding.endOnDate.setOnClickListener {
             val bottomDialog = BottomSheetDialog(ctx)
             val bBinding = BottomSheetChooseTheDateBinding.inflate(layoutInflater)
+            bBinding.datePicker.minDate = System.currentTimeMillis()
+            bBinding.datePicker.maxDate = System.currentTimeMillis() + 31536000000
             bBinding.cancelButton.setOnClickListener {
                 bottomDialog.dismiss()
             }
@@ -374,6 +381,9 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
                 binding.endOnOff.isSelected = false
                 binding.endOnDate.isSelected = true
                 binding.endOnDays.isSelected = false
+                habitEndType = Constant.HABIT_END_ON_DATE
+                endOnDate= "${bBinding.datePicker.year}-${bBinding.datePicker.month}-" +
+                        "${bBinding.datePicker.dayOfMonth}"
                 bottomDialog.dismiss()
             }
             bottomDialog.setContentView(bBinding.root)
@@ -384,14 +394,17 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             val bBinding = BottomSheetChooseTheDaysBinding.inflate(layoutInflater)
             bBinding.daysPicker.minValue = 3
             bBinding.daysPicker.maxValue = 100
+            bBinding.daysPicker.value = endOnDays
             bBinding.cancelButton.setOnClickListener {
                 bottomDialog.dismiss()
             }
             bBinding.saveButton.setOnClickListener {
-                bottomDialog.dismiss()
                 binding.endOnOff.isSelected = false
                 binding.endOnDate.isSelected =false
                 binding.endOnDays.isSelected = true
+                habitEndType = Constant.HABIT_END_ON_DAYS
+                endOnDays = bBinding.daysPicker.value
+                bottomDialog.dismiss()
             }
             bottomDialog.setContentView(bBinding.root)
             bottomDialog.show()
@@ -405,7 +418,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             val newHabit = Habit(0, habitTitle, 0,
             currentlySelectedRepetition, createSelectedWeekdayArray(), daysRepetitionCount,
             repetitionGoalDuration, goalRepetitionCount, doItTime, "", 0,
-            "none")
+            "none", habitEndType, endOnDate, endOnDays)
             dataSource.addHabit(newHabit)
             findNavController().navigateUp()
         }
@@ -417,11 +430,11 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setupViewModelsObservers() {
-        habitViewModel.habitName.observe(viewLifecycleOwner, { name ->
+        habitViewModel.habitName.observe(viewLifecycleOwner) { name ->
             bindingMain.titleText.isSelected = true
             bindingMain.titleText.text = name
             bindingMain.titleTextEdit.setText(name)
-        })
+        }
     }
 
     // update as per Weekday habits Array
