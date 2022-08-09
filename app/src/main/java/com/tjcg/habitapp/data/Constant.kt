@@ -14,6 +14,11 @@ import java.util.*
 
 object Constant {
 
+    const val PAGE_1 = 1
+    const val PAGE_2 = 2
+    const val PAGE_3 = 3
+    const val PAGE_4 = 4
+
     const val HABIT_REPEAT_AS_WEEKDAY = 1
     const val HABIT_REPEAT_IN_WEEK = 2
     const val HABIT_REPEAT_IN_MONTH = 3
@@ -38,6 +43,7 @@ object Constant {
 
     var dateToday = -1
     var monthToday = -1
+    var todayString : String= ""
 
     fun generateDateString(cal : Calendar) : String {
         val year = cal.get(Calendar.YEAR)

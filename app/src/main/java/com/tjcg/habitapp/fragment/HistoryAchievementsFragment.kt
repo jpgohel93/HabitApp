@@ -33,6 +33,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
     private lateinit var ctx: Context
     private var colorBlack : Int = 0
     private var colorWhite : Int = 0
+    private var totalAchievementCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +72,8 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
             }
             generateHabitAchievementBadges(finishedHabits)
             generatePerfectDaysBadges(perfectDays)
-            generateBestStreaksBadges(19)
+            generateBestStreaksBadges(0)
+            calculateTotalAchievement(finishedHabits, perfectDays, 0)
         }
 
         return binding.root
@@ -348,6 +350,67 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
         }
         binding.bestStreakRecycler.layoutManager = GridLayoutManager(ctx, BADGES_SPAN)
         binding.bestStreakRecycler.adapter = BadgePreviewAdapter(ctx, list)
+    }
+
+    private fun calculateTotalAchievement(finishHabits: Int, perfectDays: Int, bestStreak: Int) {
+        var totalCount = 0
+        if (finishHabits >= 3) {
+            totalCount += 1
+        }
+        if (finishHabits >= 10) {
+            totalCount += 1
+        }
+        if (finishHabits >= 20) {
+            totalCount += 1
+        }
+        if (finishHabits >= 50) {
+            totalCount += 1
+        }
+        if (finishHabits >= 100) {
+            totalCount += 1
+        }
+        if (finishHabits >= 300) {
+            totalCount += 1
+        }
+        if (perfectDays >= 3) {
+            totalCount += 1
+        }
+        if (perfectDays >= 10) {
+            totalCount += 1
+        }
+        if (perfectDays >= 20) {
+            totalCount += 1
+        }
+        if (perfectDays >= 30) {
+            totalCount += 1
+        }
+        if (perfectDays >= 50) {
+            totalCount +=1
+        }
+        if (perfectDays >= 100) {
+            totalCount += 1
+        }
+        if (bestStreak >= 3) {
+            totalCount += 1
+        }
+        if (bestStreak >= 10) {
+            totalCount += 1
+        }
+        if (bestStreak >= 20) {
+            totalCount += 1
+        }
+        if (bestStreak >= 50) {
+            totalCount += 1
+        }
+        if (bestStreak >= 100) {
+            totalCount += 1
+        }
+        if (bestStreak >= 300) {
+            totalCount += 1
+        }
+        val overallAchievement = totalCount *100 / 18
+        binding.progText.text = overallAchievement.toString()
+        binding.progressBar2.progress = overallAchievement
     }
 
 

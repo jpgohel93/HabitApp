@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Habits")
 class Habit(
-    var icon: Int,
+    var icon: String,
     var title: String,
     var habitType: Int,
     var repetitionType : Int = Constant.HABIT_REPEAT_AS_WEEKDAY,

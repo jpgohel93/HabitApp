@@ -7,10 +7,13 @@
     android:layout_margin="8dp"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <TextView
         android:layout_width="@dimen/habit_icon_in_grid"
         android:layout_height="@dimen/habit_icon_in_grid"
-        android:src="@drawable/bottle"
+        android:text="dog"
+        android:fontFamily="@font/icons"
+        android:gravity="center"
+        android:textSize="90sp"
         android:id="@+id/habitIcon"
         android:padding="24dp"/>
 
@@ -19,6 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Habit Name"
         android:id="@+id/habitTitle"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
         android:textSize="@dimen/dialog_title_text_size"
         android:gravity="center"/>
 

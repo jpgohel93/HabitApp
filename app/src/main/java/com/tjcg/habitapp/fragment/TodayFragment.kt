@@ -79,6 +79,7 @@ class TodayFragment : Fragment() {
         val weekCalendarAdapter = WeekCalendarAdapter(ctx, dates)
         weekCalendar.adapter = weekCalendarAdapter
         val cal = Calendar.getInstance()
+        Constant.todayString = Constant.generateDateString(cal)
         val defaultPosition = cal.get(Calendar.WEEK_OF_YEAR) - 1
         weekCalendar.scrollToPosition(defaultPosition)
         val displayWidth = Constant.getDisplayWidth(ctx)
@@ -144,7 +145,9 @@ class TodayFragment : Fragment() {
             cal1.set(Calendar.DAY_OF_MONTH, calArray[0])
             updateHabitData(cal1)
         }
-        weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
+        if (viewModel.selectedWeekCalendarDate.value ==  null) {
+            weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
+        }
         return binding.root
     }
 
@@ -354,6 +357,7 @@ class TodayFragment : Fragment() {
             var extraOptionType = -1
             var isExtraCardOpen = false
             holder.binding.titleText.text = habit.habit.title
+            holder.binding.habitIcon.text = habit.habit.icon
             if (isFuture) {
                 holder.binding.checkboxUnchecked.visibility = View.GONE
                 if (habit.habit.repetitionGoalCount > 1) {

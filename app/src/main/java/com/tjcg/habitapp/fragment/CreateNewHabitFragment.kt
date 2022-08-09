@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -23,6 +24,7 @@ import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.*
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import org.w3c.dom.Text
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -52,7 +54,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         ctx = findNavController().context
         bindingMain = FragmentCreateHabitBinding.inflate(layoutInflater)
         binding = bindingMain.content
-        habitViewModel = ViewModelProvider(this)[HabitViewModel::class.java]
+        habitViewModel = dataSource.provideViewModel()
         animationHandler = Handler(Looper.getMainLooper())
 
         // toolbar operations
@@ -75,6 +77,14 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
                 bindingMain.titleTextEdit.visibility = View.GONE
                 bindingMain.titleText.visibility = View.VISIBLE
             }
+        }
+
+        // change habit icon
+        habitViewModel.habitIcon.observe(viewLifecycleOwner) { icon ->
+            bindingMain.habitIcon.text = icon
+        }
+        bindingMain.habitIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_new_habit_to_iconListFragment)
         }
 
         // handle repetition options
@@ -415,7 +425,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         bindingMain.saveHabitButton.setOnClickListener {
             val habitTitle = bindingMain.titleText.text.toString()
             val repetitionGoalDuration = ((goalHours * 60) + goalMinutes) * 60 // in seconds
-            val newHabit = Habit(0, habitTitle, 0,
+            val newHabit = Habit(bindingMain.habitIcon.text.toString(), habitTitle, 0,
             currentlySelectedRepetition, createSelectedWeekdayArray(), daysRepetitionCount,
             repetitionGoalDuration, goalRepetitionCount, doItTime, "", 0,
             "none", habitEndType, endOnDate, endOnDays)

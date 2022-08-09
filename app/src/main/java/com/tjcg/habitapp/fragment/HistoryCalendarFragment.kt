@@ -9,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentHistoryCalendarBinding
+import com.tjcg.habitapp.databinding.OtherWeekdayGraphBinding
+import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +29,8 @@ import kotlin.collections.ArrayList
 class HistoryCalendarFragment : Fragment() {
 
     @Inject lateinit var dataSource : HabitDataSource
-    lateinit var binding : FragmentHistoryCalendarBinding
+    private lateinit var habitViewModel : HabitViewModel
+    private lateinit var binding : FragmentHistoryCalendarBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +40,7 @@ class HistoryCalendarFragment : Fragment() {
         binding = FragmentHistoryCalendarBinding.inflate(
             inflater, container, false
         )
+        habitViewModel = dataSource.provideViewModel()
         CoroutineScope(Dispatchers.Main).launch {
             val fullCalendar = dataSource.getFullCalendarAsync().await()
             var finishedHabits = 0
@@ -63,6 +69,11 @@ class HistoryCalendarFragment : Fragment() {
             binding.completionRateCount.text = completionRate.toInt().toString()
             binding.avgCompletionText2.text = "${completionRate.toInt()}%"
             binding.perfectDaysCountText.text = perfectDays.toString()
+            binding.fullCalendarView.setOnDateChangeListener { _, _, i2, i3 ->
+                habitViewModel.selectedWeekCalendarDate.value = arrayOf(i3, i2)
+                Log.d("SelectedWeekCalendarDate", "${habitViewModel.selectedWeekCalendarDate.value?.get(0)}")
+                habitViewModel.selectedAppPage.value = Constant.PAGE_1 // this will select the page 1 of the app or first tab
+            }
             getWeekdayInfo()
         }
         return binding.root
@@ -70,36 +81,30 @@ class HistoryCalendarFragment : Fragment() {
 
     private suspend fun getWeekdayInfo() {
         val cal = Calendar.getInstance()
-        cal.set(Calendar.DAY_OF_WEEK, 1)
+        cal.set(Calendar.DAY_OF_WEEK,   1)
         val barChartOpt = Array(7) { 0 }
         val barChartDates = Array(7) { "0" }
         val thatDayFinished = Array(7) { 0 }
         val thatDayScheduled = Array(7) { 0 }
+        var habitsFinishedInWholeWeek = 0 // will be set in habit finish card
+        var perfectDaysThisWeek = 0 // will be set in perfect days card
         for (i in 0..6) {
             val habitCalendar = dataSource.getByCalendarAsync(Constant.generateDateString(cal)).await()
-       /*     var totalHabits = 0
-            var finishedHabit = 0
-            for (habit in (habitCalendar?.habitsInADay ?: emptyList())) {
-                totalHabits += 1
-                if (habit.isFinished)  { finishedHabit += 1 }
+            if (habitCalendar ==  null) {
+                Log.d("HabitCalendarNull", "Null for date ${cal.get(Calendar.DAY_OF_MONTH)}")
             }
-            val completionRate =if (totalHabits > 0) {
-                (finishedHabit.toFloat() / totalHabits) * 100
-            } else {
-                0f
-            }
-            barChartOpt[i] = completionRate.toInt()
-            Log.d("CompletionRate", "${Constant.generateDateString(cal)} - $completionRate")  */
-            barChartOpt[i] = if (habitCalendar != null) {
-                habitCalendar.completed
-            } else  {
-                0
-            }
+            barChartOpt[i] = habitCalendar?.completed ?: 0
             var habitCount = 0
             var habitFinished = 0
             for (habit in (habitCalendar?.habitsInADay ?: emptyList())) {
                 habitCount += 1
-                if (habit.isFinished) { habitFinished+= 1}
+                if (habit.isFinished) {
+                    habitFinished+= 1
+                    habitsFinishedInWholeWeek += 1
+                }
+            }
+            if ((habitCount > 0) && (habitFinished == habitCount)) {
+                perfectDaysThisWeek += 1
             }
             thatDayFinished[i] = habitFinished
             thatDayScheduled[i] = habitCount
@@ -107,12 +112,17 @@ class HistoryCalendarFragment : Fragment() {
             Log.d("CompletionRate", "${barChartOpt[i]}")
             cal.add(Calendar.DAY_OF_MONTH, 1)
         }
+        // update remaining top card info s which are related to week
+        updateHabitInfoAsPerWeek(habitsFinishedInWholeWeek, perfectDaysThisWeek)
+
         val wBinding = binding.weekGraphLayout
         wBinding.bars.visibility = View.VISIBLE
         wBinding.barDates.visibility = View.VISIBLE
         val barHeight = wBinding.day1bar.height
         val commonMargin = 50
 
+        Log.d("TodayString", "${Constant.todayString}")
+        val todayDateOfMonth = Constant.todayString.split("-")[2]
         // for bar 1
         if (barChartOpt[0] == 0) {
             wBinding.day1bar.visibility = View.INVISIBLE
@@ -127,6 +137,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day1Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[0].toString()
             binding.scheduledText.text = thatDayScheduled[0].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day1Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[0]) {
+            wBinding.day1Date.isSelected = true
+            wBinding.day1Date.performClick()
         }
 
         // for bar 2
@@ -143,6 +159,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day2Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[1].toString()
             binding.scheduledText.text = thatDayScheduled[1].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day2Date.isSelected = true
+        }
+        if (todayDateOfMonth  == barChartDates[1]) {
+            wBinding.day2Date.isSelected = true
+            wBinding.day2Date.performClick()
         }
 
         // for bar 3
@@ -159,6 +181,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day3Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[2].toString()
             binding.scheduledText.text = thatDayScheduled[2].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day3Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[2]) {
+            wBinding.day3Date.isSelected = true
+            wBinding.day3Date.performClick()
         }
 
         // for bar 4
@@ -176,6 +204,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day4Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[3].toString()
             binding.scheduledText.text = thatDayScheduled[3].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day4Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[3]) {
+            wBinding.day4Date.isSelected = true
+            wBinding.day4Date.performClick()
         }
 
         // for bar 5
@@ -192,6 +226,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day5Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[4].toString()
             binding.scheduledText.text = thatDayScheduled[4].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day5Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[4]) {
+            wBinding.day5Date.isSelected = true
+            wBinding.day5Date.performClick()
         }
 
         // for bar 6
@@ -209,6 +249,12 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day6Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[5].toString()
             binding.scheduledText.text = thatDayScheduled[5].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day6Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[5]) {
+            wBinding.day6Date.isSelected = true
+            wBinding.day6Date.performClick()
         }
 
         // for bar 7
@@ -225,11 +271,28 @@ class HistoryCalendarFragment : Fragment() {
         wBinding.day7Date.setOnClickListener {
             binding.finishText.text = thatDayFinished[6].toString()
             binding.scheduledText.text = thatDayScheduled[6].toString()
+            unselectAllBarChartDates(wBinding)
+            wBinding.day7Date.isSelected = true
+        }
+        if (todayDateOfMonth == barChartDates[6]) {
+            wBinding.day7Date.isSelected = true
+            wBinding.day7Date.performClick()
         }
     }
 
-    private fun updateBottomHabitCards(dateStr : String) {
+    private fun unselectAllBarChartDates(wBinding: OtherWeekdayGraphBinding) {
+        wBinding.day1Date.isSelected = false
+        wBinding.day2Date.isSelected = false
+        wBinding.day3Date.isSelected = false
+        wBinding.day4Date.isSelected = false
+        wBinding.day5Date.isSelected = false
+        wBinding.day6Date.isSelected = false
+        wBinding.day7Date.isSelected = false
+    }
 
+    private fun updateHabitInfoAsPerWeek(finishedInWeek: Int, perfectDays: Int) {
+        binding.thisWeekText.text = "This Week: $finishedInWeek"
+        binding.thisWeekText2.text = "This Week: $perfectDays"
     }
 
     companion object {

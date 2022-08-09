@@ -179,6 +179,8 @@
     <dimen name="round_radio_btn_separation">5dp</dimen>
     <dimen name="round_radio_text_size">25sp</dimen>
     <dimen name="round_radio_size">40dp</dimen>
+    <dimen name="habit_icon_layout_size">100dp</dimen>
+    <dimen name="habit_icon_font_size">60sp</dimen>
 
     <!-- journey main Screen -->
     <dimen name="journey_sides_margin">30dp</dimen>

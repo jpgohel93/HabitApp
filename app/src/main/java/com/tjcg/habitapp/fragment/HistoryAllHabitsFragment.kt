@@ -92,6 +92,8 @@ class HistoryAllHabitsFragment : Fragment() {
         override fun onBindViewHolder(holder: HabitHolder, position: Int) {
             val habit = habits[position]
             holder.binding.habitTitle.text = habit.title
+            holder.binding.habitTitle.isSelected = true
+            holder.binding.habitIcon.text = habit.icon
         }
 
         override fun getItemCount(): Int = habits.size

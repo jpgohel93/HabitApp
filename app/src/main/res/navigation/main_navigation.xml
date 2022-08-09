@@ -8,7 +8,11 @@
         android:id="@+id/navigation_new_habit"
         tools:layout="@layout/fragment_create_habit"
         android:name="com.tjcg.habitapp.fragment.CreateNewHabitFragment"
-        android:label="CreateNewHabitFragment" />
+        android:label="CreateNewHabitFragment" >
+        <action
+            android:id="@+id/action_navigation_new_habit_to_iconListFragment"
+            app:destination="@id/iconListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_today"
         tools:layout="@layout/fragment_today"
@@ -99,4 +103,9 @@
         android:name="com.tjcg.habitapp.fragment.TimerFragment"
         tools:layout="@layout/fragment_timer"
         android:label="TimerFragment" />
+    <fragment
+        android:id="@+id/iconListFragment"
+        android:name="com.tjcg.habitapp.fragment.IconListFragment"
+        tools:layout="@layout/fragment_icon_select"
+        android:label="IconListFragment" />
 </navigation>

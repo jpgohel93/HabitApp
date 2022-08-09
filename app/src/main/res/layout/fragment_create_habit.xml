@@ -24,15 +24,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageView"
+                <TextView
+                    android:id="@+id/habitIcon"
                     android:layout_width="@dimen/title_card_size"
                     android:layout_height="@dimen/title_card_size"
                     android:layout_marginStart="@dimen/habit_sides_margin"
                     android:layout_marginTop="@dimen/habit_sides_margin"
                     android:background="@drawable/card_default"
                     android:padding="@dimen/root_view_padding"
-                    android:src="@drawable/bottle"
+                    android:text="calendar-check"
+                    android:fontFamily="@font/icons"
+                    android:textSize="45sp"
+                    android:gravity="center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,10 +46,10 @@
                     android:layout_marginStart="@dimen/habit_sides_margin"
                     android:layout_marginEnd="55dp"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintBottom_toBottomOf="@+id/habitIcon"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView"
-                    app:layout_constraintTop_toTopOf="@+id/imageView">
+                    app:layout_constraintStart_toEndOf="@+id/habitIcon"
+                    app:layout_constraintTop_toTopOf="@+id/habitIcon">
 
                     <TextView
                         android:id="@+id/titleText"

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_margin="8dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/iconText"
+        android:layout_width="@dimen/habit_icon_layout_size"
+        android:layout_height="@dimen/habit_icon_layout_size"
+        android:text="ghost"
+        android:gravity="center"
+        android:fontFamily="@font/icons"
+        android:textSize="@dimen/habit_icon_font_size"
+        android:background="@drawable/icon_selector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,6 +40,10 @@
 
             <ProgressBar
                 android:id="@+id/progressBar2"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:indeterminate="false"
+                android:progress="80"
+                android:progressDrawable="@drawable/circular_progress_bar_small"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"

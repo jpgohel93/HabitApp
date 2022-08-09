@@ -9,18 +9,20 @@ import androidx.constraintlayout.utils.widget.ImageFilterView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.tjcg.habitapp.data.Constant
+import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.ActivityMainBinding
+import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val ANIM_DURATION = 300L
-private const val PAGE_1 = 1
-private const val PAGE_2 = 2
-private const val PAGE_3 = 3
-private const val PAGE_4 = 4
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    @Inject lateinit var dataSource: HabitDataSource
+    private lateinit var habitViewModel : HabitViewModel
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
@@ -30,15 +32,18 @@ class MainActivity : AppCompatActivity() {
         navView = binding.navView
         navAddBtn = binding.navAddButton
         setContentView(binding.root)
-
+        habitViewModel = dataSource.provideViewModel()
         navController = findNavController(R.id.mainNavFragment)
 
-        binding.navPage1.setOnClickListener { navigateToPage(PAGE_1) }
-        binding.navPage2.setOnClickListener { navigateToPage(PAGE_2) }
-        binding.navPage3.setOnClickListener { navigateToPage(PAGE_3)}
-        binding.navPage4.setOnClickListener { navigateToPage(PAGE_4) }
+        binding.navPage1.setOnClickListener { navigateToPage(Constant.PAGE_1) }
+        binding.navPage2.setOnClickListener { navigateToPage(Constant.PAGE_2) }
+        binding.navPage3.setOnClickListener { navigateToPage(Constant.PAGE_3)}
+        binding.navPage4.setOnClickListener { navigateToPage(Constant.PAGE_4) }
         binding.navAddButton.setOnClickListener {
             navController.navigate(R.id.habitPresetsFragment)
+        }
+        habitViewModel.selectedAppPage.observe(this) {
+            navigateToPage(it)
         }
         /*      navView = binding.navView
 
@@ -61,20 +66,20 @@ class MainActivity : AppCompatActivity() {
         binding.navActive3.visibility = View.GONE
         binding.navActive4.visibility = View.GONE
         when(page) {
-            PAGE_1 -> {
+            Constant.PAGE_1 -> {
                 // TODO Navigate to MyHabit Main page
                 navController.navigate(R.id.navigation_today)
                 binding.navActive1.visibility = View.VISIBLE
             }
-            PAGE_2 -> {
+            Constant.PAGE_2 -> {
                 navController.navigate(R.id.naviation_journey_main)
                 binding.navActive2.visibility = View.VISIBLE
             }
-            PAGE_3 -> {
+            Constant.PAGE_3 -> {
                navController.navigate(R.id.navigation_history)
                 binding.navActive3.visibility = View.VISIBLE
             }
-            PAGE_4 -> {
+            Constant.PAGE_4 -> {
                 navController.navigate(R.id.navigation_profile)
                 binding.navActive4.visibility = View.VISIBLE
             }
