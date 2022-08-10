@@ -38,6 +38,9 @@ class IconListFragment : Fragment() {
         binding.habitIconRecyclerView.layoutManager = GridLayoutManager(ctx, 3)
         binding.habitIconRecyclerView.recycledViewPool.setMaxRecycledViews(0,0)
         binding.habitIconRecyclerView.adapter = IconAdapter(generateIconList())
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
         return binding.root
     }
 

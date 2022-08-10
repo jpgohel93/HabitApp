@@ -5,7 +5,7 @@
     app:cardBackgroundColor="@color/black"
     android:layout_marginStart="@dimen/journey_card_sides_margin"
     android:layout_marginEnd="@dimen/journey_card_sides_margin"
-    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardCornerRadius="@dimen/regular_card_radius"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:layout_height="wrap_content">

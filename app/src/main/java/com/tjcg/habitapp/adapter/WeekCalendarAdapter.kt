@@ -11,12 +11,16 @@ import com.tjcg.habitapp.data.WeekCalendarRow
 import com.tjcg.habitapp.databinding.RecycleItemWeekCalendarDayBinding
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 
-class WeekCalendarAdapter(private val ctx: Context, private val dates : ArrayList<ArrayList<WeekCalendarRow>>)
+class WeekCalendarAdapter(private val ctx: Context, private val dates : ArrayList<ArrayList<WeekCalendarRow>>,
+    private val viewModel: HabitViewModel)
     : RecyclerView.Adapter<WeekCalendarAdapter.WeekHolder>() {
 
     private var sDate: Int = 0
     private var sMonth : Int = 0
-    private var viewModel = ViewModelProvider(ctx as MainActivity)[HabitViewModel::class.java]
+
+    init {
+        setObserver()
+    }
 
     inner class WeekHolder(val binding: RecycleItemWeekCalendarDayBinding) :
             RecyclerView.ViewHolder(binding.root)
@@ -80,11 +84,19 @@ class WeekCalendarAdapter(private val ctx: Context, private val dates : ArrayLis
 
     override fun getItemCount(): Int = dates.size
 
+    private fun setObserver() {
+        viewModel.selectedWeekCalendarDate.observe((ctx as MainActivity)) { dates1 ->
+            sDate = dates1[0]
+            sMonth = dates1[1]
+            notifyDataSetChanged()
+        }
+    }
+
     fun setSelectionMark(date: Int, month: Int) {
-        sDate = date
+     /*   sDate = date
         sMonth = month
-        notifyDataSetChanged()
-        viewModel.selectedWeekCalendarDate.value = arrayOf(sDate, sMonth)
+        notifyDataSetChanged()  */
+        viewModel.selectedWeekCalendarDate.value = arrayOf(date, month)
     }
 
 }

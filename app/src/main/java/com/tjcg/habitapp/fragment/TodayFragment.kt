@@ -23,6 +23,7 @@ import com.tjcg.habitapp.R
 import com.tjcg.habitapp.adapter.WeekCalendarAdapter
 import com.tjcg.habitapp.data.*
 import com.tjcg.habitapp.databinding.FragmentTodayBinding
+import com.tjcg.habitapp.databinding.OtherMorningCardsBinding
 import com.tjcg.habitapp.databinding.RecyclerItemRegularHabitBinding
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,7 +77,7 @@ class TodayFragment : Fragment() {
         val dates = Constant.generateYearCalendar()
         weekCalendar = binding.includedWeekCalendar.weekCalendarRecycler
         weekCalendar.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
-        val weekCalendarAdapter = WeekCalendarAdapter(ctx, dates)
+        val weekCalendarAdapter = WeekCalendarAdapter(ctx, dates, viewModel)
         weekCalendar.adapter = weekCalendarAdapter
         val cal = Calendar.getInstance()
         Constant.todayString = Constant.generateDateString(cal)
@@ -135,8 +136,8 @@ class TodayFragment : Fragment() {
         binding.mainDateText.text = cal.get(Calendar.DAY_OF_MONTH).toString()
         binding.mainDayText.text = Constant.provideShotDay(cal.get(Calendar.DAY_OF_WEEK))
         binding.todayCalendarView.setOnClickListener {
-            updateHabitData(cal)
-            weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
+            viewModel.selectedWeekCalendarDate.value = arrayOf(cal.get(Calendar.DAY_OF_MONTH),
+            cal.get(Calendar.MONTH))
         }
 
         viewModel.selectedWeekCalendarDate.observe(viewLifecycleOwner) { calArray ->
@@ -148,6 +149,7 @@ class TodayFragment : Fragment() {
         if (viewModel.selectedWeekCalendarDate.value ==  null) {
             weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
         }
+
         return binding.root
     }
 
@@ -286,41 +288,67 @@ class TodayFragment : Fragment() {
         dataSource.updateCompletedInCalendar(selectedDate, completed) { }
     }
 
+    // handle do it at card options
     private fun setDoItCardListeners() {
         val future = isCurrentSelectionIsFuture()
-        binding.doItAnytimeCard.setOnClickListener {
-            setUpDoItAtTiming(Constant.HABIT_DO_IT_ANYTIME)
+        val mBinding = binding.morningCardLayout
+        mBinding.doItAnytimeCard.setOnClickListener {
+            setUpDoItAtTiming(Constant.HABIT_DO_IT_ANYTIME, mBinding)
             binding.todayHabitRecycler.adapter = HabitAdapter(habitsToShow, future)
         }
-        binding.doItMorningCard.setOnClickListener {
-            setUpDoItAtTiming(Constant.HABIT_DO_IT_MORNING)
+        mBinding.doItMorningCard.setOnClickListener {
+            setUpDoItAtTiming(Constant.HABIT_DO_IT_MORNING, mBinding)
             val morningHabits = ArrayList<TodayHabit>()
             for (habit in habitsToShow) {
+                if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_ANYTIME) {
+                    morningHabits.add(habit)
+                    continue
+                }
                 if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_MORNING) {
                     morningHabits.add(habit)
                 }
             }
             binding.todayHabitRecycler.adapter = HabitAdapter(morningHabits, future)
         }
-        binding.doItAfternoonCard.setOnClickListener {
-            setUpDoItAtTiming(Constant.HABIT_DO_IT_AFTERNOON)
+        mBinding.doItAfternoonCard.setOnClickListener {
+            setUpDoItAtTiming(Constant.HABIT_DO_IT_AFTERNOON, mBinding)
             val afternoonHabits = ArrayList<TodayHabit>()
             for (habit in habitsToShow) {
+                if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_ANYTIME) {
+                    afternoonHabits.add(habit)
+                    continue
+                }
                 if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_AFTERNOON) {
                     afternoonHabits.add(habit)
                 }
             }
             binding.todayHabitRecycler.adapter = HabitAdapter(afternoonHabits, future)
         }
-        binding.doItEveningCard.setOnClickListener {
-            setUpDoItAtTiming(Constant.HABIT_DO_IT_EVENING)
+        mBinding.doItEveningCard.setOnClickListener {
+            setUpDoItAtTiming(Constant.HABIT_DO_IT_EVENING, mBinding)
             val eveningHabits = ArrayList<TodayHabit>()
             for (habit in habitsToShow) {
+                if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_ANYTIME) {
+                    eveningHabits.add(habit)
+                    continue
+                }
                 if (habit.habit.doItAtTime == Constant.HABIT_DO_IT_EVENING) {
                     eveningHabits.add(habit)
                 }
             }
             binding.todayHabitRecycler.adapter = HabitAdapter(eveningHabits, future)
+        }
+        // show habit as per current time
+        when(Constant.getCurrentTimePeriod()) {
+            Constant.CURRENT_TIME_MORNING -> {
+                mBinding.doItMorningCard.performClick()
+            }
+            Constant.CURRENT_TIME_AFTERNOON -> {
+                mBinding.doItAfternoonCard.performClick()
+            }
+            Constant.CURRENT_TIME_EVENING -> {
+                mBinding.doItEveningCard.performClick()
+            }
         }
     }
 
@@ -330,16 +358,16 @@ class TodayFragment : Fragment() {
         dataSource.changeHabitStatus(selectedDate, id, status)
     }
 
-    private fun setUpDoItAtTiming(time: Int) : Int{
-        binding.doItAnytimeCard.isSelected = false
-        binding.doItMorningCard.isSelected = false
-        binding.doItAfternoonCard.isSelected = false
-        binding.doItEveningCard.isSelected = false
+    private fun setUpDoItAtTiming(time: Int, mBinding: OtherMorningCardsBinding) : Int{
+        mBinding.doItAnytimeCard.isSelected = false
+        mBinding.doItMorningCard.isSelected = false
+        mBinding.doItAfternoonCard.isSelected = false
+        mBinding.doItEveningCard.isSelected = false
         when(time) {
-            Constant.HABIT_DO_IT_ANYTIME -> binding.doItAnytimeCard.isSelected = true
-            Constant.HABIT_DO_IT_MORNING -> binding.doItMorningCard.isSelected = true
-            Constant.HABIT_DO_IT_AFTERNOON -> binding.doItAfternoonCard.isSelected = true
-            Constant.HABIT_DO_IT_EVENING -> binding.doItEveningCard.isSelected = true
+            Constant.HABIT_DO_IT_ANYTIME -> mBinding.doItAnytimeCard.isSelected = true
+            Constant.HABIT_DO_IT_MORNING -> mBinding.doItMorningCard.isSelected = true
+            Constant.HABIT_DO_IT_AFTERNOON -> mBinding.doItAfternoonCard.isSelected = true
+            Constant.HABIT_DO_IT_EVENING -> mBinding.doItEveningCard.isSelected = true
         }
         return time
     }

@@ -36,6 +36,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
     private lateinit var bindingMain: FragmentCreateHabitBinding
     private lateinit var binding : FragmentCreateHabitContentBinding
     private lateinit var repetitionBinding : OtherHabitRepeatationSetupBinding
+    private lateinit var morningCardsBinding: OtherMorningCardsBinding
     private var isAdvanceOpen = false
     private var weekdayList = ArrayList<Int>()
     private lateinit var animationHandler: Handler
@@ -54,6 +55,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         ctx = findNavController().context
         bindingMain = FragmentCreateHabitBinding.inflate(layoutInflater)
         binding = bindingMain.content
+        morningCardsBinding = binding.morningCardLayout
         habitViewModel = dataSource.provideViewModel()
         animationHandler = Handler(Looper.getMainLooper())
 
@@ -322,16 +324,16 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         setUpDoItAtTiming(Constant.HABIT_DO_IT_ANYTIME)
         var doItTime = Constant.HABIT_DO_IT_ANYTIME
         // TODO("handle day timing or do it at")
-        binding.doItAnytimeCard.setOnClickListener {
+        morningCardsBinding.doItAnytimeCard.setOnClickListener {
             doItTime = setUpDoItAtTiming(Constant.HABIT_DO_IT_ANYTIME)
         }
-        binding.doItMorningCard.setOnClickListener {
+        morningCardsBinding.doItMorningCard.setOnClickListener {
             doItTime = setUpDoItAtTiming(Constant.HABIT_DO_IT_MORNING)
         }
-        binding.doItAfternoonCard.setOnClickListener {
+        morningCardsBinding.doItAfternoonCard.setOnClickListener {
             doItTime = setUpDoItAtTiming(Constant.HABIT_DO_IT_AFTERNOON)
         }
-        binding.doItEveningCard.setOnClickListener {
+        morningCardsBinding.doItEveningCard.setOnClickListener {
             doItTime = setUpDoItAtTiming(Constant.HABIT_DO_IT_EVENING)
         }
 
@@ -468,15 +470,15 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setUpDoItAtTiming(time: Int) : Int{
-        binding.doItAnytimeCard.isSelected = false
-        binding.doItMorningCard.isSelected = false
-        binding.doItAfternoonCard.isSelected = false
-        binding.doItEveningCard.isSelected = false
+        morningCardsBinding.doItAnytimeCard.isSelected = false
+        morningCardsBinding.doItMorningCard.isSelected = false
+        morningCardsBinding.doItAfternoonCard.isSelected = false
+        morningCardsBinding.doItEveningCard.isSelected = false
         when(time) {
-            Constant.HABIT_DO_IT_ANYTIME -> binding.doItAnytimeCard.isSelected = true
-            Constant.HABIT_DO_IT_MORNING -> binding.doItMorningCard.isSelected = true
-            Constant.HABIT_DO_IT_AFTERNOON -> binding.doItAfternoonCard.isSelected = true
-            Constant.HABIT_DO_IT_EVENING -> binding.doItEveningCard.isSelected = true
+            Constant.HABIT_DO_IT_ANYTIME -> morningCardsBinding.doItAnytimeCard.isSelected = true
+            Constant.HABIT_DO_IT_MORNING -> morningCardsBinding.doItMorningCard.isSelected = true
+            Constant.HABIT_DO_IT_AFTERNOON -> morningCardsBinding.doItAfternoonCard.isSelected = true
+            Constant.HABIT_DO_IT_EVENING -> morningCardsBinding.doItEveningCard.isSelected = true
         }
         return time
     }

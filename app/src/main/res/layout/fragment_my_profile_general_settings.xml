@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="@string/options_general_settings"
-        android:textSize="@dimen/activity_title_size"
+        android:textSize="@dimen/root_regular_text"
         android:textAllCaps="true"
         android:layout_marginTop="24dp"
         android:textStyle="bold"

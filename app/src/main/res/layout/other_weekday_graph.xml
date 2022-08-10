@@ -3,16 +3,14 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/card_black"
-    android:layout_marginStart="@dimen/habit_sides_margin"
-    android:layout_marginEnd="@dimen/habit_sides_margin"
-    android:layout_marginTop="@dimen/habit_top_separation"
-    android:layout_marginBottom="@dimen/habit_top_separation"
+    android:layout_marginTop="@dimen/app_vertical_margin"
+    android:layout_marginBottom="@dimen/app_vertical_margin"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/app_vertical_margin"
         android:layout_gravity="bottom"
         android:gravity="bottom"
         android:id="@+id/bars"
@@ -21,7 +19,7 @@
 
         <ImageView
             android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/bar_width"
             android:layout_height="@dimen/bar_height"
             android:layout_marginStart="@dimen/bar_side_margin"
             android:layout_marginEnd="@dimen/bar_side_margin"
@@ -89,8 +87,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
@@ -160,8 +156,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/barDates"
         android:visibility="invisible"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="-16dp"
         android:layout_marginBottom="16dp"
         android:orientation="horizontal">

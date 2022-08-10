@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingBottom="100dp"
     android:clipToPadding="false"
+    android:layout_marginStart="@dimen/app_horizontal_margin"
+    android:layout_marginEnd="@dimen/app_horizontal_margin"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_marginStart="@dimen/habit_sides_margin"
-        android:layout_marginEnd="@dimen/habit_sides_margin"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/habit_top_separation"
-            android:layout_marginBottom="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
+            android:layout_marginBottom="@dimen/app_vertical_margin"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -32,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:text="COMPLETED 0%"
                     android:id="@+id/completedPercentageText"
-                    android:textSize="@dimen/title_text_size"/>
+                    android:textSize="@dimen/root_title_text"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,148 +74,14 @@
         <include android:id="@+id/includedWeekCalendar"
             layout="@layout/other_week_calendar"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/day_period_card_length"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:animateLayoutChanges="true"
-                android:orientation="horizontal"
-                android:padding="@dimen/card_inside_view_padding">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:gravity="center"
-                    android:id="@+id/doItAnytimeCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:src="@drawable/calendar_anim"
-                        android:layout_gravity="center"
-                        android:layout_height="@dimen/small_image_view"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:layout_gravity="center"
-                        android:textAllCaps="true"
-                        android:text="@string/anytime"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:id="@+id/doItMorningCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/sunrise_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:text="@string/morning"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:id="@+id/doItAfternoonCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/sun_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/afternoon"
-                        android:textAllCaps="true"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:layout_margin="@dimen/small_card_margin"
-                    android:id="@+id/doItEveningCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/moon_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/evening"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+        <include android:id="@+id/morningCardLayout"
+            layout="@layout/other_morning_cards"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:id="@+id/todayHabitRecycler"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
             android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

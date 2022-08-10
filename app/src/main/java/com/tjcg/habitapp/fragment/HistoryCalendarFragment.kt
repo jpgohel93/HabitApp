@@ -1,29 +1,23 @@
 package com.tjcg.habitapp.fragment
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentHistoryCalendarBinding
-import com.tjcg.habitapp.databinding.OtherWeekdayGraphBinding
+import com.tjcg.habitapp.databinding.OtherWeekdayGraph2Binding
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class HistoryCalendarFragment : Fragment() {
@@ -116,8 +110,8 @@ class HistoryCalendarFragment : Fragment() {
         updateHabitInfoAsPerWeek(habitsFinishedInWholeWeek, perfectDaysThisWeek)
 
         val wBinding = binding.weekGraphLayout
-        wBinding.bars.visibility = View.VISIBLE
-        wBinding.barDates.visibility = View.VISIBLE
+    //    wBinding.bars.visibility = View.VISIBLE
+    //    wBinding.barDates.visibility = View.VISIBLE
         val barHeight = wBinding.day1bar.height
         val commonMargin = 50
 
@@ -127,8 +121,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[0] == 0) {
             wBinding.day1bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams1 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[0].toFloat()/100)).toInt(), 1f)
+            val layoutParams1 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[0].toFloat()/100)).toInt())
             layoutParams1.marginStart = commonMargin
             layoutParams1.marginEnd = commonMargin
             wBinding.day1bar.layoutParams = layoutParams1
@@ -149,8 +143,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[1] == 0) {
             wBinding.day2bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[1].toFloat()/100)).toInt(), 1f)
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[1].toFloat()/100)).toInt())
             layoutParams2.marginStart = commonMargin
             layoutParams2.marginEnd = commonMargin
             wBinding.day2bar.layoutParams = layoutParams2
@@ -171,10 +165,10 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[2] == 0) {
             wBinding.day3bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[2].toFloat()/100)).toInt(), 1f)
-            layoutParams2.marginStart = commonMargin
-            layoutParams2.marginEnd = commonMargin
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[2].toFloat()/100)).toInt())
+      //      layoutParams2.marginStart = commonMargin
+     //       layoutParams2.marginEnd = commonMargin
             wBinding.day3bar.layoutParams = layoutParams2
         }
         wBinding.day3Date.text = barChartDates[2]
@@ -193,8 +187,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[3] == 0) {
             wBinding.day4bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[3].toFloat()/100)).toInt(), 1f)
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[3].toFloat()/100)).toInt())
             layoutParams2.marginStart = commonMargin
             layoutParams2.marginEnd = commonMargin
             wBinding.day4bar.layoutParams = layoutParams2
@@ -216,8 +210,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[4] == 0) {
             wBinding.day5bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[4].toFloat()/100)).toInt(), 1f)
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[4].toFloat()/100)).toInt())
             layoutParams2.marginStart = commonMargin
             layoutParams2.marginEnd = commonMargin
             wBinding.day5bar.layoutParams = layoutParams2
@@ -238,8 +232,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[5] == 0) {
             wBinding.day6bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[5].toFloat()/100)).toInt(), 1f)
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[5].toFloat()/100)).toInt())
             layoutParams2.marginStart = commonMargin
             layoutParams2.marginEnd = commonMargin
             wBinding.day6bar.layoutParams = layoutParams2
@@ -261,8 +255,8 @@ class HistoryCalendarFragment : Fragment() {
         if (barChartOpt[6] == 0) {
             wBinding.day7bar.visibility = View.INVISIBLE
         } else {
-            val layoutParams2 = LinearLayout.LayoutParams(0,
-                (barHeight*(barChartOpt[6].toFloat()/100)).toInt(), 1f)
+            val layoutParams2 = LinearLayout.LayoutParams(Constant.BAR_WIDTH_360,
+                (barHeight*(barChartOpt[6].toFloat()/100)).toInt())
             layoutParams2.marginStart = commonMargin
             layoutParams2.marginEnd = commonMargin
             wBinding.day7bar.layoutParams = layoutParams2
@@ -280,7 +274,7 @@ class HistoryCalendarFragment : Fragment() {
         }
     }
 
-    private fun unselectAllBarChartDates(wBinding: OtherWeekdayGraphBinding) {
+    private fun unselectAllBarChartDates(wBinding: OtherWeekdayGraph2Binding) {
         wBinding.day1Date.isSelected = false
         wBinding.day2Date.isSelected = false
         wBinding.day3Date.isSelected = false

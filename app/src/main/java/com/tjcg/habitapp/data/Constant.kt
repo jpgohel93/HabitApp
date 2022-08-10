@@ -41,6 +41,13 @@ object Constant {
     const val FRIDAY = 6
     const val SATURDAY = 7
 
+    const val CURRENT_TIME_MORNING = 1
+    const val CURRENT_TIME_AFTERNOON = 2
+    const val CURRENT_TIME_EVENING = 3
+
+    const val BAR_WIDTH_360 = 30
+    const val BAR_WIDTH_410 = 50
+
     var dateToday = -1
     var monthToday = -1
     var todayString : String= ""
@@ -139,6 +146,18 @@ object Constant {
             } else {
                 "$hour:$minStr:$secStr"
             }
+        }
+    }
+
+    fun getCurrentTimePeriod() : Int {
+        val cal = Calendar.getInstance()
+        val hour = cal.get(Calendar.HOUR_OF_DAY)
+        return if (hour < 12) {
+            CURRENT_TIME_MORNING
+        } else if (hour < 17) {
+            CURRENT_TIME_AFTERNOON
+        } else {
+            CURRENT_TIME_EVENING
         }
     }
 }

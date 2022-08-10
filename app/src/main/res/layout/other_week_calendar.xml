@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/card_default"
-    android:layout_marginBottom="@dimen/habit_top_separation"
+    android:layout_marginBottom="@dimen/app_vertical_margin"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/habit_top_separation"
-        android:layout_marginStart="@dimen/habit_sides_margin"
-        android:layout_marginEnd="@dimen/habit_sides_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -67,8 +67,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/habit_sides_margin"
-        android:layout_marginEnd="@dimen/habit_sides_margin"
-        android:layout_marginBottom="@dimen/habit_top_separation"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
+        android:layout_marginBottom="@dimen/app_vertical_margin"
         android:id="@+id/weekCalendarRecycler"/>
 </LinearLayout>

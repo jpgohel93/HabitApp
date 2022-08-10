@@ -71,7 +71,7 @@
                     android:text="subText"
                     android:id="@+id/journeyDescription"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/card_view_inside_text_medium"
+                    android:textSize="@dimen/root_regular_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

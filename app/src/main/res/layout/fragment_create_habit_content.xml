@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:clipToPadding="false"
     android:paddingBottom="80dp"
+    android:layout_marginStart="@dimen/app_horizontal_margin"
+    android:layout_marginEnd="@dimen/app_horizontal_margin"
     android:animateLayoutChanges="true"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -14,7 +16,6 @@
         android:orientation="vertical"
         android:animateLayoutChanges="true">
 
-
         <include
             android:id="@+id/repetitionLayout"
             layout="@layout/other_habit_repeatation_setup"/>
@@ -24,27 +25,23 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:textSize="@dimen/habit_card_title_size"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:textSize="@dimen/root_card_title"
             android:text="@string/daily_goal"
-            android:layout_marginStart="@dimen/habit_sides_margin"
             android:textAllCaps="true"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="@dimen/dimen_10dp"
             android:animateLayoutChanges="true"
+            android:paddingStart="@dimen/app_horizontal_margin"
+            android:paddingEnd="@dimen/app_horizontal_margin"
             android:background="@drawable/card_default"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/habit_sides_margin"
-                android:layout_marginEnd="@dimen/habit_sides_margin"
                 android:orientation="horizontal">
 
                 <TextView
@@ -53,7 +50,7 @@
                     android:layout_weight="1"
                     android:text="@string/goal"
                     android:textStyle="bold"
-                    android:textSize="@dimen/card_view_inside_text_medium" />
+                    android:textSize="@dimen/root_regular_text" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                     android:id="@+id/goalSwitch"
@@ -66,8 +63,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/habit_sides_margin"
-                android:layout_marginEnd="@dimen/habit_sides_margin"
                 android:gravity="center"
                 android:visibility="gone">
 
@@ -76,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/duration"
-                    android:textSize="@dimen/card_view_inside_text_medium" />
+                    android:textSize="@dimen/root_regular_text" />
 
                 <NumberPicker
                     android:layout_width="wrap_content"
@@ -104,8 +99,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/habit_sides_margin"
-                android:layout_marginEnd="@dimen/habit_sides_margin"
                 android:gravity="center"
                 android:visibility="gone">
 
@@ -114,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/repeat"
-                    android:textSize="@dimen/card_view_inside_text_medium" />
+                    android:textSize="@dimen/root_regular_text" />
 
                 <NumberPicker
                     android:layout_width="wrap_content"
@@ -129,156 +122,19 @@
             android:text="@string/do_it_at"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textSize="@dimen/habit_card_title_size"
-            android:layout_marginTop="25dp"
-            android:layout_marginStart="@dimen/habit_sides_margin"
+            android:textSize="@dimen/root_card_title"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:layout_height="wrap_content"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView5"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/day_period_card_length"
-            app:cardBackgroundColor="@color/black"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:animateLayoutChanges="true"
-                android:orientation="horizontal"
-                android:padding="@dimen/card_inside_view_padding">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:gravity="center"
-                    android:id="@+id/doItAnytimeCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:src="@drawable/calendar_anim"
-                        android:layout_gravity="center"
-                        android:layout_height="@dimen/small_image_view"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:layout_gravity="center"
-                        android:textAllCaps="true"
-                        android:text="@string/anytime"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:id="@+id/doItMorningCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/sunrise_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:text="@string/morning"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:id="@+id/doItAfternoonCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/sun_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/afternoon"
-                        android:textAllCaps="true"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/morning_card_length"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_marginStart="@dimen/app_margin"
-                    android:layout_marginEnd="@dimen/app_margin"
-                    android:background="@drawable/card_selector"
-                    android:layout_margin="@dimen/small_card_margin"
-                    android:id="@+id/doItEveningCard"
-                    android:orientation="vertical">
-
-                    <pl.droidsonroids.gif.GifImageView
-                        android:layout_width="@dimen/small_image_view"
-                        android:layout_height="@dimen/small_image_view"
-                        android:layout_gravity="center"
-                        android:src="@drawable/moon_anim" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/evening"
-                        android:layout_marginTop="@dimen/morning_card_text_top_margin"
-                        android:textAllCaps="true"
-                        android:textSize="@dimen/small_card_text_size" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+        <include layout="@layout/other_morning_cards"
+            android:id="@+id/morningCardLayout"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/habit_bottom_separation"
+            android:paddingBottom="@dimen/app_vertical_margin"
             android:clipToPadding="false"
             android:animateLayoutChanges="true"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -288,12 +144,12 @@
                 android:animateLayoutChanges="true"
                 android:orientation="vertical"
                 android:visibility="gone"
-                android:layout_marginStart="@dimen/below_card_margin_start_end"
-                android:layout_marginEnd="@dimen/below_card_margin_start_end"
                 android:background="@drawable/card_grey"
                 android:layout_marginTop="@dimen/sub_card_hidden"
                 android:paddingTop="@dimen/sub_card_top_padding"
-                android:paddingBottom="@dimen/habit_bottom_separation"
+                android:layout_marginStart="@dimen/app_horizontal_margin"
+                android:layout_marginEnd="@dimen/app_horizontal_margin"
+                android:paddingBottom="@dimen/app_vertical_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
@@ -302,58 +158,56 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="@dimen/habit_sides_margin"
                     android:layout_marginTop="8dp"
                     android:text="@string/end_on"
+                    android:layout_marginStart="@dimen/app_horizontal_margin"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/card_view_inside_text_medium"
+                    android:textSize="@dimen/root_card_title"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:layout_marginStart="@dimen/app_horizontal_margin"
+                    android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:animateLayoutChanges="true"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/habit_sides_margin"
-                        android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_weight="1"
                         android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/off"
                         android:id="@+id/endOnOff"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_inside_text_large" />
+                        android:textSize="@dimen/root_title_text" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/habit_sides_margin"
-                        android:layout_marginEnd="@dimen/habit_sides_margin"
+                        android:layout_marginStart="@dimen/app_horizontal_margin"
+                        android:layout_marginEnd="@dimen/app_horizontal_margin"
                         android:layout_weight="1"
                         android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/date"
                         android:id="@+id/endOnDate"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_inside_text_large" />
+                        android:textSize="@dimen/root_title_text" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/habit_sides_margin"
-                        android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_weight="1"
                         android:background="@drawable/button_background1_selector"
                         android:gravity="center"
                         android:text="@string/days"
                         android:id="@+id/endOnDays"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_inside_text_large" />
+                        android:textSize="@dimen/root_title_text" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -365,8 +219,6 @@
                 android:animateLayoutChanges="true"
                 android:background="@drawable/card_default"
                 android:orientation="vertical"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -376,8 +228,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginStart="@dimen/habit_sides_margin"
-                    android:layout_marginEnd="@dimen/habit_sides_margin"
+                    android:layout_marginStart="@dimen/app_horizontal_margin"
+                    android:layout_marginEnd="@dimen/app_horizontal_margin"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -390,7 +242,7 @@
                         android:layout_weight="1"
                         android:text="@string/advance_settings"
                         android:textAllCaps="true"
-                        android:textSize="@dimen/habit_card_title_size"
+                        android:textSize="@dimen/root_card_title"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -406,13 +258,13 @@
                     android:orientation="vertical"
                     android:id="@+id/advanceCollapsedView"
                     android:visibility="gone"
+                    android:layout_marginStart="@dimen/app_horizontal_margin"
+                    android:layout_marginEnd="@dimen/app_horizontal_margin"
                     android:animateLayoutChanges="true"
                     android:layout_height="wrap_content">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_marginStart="@dimen/habit_sides_margin"
-                        android:layout_marginEnd="@dimen/habit_sides_margin"
                         android:layout_height="wrap_content">
 
                         <TextView
@@ -420,7 +272,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/reminder"
-                            android:textSize="@dimen/card_view_inside_text_medium"
+                            android:textSize="@dimen/root_regular_text"
                             android:textStyle="bold"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -429,9 +281,8 @@
                             android:id="@+id/reminderText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/habit_bottom_separation"
+                            android:paddingBottom="@dimen/app_vertical_margin"
                             android:text="@string/reminder_sub_text"
-                            android:textSize="@dimen/card_view_inside_text_small"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -451,8 +302,6 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="gone"
-                        android:layout_marginStart="@dimen/habit_sides_margin"
-                        android:layout_marginEnd="@dimen/habit_sides_margin"
                         app:layout_constraintTop_toBottomOf="@+id/reminderText">
 
                         <LinearLayout
@@ -493,15 +342,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/sound_effect"
-                                android:textSize="@dimen/card_view_inside_text_medium" />
+                                android:text="@string/sound_effect" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="@string/default_text"
-                                android:textSize="@dimen/card_view_inside_text_small" />
+                                android:text="@string/default_text" />
 
                             <ImageView
                                 android:layout_width="@dimen/expand_arrow_height"
@@ -513,9 +360,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/habit_top_separation"
-                            android:text="@string/encouragement"
-                            android:textSize="@dimen/card_view_inside_text_medium" />
+                            android:layout_marginTop="@dimen/app_vertical_margin"
+                            android:text="@string/encouragement" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -526,8 +372,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:hint="@string/encouragement_hint"
-                                android:textSize="@dimen/card_view_inside_text_small" />
+                                android:hint="@string/encouragement_hint" />
 
                             <ImageView
                                 android:layout_width="@dimen/edit_pen_size"

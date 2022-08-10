@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:text="@string/journey_title"
-            android:textSize="@dimen/title_text_size"
+            android:textSize="@dimen/root_title_text"
             android:layout_marginTop="16dp"
             android:textStyle="bold"
             android:layout_marginStart="@dimen/journey_sides_margin"
@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_sub_title_size"
+            android:textSize="@dimen/root_regular_text"
             android:layout_marginStart="@dimen/journey_sides_margin"
             android:layout_marginEnd="@dimen/journey_sides_margin"
             android:text="@string/journey_heading"/>
@@ -36,7 +36,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/activity_sub_title_size"
+            android:textSize="@dimen/root_regular_text"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="@dimen/journey_sides_margin"

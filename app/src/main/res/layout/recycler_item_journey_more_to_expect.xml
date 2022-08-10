@@ -20,6 +20,5 @@
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:text="@string/default_habit_title"
-        android:id="@+id/expectationText"
-        android:textSize="@dimen/card_view_inside_text_small"/>
+        android:id="@+id/expectationText" />
 </LinearLayout>

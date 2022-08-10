@@ -20,7 +20,7 @@
     <color name="light_bg">#f4f5f6</color>
     <color name="button_bg">#383838</color>
 
-    <color name="light_grey">#686868</color>
+    <color name="light_grey">#AAA</color>
     <color name="dark_grey">#5C5959</color>
     <color name="transparent">#00000000</color>
     <color name="black_20">#33000000</color>

@@ -20,7 +20,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:textStyle="bold"
-            android:textSize="@dimen/activity_title_size"/>
+            android:textSize="@dimen/root_regular_text"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

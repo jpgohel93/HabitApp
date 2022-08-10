@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/morning_root_card_length"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/black"
+    app:cardCornerRadius="@dimen/regular_card_radius">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        android:padding="@dimen/morning_card_root_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/morning_card_length"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/morning_card_side_margin"
+            android:layout_marginEnd="@dimen/morning_card_side_margin"
+            android:background="@drawable/card_selector"
+            android:gravity="center"
+            android:id="@+id/doItAnytimeCard"
+            android:orientation="vertical">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/morning_card_gif_size"
+                android:layout_height="@dimen/morning_card_gif_size"
+                android:src="@drawable/calendar_anim"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/morning_card_text_top_margin"
+                android:layout_gravity="center"
+                android:textAllCaps="true"
+                android:text="@string/anytime"
+                android:textSize="@dimen/morning_card_text_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_height="@dimen/morning_card_length"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/morning_card_side_margin"
+            android:layout_marginEnd="@dimen/morning_card_side_margin"
+            android:background="@drawable/card_selector"
+            android:id="@+id/doItMorningCard"
+            android:orientation="vertical">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/morning_card_gif_size"
+                android:layout_height="@dimen/morning_card_gif_size"
+                android:layout_gravity="center"
+                android:src="@drawable/sunrise_anim" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/morning_card_text_top_margin"
+                android:text="@string/morning"
+                android:textAllCaps="true"
+                android:textSize="@dimen/morning_card_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/morning_card_length"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/morning_card_side_margin"
+            android:layout_marginEnd="@dimen/morning_card_side_margin"
+            android:background="@drawable/card_selector"
+            android:id="@+id/doItAfternoonCard"
+            android:orientation="vertical">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/morning_card_gif_size"
+                android:layout_height="@dimen/morning_card_gif_size"
+                android:layout_gravity="center"
+                android:src="@drawable/sun_anim" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/afternoon"
+                android:textAllCaps="true"
+                android:layout_marginTop="@dimen/morning_card_text_top_margin"
+                android:textSize="@dimen/morning_card_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="@dimen/morning_card_length"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/morning_card_side_margin"
+            android:layout_marginEnd="@dimen/morning_card_side_margin"
+            android:background="@drawable/card_selector"
+            android:layout_margin="@dimen/small_card_margin"
+            android:id="@+id/doItEveningCard"
+            android:orientation="vertical">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/morning_card_gif_size"
+                android:layout_height="@dimen/morning_card_gif_size"
+                android:layout_gravity="center"
+                android:src="@drawable/moon_anim" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/evening"
+                android:layout_marginTop="@dimen/morning_card_text_top_margin"
+                android:textAllCaps="true"
+                android:textSize="@dimen/morning_card_text_size" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

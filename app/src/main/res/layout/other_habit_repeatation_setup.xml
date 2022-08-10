@@ -11,8 +11,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/habit_sides_margin"
-        android:layout_marginEnd="@dimen/habit_sides_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -22,7 +20,7 @@
             android:layout_weight="1"
             android:textAllCaps="true"
             android:text="@string/repeatation_caps"
-            android:textSize="@dimen/habit_card_title_size"
+            android:textSize="@dimen/root_card_title"
             android:textStyle="bold" />
 
         <ImageView
@@ -50,8 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginStart="17dp"
-            android:layout_marginEnd="18dp"
             android:id="@+id/repeatationWeekdaysLayout">
 
             <CheckBox
@@ -157,7 +153,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/habit_sides_margin"
+            android:layout_marginStart="@dimen/app_horizontal_margin"
             android:id="@+id/perDayRepeatationText" />
 
     </LinearLayout>
@@ -175,7 +171,7 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:background="@drawable/card_default"
             android:padding="@dimen/root_view_padding"
             android:layout_height="wrap_content">
@@ -295,7 +291,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:animateLayoutChanges="true"
             android:background="@drawable/card_default"
             android:layout_height="wrap_content">
@@ -308,7 +304,7 @@
                 android:layout_marginTop="16dp"
                 android:text="X days per week"
                 android:paddingBottom="16dp"
-                android:textSize="@dimen/card_view_inside_text_small"
+                android:textSize="@dimen/root_regular_text"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -339,8 +335,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/daysPerWeekText"
-                    android:textSize="@dimen/card_view_inside_text_tiny" />
+                    android:id="@+id/daysPerWeekText" />
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
@@ -434,7 +429,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/card_default"
             android:animateLayoutChanges="true"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:layout_height="wrap_content">
 
             <TextView
@@ -445,7 +440,7 @@
                 android:layout_marginTop="16dp"
                 android:text="X days per Month"
                 android:paddingBottom="16dp"
-                android:textSize="@dimen/card_view_inside_text_small"
+                android:textSize="@dimen/root_regular_text"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -477,8 +472,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 day per month"
-                    android:id="@+id/monthDayPickerText"
-                    android:textSize="@dimen/card_view_inside_text_tiny" />
+                    android:id="@+id/monthDayPickerText" />
                 <NumberPicker
                     android:id="@+id/monthDayPicker"
                     android:layout_width="match_parent"
@@ -491,7 +485,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/card_default"
             android:animateLayoutChanges="true"
-            android:layout_marginTop="@dimen/habit_top_separation"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:layout_height="wrap_content">
 
             <TextView
@@ -502,7 +496,7 @@
                 android:layout_marginTop="16dp"
                 android:text="X days per week"
                 android:paddingBottom="16dp"
-                android:textSize="@dimen/card_view_inside_text_small"
+                android:textSize="@dimen/root_regular_text"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -534,8 +528,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1 day per Year"
-                    android:id="@+id/yearDayPickerText"
-                    android:textSize="@dimen/card_view_inside_text_tiny" />
+                    android:id="@+id/yearDayPickerText" />
 
                 <NumberPicker
                     android:id="@+id/yearDayPicker"
