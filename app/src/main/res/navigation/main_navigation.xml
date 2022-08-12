@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_navigation_profile_to_feedbackFragment"
             app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_navigation_profile_to_myProfileNotificationFragment"
+            app:destination="@id/myProfileNotificationFragment" />
     </fragment>
 
     <fragment android:id="@+id/navigation_profile_g_settings"
@@ -108,4 +111,9 @@
         android:name="com.tjcg.habitapp.fragment.IconListFragment"
         tools:layout="@layout/fragment_icon_select"
         android:label="IconListFragment" />
+    <fragment
+        android:id="@+id/myProfileNotificationFragment"
+        android:name="com.tjcg.habitapp.fragment.MyProfileNotificationFragment"
+        tools:layout="@layout/fragment_my_profile_notification"
+        android:label="MyProfileNotificationFragment" />
 </navigation>

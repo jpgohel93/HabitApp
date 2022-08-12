@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingBottom="100dp"
+    android:clipToPadding="false"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MY PROFILE - NOTIFICATION"
+            android:textSize="@dimen/root_title_text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Global Reminders"
+            android:textSize="@dimen/root_regular_text"/>
+
+        <include android:id="@+id/globalReminderLayout"
+            layout="@layout/other_notification_settings"/>
+
+        <include android:id="@+id/morningReminderLayout"
+            layout="@layout/other_notification_settings"/>
+
+        <include android:id="@+id/afternoonReminderLayout"
+            layout="@layout/other_notification_settings"/>
+
+        <include android:id="@+id/eveningReminderLayout"
+            layout="@layout/other_notification_settings"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

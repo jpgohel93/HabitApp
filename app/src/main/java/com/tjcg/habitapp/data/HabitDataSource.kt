@@ -1,13 +1,18 @@
 package com.tjcg.habitapp.data
 
 import android.content.Context
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import kotlinx.coroutines.*
+import java.io.File
+import java.io.IOException
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -19,6 +24,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
 
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var viewModel : HabitViewModel
+    private lateinit var storageDir : File
 
     private val mainHandler by lazy {
         Handler(Looper.getMainLooper())
@@ -26,6 +32,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
 
     fun setupViewModel(ctx: Context) {
         viewModel = ViewModelProvider(ctx as MainActivity)[HabitViewModel::class.java]
+        storageDir = ctx.getExternalFilesDir("Data")!!
     }
 
     fun provideViewModel() = viewModel
@@ -171,6 +178,27 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
             } else {
                 Log.e("updateHabitCount", "Habit with id $habitID not found")
             }
+        }
+    }
+
+    fun saveNotificationData(notificationData: NotificationData) {
+        val gson = Gson()
+        val typeT = object : TypeToken<NotificationData>() { }
+        val dataInJson = gson.toJson(notificationData, typeT.type)
+        val outputFile = File(storageDir, Constant.notificationDataFile)
+        outputFile.writeText(dataInJson)
+        Log.d("NotificationData","Written to $outputFile")
+    }
+
+    fun getNotificationData() : NotificationData? {
+        val gson = Gson()
+        val typeT = object : TypeToken<NotificationData>() { }
+        return try {
+            val inputFile = File(storageDir, Constant.notificationDataFile)
+            val jsonData = inputFile.readText()
+            gson.fromJson(jsonData, typeT.type)
+        } catch (e: IOException) {
+            null
         }
     }
 }

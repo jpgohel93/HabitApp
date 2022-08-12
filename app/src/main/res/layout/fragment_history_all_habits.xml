@@ -9,30 +9,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/active"
-            android:layout_marginTop="8dp"
             android:textAllCaps="true"
             android:textSize="@dimen/root_regular_text"
-            android:layout_marginStart="@dimen/history_appbar_sides_margin"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/anytime"
-            android:layout_marginStart="@dimen/history_appbar_sides_margin"
             android:textSize="@dimen/root_regular_text"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardCornerRadius="@dimen/regular_card_radius"
-            android:layout_margin="@dimen/root_view_padding"
             android:id="@+id/anyTimeEmptyCard"
+            android:layout_marginTop="@dimen/app_vertical_margin"
+            android:layout_marginBottom="@dimen/app_vertical_margin"
             android:visibility="gone"
             android:layout_height="wrap_content">
 
@@ -48,19 +48,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/anytimeHabitRecycler"
+            android:layout_marginBottom="@dimen/app_vertical_margin"
             android:layout_height="wrap_content"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/morning"
-            android:layout_marginStart="@dimen/history_appbar_sides_margin"
             android:textSize="@dimen/root_regular_text"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardCornerRadius="@dimen/regular_card_radius"
-            android:layout_margin="@dimen/root_view_padding"
             android:visibility="gone"
             android:id="@+id/morningEmptyCard"
             android:layout_height="wrap_content">
@@ -82,14 +81,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:text="@string/afternoon"
-            android:layout_marginStart="@dimen/history_appbar_sides_margin"
             android:textSize="@dimen/root_regular_text"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardCornerRadius="@dimen/regular_card_radius"
-            android:layout_margin="@dimen/root_view_padding"
             android:visibility="gone"
             android:id="@+id/afternoonEmptyCard"
             android:layout_height="wrap_content">
@@ -112,13 +110,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/evening"
-            android:layout_marginStart="@dimen/history_appbar_sides_margin"
+            android:layout_marginTop="@dimen/app_vertical_margin"
             android:textSize="@dimen/root_regular_text"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             app:cardCornerRadius="@dimen/regular_card_radius"
-            android:layout_margin="@dimen/root_view_padding"
             android:visibility="gone"
             android:id="@+id/eveningEmptyCard"
             android:layout_height="wrap_content">

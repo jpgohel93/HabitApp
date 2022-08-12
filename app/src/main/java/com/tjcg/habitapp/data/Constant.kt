@@ -52,6 +52,8 @@ object Constant {
     var monthToday = -1
     var todayString : String= ""
 
+    var notificationDataFile = "NOTIFICATION_SETTINGS"
+
     fun generateDateString(cal : Calendar) : String {
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
@@ -128,6 +130,19 @@ object Constant {
         }
     }
 
+    fun provideDaysInTwoLetters(day: Int) :String {
+        return when(day) {
+            1 -> "Su"
+            2 -> "Mo"
+            3 -> "Tu"
+            4 -> "We"
+            5 -> "Th"
+            6 -> "Fr"
+            7 -> "Sa"
+            else -> "Er"
+        }
+    }
+
     fun convertSecondsToText(secs: Int, talkable: Boolean = false) : String {
         val hour = secs / 3600
         val min = (secs % 3600) / 60
@@ -160,4 +175,5 @@ object Constant {
             CURRENT_TIME_EVENING
         }
     }
+
 }

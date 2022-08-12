@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/card_default"
+    android:layout_marginTop="@dimen/app_vertical_margin"
+    android:padding="@dimen/app_horizontal_margin"
+    android:animateLayoutChanges="true"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:id="@+id/notificationTitle"
+            android:textSize="@dimen/root_regular_text"
+            android:text="Global Reminders"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:id="@+id/reminderSwitch"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/reminder_button_size"
+        android:visibility="gone"
+        android:id="@+id/setButtonLayout"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="23:59"
+            android:id="@+id/timeButton"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/card_black"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Everyday"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/daysButton"
+            android:layout_marginStart="@dimen/app_horizontal_margin"
+            android:gravity="center"
+            android:background="@drawable/card_black"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/timePickerLayout"
+        android:orientation="horizontal">
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:id="@+id/hourPicker"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:layout_marginStart="@dimen/app_horizontal_margin"
+            android:layout_marginEnd="@dimen/app_horizontal_margin"
+            android:textSize="@dimen/root_title_text"/>
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:id="@+id/minutePicker"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:id="@+id/repeatationWeekdaysLayout">
+
+        <CheckBox
+            android:id="@+id/sun"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:textSize="@dimen/checkbox_text_size"
+            android:text="S"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/mon"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="M"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/tue"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="T"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/wed"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="W"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/thu"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="T"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/fri"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="F"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <CheckBox
+            android:id="@+id/sat"
+            android:layout_width="@dimen/weekday_button_size"
+            android:layout_height="@dimen/weekday_button_size"
+            android:layout_margin="@dimen/weekday_button_margin"
+            android:layout_weight="1"
+            android:background="@drawable/checkbox_background"
+            android:button="@null"
+            android:text="S"
+            android:textSize="@dimen/checkbox_text_size"
+            android:checked="true"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</LinearLayout>

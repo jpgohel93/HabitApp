@@ -113,6 +113,10 @@ class MyProfileMainFragment : Fragment() {
             holder.binding.opText.text = options[position].text
             holder.binding.myProfileOptionLayout.setOnClickListener {
                 when(position) {
+                    POS_NOTIFICATION -> {
+                        findNavController().navigate(
+                            R.id.action_navigation_profile_to_myProfileNotificationFragment)
+                    }
                     POS_G_SETTINGS -> {
                         findNavController().navigate(
                             R.id.action_navigation_profile_to_navigation_profile_g_settings)

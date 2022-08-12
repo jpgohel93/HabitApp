@@ -57,4 +57,29 @@
     <dimen name="bar_width">18dp</dimen>
     <dimen name="bar_side_margin">15dp</dimen>
     <dimen name="bar_text">20sp</dimen>
+
+    <!-- history habit list screen -->
+    <dimen name="habit_icon_in_grid">175dp</dimen>
+    <dimen name="habit_icon_awesome_size">80sp</dimen>
+    <dimen name="habit_icon_awesome_padding">24dp</dimen>
+    <dimen name="habit_icon_title_size">22sp</dimen>
+    <dimen name="habit_icon_grid_margin">8dp</dimen>
+
+
+    <!-- history achievement screen -->
+    <dimen name="achievement_art_background_height">136dp</dimen>
+    <dimen name="achievement_art_width">300dp</dimen>
+    <dimen name="achievement_art_height">150dp</dimen>
+    <dimen name="achievement_art_top_margin">-10dp</dimen>
+    <dimen name="achievement_tabA_width">180dp</dimen>
+    <dimen name="achievement_tabA_horizontal_margin">16dp</dimen>
+    <dimen name="achievement_tabA_vertical_margin">4dp</dimen>
+    <dimen name="achievement_tabA_end_padding">32dp</dimen>
+    <dimen name="history_achievement_tabs_text_size">16sp</dimen>
+    <dimen name="history_achievement_tabs_count_text">35sp</dimen>
+    <dimen name="history_achievement_archived_text">12sp</dimen>
+    <dimen name="history_achievement_archived_top_margin">-18dp</dimen>
+
+    <dimen name="achievement_badge_text">12sp</dimen>
+    <dimen name="achievement_badge_size">100dp</dimen>
 </resources>
