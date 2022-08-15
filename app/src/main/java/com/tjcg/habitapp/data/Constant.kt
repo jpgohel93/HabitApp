@@ -53,6 +53,7 @@ object Constant {
     var todayString : String= ""
 
     var notificationDataFile = "NOTIFICATION_SETTINGS"
+    var timePeriodDataFile = "TIME_PERIOD_DATA"
 
     fun generateDateString(cal : Calendar) : String {
         val year = cal.get(Calendar.YEAR)
@@ -164,16 +165,52 @@ object Constant {
         }
     }
 
-    fun getCurrentTimePeriod() : Int {
+    fun convertTimeDigitToText(time: Int) : String {
+        val timeStr = time.toString()
+        return if (timeStr.length == 1) {
+            "0$time"
+        } else {
+            timeStr
+        }
+    }
+
+    fun getCurrentTimePeriod(timePeriodData: TimePeriodData) : Int {
         val cal = Calendar.getInstance()
         val hour = cal.get(Calendar.HOUR_OF_DAY)
-        return if (hour < 12) {
-            CURRENT_TIME_MORNING
-        } else if (hour < 17) {
-            CURRENT_TIME_AFTERNOON
-        } else {
-            CURRENT_TIME_EVENING
+        val minute = cal.get(Calendar.MINUTE)
+        var period = CURRENT_TIME_MORNING
+        if (hour == timePeriodData.timePeriodAfternoon[0]) {
+            period = if(minute >= timePeriodData.timePeriodAfternoon[1]) {
+               CURRENT_TIME_AFTERNOON
+            } else {
+                CURRENT_TIME_MORNING
+            }
+            return period
         }
+        if (hour == timePeriodData.timePeriodEvening[0]) {
+            period = if ( minute >= timePeriodData.timePeriodEvening[1]) {
+                CURRENT_TIME_EVENING
+            } else {
+                CURRENT_TIME_AFTERNOON
+            }
+            return period
+        }
+        if (hour == timePeriodData.timePeriodEnd[0]) {
+            period = if (minute < timePeriodData.timePeriodEnd[1]) {
+                CURRENT_TIME_EVENING
+            } else {
+                CURRENT_TIME_MORNING
+            }
+        }
+        if (hour > timePeriodData.timePeriodAfternoon[0] &&
+                hour < timePeriodData.timePeriodEvening[0]) {
+            return CURRENT_TIME_AFTERNOON
+        }
+        if (hour > timePeriodData.timePeriodEvening[0] &&
+                hour < timePeriodData.timePeriodEnd[0]) {
+            return CURRENT_TIME_EVENING
+        }
+        return period
     }
 
 }

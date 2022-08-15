@@ -339,7 +339,7 @@ class TodayFragment : Fragment() {
             binding.todayHabitRecycler.adapter = HabitAdapter(eveningHabits, future)
         }
         // show habit as per current time
-        when(Constant.getCurrentTimePeriod()) {
+        when(Constant.getCurrentTimePeriod(dataSource.getTimePeriodData() ?: TimePeriodData())) {
             Constant.CURRENT_TIME_MORNING -> {
                 mBinding.doItMorningCard.performClick()
             }

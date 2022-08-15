@@ -2,29 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="@dimen/app_vertical_margin"
+    android:layout_marginStart="@dimen/app_horizontal_margin"
+    android:layout_marginEnd="@dimen/app_horizontal_margin"
     android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:text="@string/options_general_settings"
-        android:textSize="@dimen/root_regular_text"
+        android:textSize="@dimen/root_title_text"
         android:textAllCaps="true"
-        android:layout_marginTop="24dp"
         android:textStyle="bold"
-        android:layout_marginStart="24dp"
         android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_default"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
-        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
-        android:paddingStart="@dimen/g_settings_card_sides_padding"
-        android:paddingEnd="@dimen/g_settings_card_sides_padding"
-        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
-        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:id="@+id/timePeriodLayout"
+        android:layout_marginTop="@dimen/app_vertical_margin"
+        android:padding="@dimen/app_horizontal_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -45,14 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/card_default"
-        android:layout_marginTop="12dp"
-        android:animateLayoutChanges="true"
-        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
-        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
-        android:paddingStart="@dimen/g_settings_card_sides_padding"
-        android:paddingEnd="@dimen/g_settings_card_sides_padding"
-        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
-        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:padding="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
         android:orientation="vertical">
 
         <LinearLayout
@@ -89,13 +80,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_default"
         android:id="@+id/privacy_policy_card"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
-        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
-        android:paddingStart="@dimen/g_settings_card_sides_padding"
-        android:paddingEnd="@dimen/g_settings_card_sides_padding"
-        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
-        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:padding="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
         android:orientation="horizontal">
 
         <TextView
@@ -117,13 +103,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_pink"
         android:id="@+id/deleteDataCard"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="@dimen/g_settings_card_sided_margin"
-        android:layout_marginEnd="@dimen/g_settings_card_sided_margin"
-        android:paddingStart="@dimen/g_settings_card_sides_padding"
-        android:paddingEnd="@dimen/g_settings_card_sides_padding"
-        android:paddingTop="@dimen/g_settings_card_top_bottom_padding"
-        android:paddingBottom="@dimen/g_settings_card_top_bottom_padding"
+        android:padding="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
         android:orientation="horizontal">
 
         <TextView

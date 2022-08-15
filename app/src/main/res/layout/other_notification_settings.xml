@@ -89,6 +89,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:visibility="gone"
+        android:layout_marginTop="@dimen/app_vertical_margin"
         android:id="@+id/repeatationWeekdaysLayout">
 
         <CheckBox

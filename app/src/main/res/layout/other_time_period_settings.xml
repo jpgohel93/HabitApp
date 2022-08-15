@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/timePeriodCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/app_vertical_margin"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/card_default">
+
+    <TextView
+        android:id="@+id/periodTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
+        android:text="Morning"
+        android:textSize="@dimen/root_title_text"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/app_vertical_margin"
+        android:text="08:00 - 14:00"
+        android:textSize="@dimen/root_regular_text"
+        app:layout_constraintStart_toStartOf="@+id/periodTitle"
+        app:layout_constraintTop_toBottomOf="@+id/periodTitle" />
+
+    <LinearLayout
+        android:id="@+id/timeAdjustLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/app_vertical_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/timeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/periodTitle">
+
+        <TextView
+            android:id="@+id/timeAdjustText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start at 08:00"
+            android:textSize="@dimen/root_title_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="@dimen/time_period_arrow_size"
+            android:layout_height="@dimen/time_period_arrow_size"
+            android:layout_gravity="center"
+            android:src="@drawable/arrow" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/saveButton"
+        android:layout_width="@dimen/save_button_width"
+        android:layout_height="@dimen/save_button_height"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
+        android:background="@drawable/button_light_outline"
+        android:gravity="center"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/root_title_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/timeText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/periodTitle" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:theme="@style/Theme.AppCompat"
+        android:timePickerMode="spinner"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/timeWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/app_vertical_margin"
+        android:text="should be lower that next card"
+        android:textSize="@dimen/root_regular_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

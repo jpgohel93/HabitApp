@@ -13,6 +13,7 @@ import com.tjcg.habitapp.viewmodel.HabitViewModel
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
+import java.sql.Time
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,6 +26,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     private val mainScope = CoroutineScope(Dispatchers.Main)
     private lateinit var viewModel : HabitViewModel
     private lateinit var storageDir : File
+    private lateinit var gson: Gson
 
     private val mainHandler by lazy {
         Handler(Looper.getMainLooper())
@@ -33,6 +35,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     fun setupViewModel(ctx: Context) {
         viewModel = ViewModelProvider(ctx as MainActivity)[HabitViewModel::class.java]
         storageDir = ctx.getExternalFilesDir("Data")!!
+        gson = Gson()
     }
 
     fun provideViewModel() = viewModel
@@ -182,7 +185,6 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     }
 
     fun saveNotificationData(notificationData: NotificationData) {
-        val gson = Gson()
         val typeT = object : TypeToken<NotificationData>() { }
         val dataInJson = gson.toJson(notificationData, typeT.type)
         val outputFile = File(storageDir, Constant.notificationDataFile)
@@ -191,7 +193,6 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     }
 
     fun getNotificationData() : NotificationData? {
-        val gson = Gson()
         val typeT = object : TypeToken<NotificationData>() { }
         return try {
             val inputFile = File(storageDir, Constant.notificationDataFile)
@@ -199,6 +200,25 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
             gson.fromJson(jsonData, typeT.type)
         } catch (e: IOException) {
             null
+        }
+    }
+
+    fun saveTimePeriodData(timePeriodData: TimePeriodData) {
+        val typeT = object : TypeToken<TimePeriodData>() { }
+        val dataInJson = gson.toJson(timePeriodData, typeT.type)
+        val outputFile = File(storageDir, Constant.timePeriodDataFile)
+        outputFile.writeText(dataInJson)
+        Log.d("TimePeriodData","Written to $outputFile")
+    }
+
+    fun getTimePeriodData() : TimePeriodData? {
+        val typeT = object : TypeToken<TimePeriodData>() { }
+        return try {
+            val inputFile = File(storageDir, Constant.timePeriodDataFile)
+            val jsonData = inputFile.readText()
+            gson.fromJson(jsonData, typeT.type)
+        } catch (e: IOException) {
+            return null
         }
     }
 }

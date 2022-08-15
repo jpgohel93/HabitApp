@@ -25,9 +25,14 @@ class MyProfileGeneralSettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        MainActivity.hideBottomNavigation()
         binding = FragmentMyProfileGeneralSettingsBinding.inflate(
             inflater, container, false)
         deleteDialog = DeleteDialog.getInstance()
+        binding.timePeriodLayout.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_navigation_profile_g_settings_to_myProfileTimePeriodSettings)
+        }
         binding.firstDayExpandLayout.setOnClickListener {
             if (isFirstDayExpanded) {
                 MainActivity.rotateWhileCollapse(binding.firstDayArrow)

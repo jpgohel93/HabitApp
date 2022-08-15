@@ -4,8 +4,7 @@
     android:background="@drawable/card_default"
     android:padding="12dp"
     android:id="@+id/my_profile_option_layout"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="@dimen/app_vertical_margin"
     android:layout_height="wrap_content">
 
     <ImageView
@@ -21,8 +20,8 @@
         android:layout_width="wrap_content"
         android:text="@string/option_share"
         android:id="@+id/opText"
-        android:layout_marginStart="24dp"
-        android:textSize="20sp"
+        android:layout_marginStart="@dimen/backup_card_padding"
+        android:textSize="@dimen/root_title_text"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_height="wrap_content"/>

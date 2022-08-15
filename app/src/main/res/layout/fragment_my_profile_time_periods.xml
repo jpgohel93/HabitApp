@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="100dp"
+    android:clipToPadding="false"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="@dimen/app_horizontal_margin"
+        android:layout_marginTop="@dimen/app_vertical_margin"
+        android:layout_marginEnd="@dimen/app_horizontal_margin"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/timePeriodTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Periods"
+            android:textAllCaps="true"
+            android:textSize="@dimen/root_title_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include android:id="@+id/morning_period_card"
+            layout="@layout/other_time_period_settings"/>
+
+        <include android:id="@+id/afternoon_period_card"
+            layout="@layout/other_time_period_settings"/>
+
+        <include android:id="@+id/evening_period_card"
+            layout="@layout/other_time_period_settings"/>
+
+        <include android:id="@+id/day_end_period_card"
+            layout="@layout/other_time_period_settings"/>
+    </LinearLayout>
+</ScrollView>

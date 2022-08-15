@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_navigation_profile_g_settings_to_navigation_privacy_policy"
             app:destination="@id/navigation_privacy_policy" />
+        <action
+            android:id="@+id/action_navigation_profile_g_settings_to_myProfileTimePeriodSettings"
+            app:destination="@id/myProfileTimePeriodSettings" />
     </fragment>
 
     <fragment android:id="@+id/navigation_privacy_policy"
@@ -116,4 +119,9 @@
         android:name="com.tjcg.habitapp.fragment.MyProfileNotificationFragment"
         tools:layout="@layout/fragment_my_profile_notification"
         android:label="MyProfileNotificationFragment" />
+    <fragment
+        android:id="@+id/myProfileTimePeriodSettings"
+        android:name="com.tjcg.habitapp.fragment.MyProfileTimePeriodSettings"
+        tools:layout="@layout/fragment_my_profile_time_periods"
+        android:label="MyProfileTimePeriodSettings" />
 </navigation>
