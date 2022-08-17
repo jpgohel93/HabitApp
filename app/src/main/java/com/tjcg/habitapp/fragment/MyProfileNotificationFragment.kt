@@ -41,6 +41,7 @@ class MyProfileNotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileNotificationBinding.inflate(inflater, container,false)
         MainActivity.hideBottomNavigation()
         notificationData = dataSource.getNotificationData() ?: NotificationData()

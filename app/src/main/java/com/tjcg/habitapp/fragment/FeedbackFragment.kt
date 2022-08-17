@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.tjcg.habitapp.MainActivity
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentFeedbackBinding
 
 class FeedbackFragment : Fragment() {
@@ -22,6 +24,7 @@ class FeedbackFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx= findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentFeedbackBinding.inflate(
             inflater, container, false)
         binding.sendBtn.setOnClickListener {

@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentGoPremiumBinding
 import com.tjcg.habitapp.databinding.RecyclerItemSubscriptionDetailBinding
 
@@ -24,6 +26,7 @@ class GoPremiumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentGoPremiumBinding.inflate(
             inflater, container, false
         )

@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentHistoryMainBinding
 
 class HistoryMainFragment : Fragment(), View.OnClickListener {
@@ -28,6 +32,7 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_3
         binding = FragmentHistoryMainBinding.inflate(inflater,
             container, false)
         tab1 = binding.tabs.tab1

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.DialogDeleteAllBinding
 import com.tjcg.habitapp.databinding.FragmentMyProfileGeneralSettingsBinding
 
@@ -26,6 +27,7 @@ class MyProfileGeneralSettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         MainActivity.hideBottomNavigation()
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileGeneralSettingsBinding.inflate(
             inflater, container, false)
         deleteDialog = DeleteDialog.getInstance()

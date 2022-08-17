@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentHabitPresetsBinding
 
 
@@ -30,6 +31,7 @@ class HabitPresetsFragment : Fragment() {
             MainActivity.hideBottomNavigation()
         }
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHabitPresetsBinding.inflate(inflater, container, false)
         selectCategoryCard(CATEGORY_REGULAR)
         binding.regularHabitCard.setOnClickListener {

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
@@ -38,6 +39,7 @@ class MyProfileTimePeriodSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileTimePeriodsBinding.inflate(inflater, container, false)
         periodData = dataSource.getTimePeriodData() ?: TimePeriodData()
         setCardValues(binding.morningPeriodCard, CARD_MORNING)

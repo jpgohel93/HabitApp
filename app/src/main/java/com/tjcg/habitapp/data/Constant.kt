@@ -8,7 +8,6 @@ import android.hardware.display.DisplayManager
 import android.os.Build
 import android.util.Log
 import android.view.WindowManager
-import androidx.core.content.ContextCompat.getSystemService
 import com.tjcg.habitapp.MainActivity
 import java.util.*
 
@@ -18,6 +17,7 @@ object Constant {
     const val PAGE_2 = 2
     const val PAGE_3 = 3
     const val PAGE_4 = 4
+    const val PAGE_IN = 5
 
     const val HABIT_REPEAT_AS_WEEKDAY = 1
     const val HABIT_REPEAT_IN_WEEK = 2

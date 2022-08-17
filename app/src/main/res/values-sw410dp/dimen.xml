@@ -95,4 +95,17 @@
 
     <!-- my profile notification -->
     <dimen name="reminder_button_size">50dp</dimen>
+
+    <!-- journey main Screen -->
+    <dimen name="journey_black_card_title_size">27sp</dimen>
+    <dimen name="journey_black_card_logo_size">230dp</dimen>
+    <dimen name="journey_black_card_title_width">180dp</dimen>
+    <dimen name="journey_black_card_text_top_margin">50dp</dimen>
+    <dimen name="journey_black_card_text_start_margin">32dp</dimen>
+    <dimen name="journey_white_card_logo_size">95dp</dimen>
+    <dimen name="journey_white_card_logo_margin">10dp</dimen>
+    <dimen name="journey_white_card_logo_padding">4dp</dimen>
+    <dimen name="journey_white_card_title_size">22sp</dimen>
+    <dimen name="journey_white_card_next_button_size">40dp</dimen>
+
 </resources>

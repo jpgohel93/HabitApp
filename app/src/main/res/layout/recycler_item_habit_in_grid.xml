@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:background="@drawable/card_default"
     android:padding="@dimen/habit_icon_grid_margin"
+    android:id="@+id/habitInGrid"
     android:layout_margin="@dimen/habit_icon_grid_margin"
     android:layout_height="@dimen/habit_icon_in_grid">
 

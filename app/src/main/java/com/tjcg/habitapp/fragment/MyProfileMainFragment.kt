@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentMyProfileMainBinding
 import com.tjcg.habitapp.databinding.RecyclerItemMyProfileOptionBinding
 
@@ -39,6 +40,7 @@ class MyProfileMainFragment : Fragment() {
         if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
+        MainActivity.currentPage = Constant.PAGE_4
         binding = FragmentMyProfileMainBinding.inflate(
             inflater, container, false)
         generateProfileOptions(binding.myProfileOptionsRecycler)

@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tjcg.habitapp.MainActivity
+import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.Habit
 import com.tjcg.habitapp.data.HabitDataSource
@@ -33,6 +35,7 @@ class HistoryAllHabitsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryAllHabitsBinding.inflate(
             inflater, container, false
         )
@@ -94,6 +97,12 @@ class HistoryAllHabitsFragment : Fragment() {
             holder.binding.habitTitle.text = habit.title
             holder.binding.habitTitle.isSelected = true
             holder.binding.habitIcon.text = habit.icon
+            holder.binding.habitInGrid.setOnClickListener {
+                MainActivity.hideBottomNavigation()
+                CreateNewHabitFragment.editHabit = true
+                CreateNewHabitFragment.editHabitId = habit.id
+                findNavController().navigate(R.id.navigation_new_habit)
+            }
         }
 
         override fun getItemCount(): Int = habits.size

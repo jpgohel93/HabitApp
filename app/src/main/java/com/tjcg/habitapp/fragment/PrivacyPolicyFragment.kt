@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.tjcg.habitapp.MainActivity
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentPrivacyPolicyBinding
 
 class PrivacyPolicyFragment : Fragment() {
@@ -19,6 +21,7 @@ class PrivacyPolicyFragment : Fragment() {
     ): View {
         binding = FragmentPrivacyPolicyBinding.inflate(
             inflater, container, false)
+        MainActivity.currentPage = Constant.PAGE_IN
         binding.closeBtn.setOnClickListener {
             findNavController().navigateUp()
         }

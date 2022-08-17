@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.FragmentRateUsBinding
 
 class RateUsFragment : Fragment() {
@@ -23,6 +25,7 @@ class RateUsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentRateUsBinding.inflate(
             inflater, container, false)
         binding.rate1.setOnClickListener {

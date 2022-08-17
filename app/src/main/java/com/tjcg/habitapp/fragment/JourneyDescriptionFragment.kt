@@ -15,6 +15,7 @@ import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.adapter.JourneyKeyResultsAdapter
 import com.tjcg.habitapp.adapter.JourneyMoreToExpectAdapter
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.repository.JourneyRepository
 import com.tjcg.habitapp.databinding.FragmentJourneyDescriptionBinding
 import com.tjcg.habitapp.viewmodel.JourneyViewModel
@@ -34,6 +35,7 @@ class JourneyDescriptionFragment : Fragment() {
             MainActivity.hideBottomNavigation()
         }
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         bindingMain = FragmentJourneyDescriptionBinding.inflate(
             inflater, container, false
         )

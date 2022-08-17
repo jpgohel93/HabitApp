@@ -24,6 +24,9 @@ import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.*
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import java.util.*
 import javax.inject.Inject
@@ -46,6 +49,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
 
     private var currentlySelectedRepetition = 1
     private var daysRepetitionCount = 1
+    private var habitToEdit : Habit? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,11 +57,22 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         bindingMain = FragmentCreateHabitBinding.inflate(layoutInflater)
         binding = bindingMain.content
         morningCardsBinding = binding.morningCardLayout
         habitViewModel = dataSource.provideViewModel()
         animationHandler = Handler(Looper.getMainLooper())
+
+        //get habit to edit if in edit mode
+        CoroutineScope(Dispatchers.Main).launch {
+            habitToEdit = dataSource.getHabitByIdAsync(editHabitId).await()
+            if (habitToEdit != null) {
+                bindingMain.titleText.text = habitToEdit?.title
+                bindingMain.titleTextEdit.setText(habitToEdit?.title)
+                bindingMain.habitIcon.text = habitToEdit?.icon
+            }
+        }
 
         // toolbar operations
         // change habit name...
@@ -546,5 +561,10 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
                 repetitionBinding.xDaysPerYearCollapsed.visibility = View.VISIBLE
             }
         }
+    }
+
+    companion object {
+        var editHabit = false
+        var editHabitId = -1
     }
 }

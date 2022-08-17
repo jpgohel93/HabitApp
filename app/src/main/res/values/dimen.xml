@@ -168,16 +168,6 @@
     <dimen name="round_radio_text_size">25sp</dimen>
     <dimen name="round_radio_size">40dp</dimen>
 
-    <!-- journey main Screen -->
-    <dimen name="journey_sides_margin">30dp</dimen>
-    <dimen name="journey_card_sides_margin">16dp</dimen>
-    <dimen name="journey_black_card_title_size">27sp</dimen>
-    <dimen name="journey_black_card_logo_size">230dp</dimen>
-    <dimen name="journey_black_card_title_width">180dp</dimen>
-    <dimen name="journey_white_card_logo_size">95dp</dimen>
-    <dimen name="journey_white_card_next_btn_size">40dp</dimen>
-    <dimen name="journey_white_card_title_size">24dp</dimen>
-
     <!-- journey description screen -->
     <dimen name="journey_desc_title_size">20sp</dimen>
     <dimen name="journey_key_result_logo_size">40dp</dimen>
@@ -300,4 +290,16 @@
     <dimen name="time_period_arrow_size">25dp</dimen>
     <dimen name="save_button_width">120dp</dimen>
     <dimen name="save_button_height">50dp</dimen>
+
+    <!-- journey main Screen -->
+    <dimen name="journey_black_card_title_size">27sp</dimen>
+    <dimen name="journey_black_card_logo_size">230dp</dimen>
+    <dimen name="journey_black_card_title_width">180dp</dimen>
+    <dimen name="journey_black_card_text_top_margin">50dp</dimen>
+    <dimen name="journey_black_card_text_start_margin">32dp</dimen>
+    <dimen name="journey_white_card_logo_size">95dp</dimen>
+    <dimen name="journey_white_card_logo_margin">10dp</dimen>
+    <dimen name="journey_white_card_logo_padding">4dp</dimen>
+    <dimen name="journey_white_card_title_size">22sp</dimen>
+    <dimen name="journey_white_card_next_button_size">40dp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentHistoryCalendarBinding
@@ -31,6 +32,7 @@ class HistoryCalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryCalendarBinding.inflate(
             inflater, container, false
         )
@@ -40,6 +42,8 @@ class HistoryCalendarFragment : Fragment() {
             var finishedHabits = 0
             var totalHabits = 0
             var perfectDays = 0
+            var currentStreak = 0
+            var bestStreak = 0
             for (calendar in (fullCalendar ?: emptyList())) {
                 val allHabits = calendar.habitsInADay
                 Log.d("Habits", "${allHabits.size}")
@@ -54,6 +58,12 @@ class HistoryCalendarFragment : Fragment() {
                 }
                 if (perfectDay) {
                     perfectDays += 1
+                    currentStreak += 1
+                    if (bestStreak < currentStreak) {
+                        bestStreak = currentStreak
+                    }
+                } else {
+                    currentStreak = 0
                 }
             }
             binding.habitCountText.text = finishedHabits.toString()
@@ -63,6 +73,8 @@ class HistoryCalendarFragment : Fragment() {
             binding.completionRateCount.text = completionRate.toInt().toString()
             binding.avgCompletionText2.text = "${completionRate.toInt()}%"
             binding.perfectDaysCountText.text = perfectDays.toString()
+            binding.streakCountText.text = currentStreak.toString()
+            binding.bestStreakText.text = "Best Streak : $bestStreak"
             binding.fullCalendarView.setOnDateChangeListener { _, _, i2, i3 ->
                 habitViewModel.selectedWeekCalendarDate.value = arrayOf(i3, i2)
                 Log.d("SelectedWeekCalendarDate", "${habitViewModel.selectedWeekCalendarDate.value?.get(0)}")

@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         binding.navActive2.visibility = View.GONE
         binding.navActive3.visibility = View.GONE
         binding.navActive4.visibility = View.GONE
+        currentPage = page
         when(page) {
             Constant.PAGE_1 -> {
                 // TODO Navigate to MyHabit Main page
@@ -87,6 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        var currentPage = Constant.PAGE_1
         lateinit var navView : ConstraintLayout
         lateinit var navAddBtn : ImageFilterView
         var isNavShowing = true

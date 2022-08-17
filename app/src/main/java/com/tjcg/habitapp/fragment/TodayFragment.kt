@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -67,6 +68,7 @@ class TodayFragment : Fragment() {
         if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
+        MainActivity.currentPage = Constant.PAGE_1
         dataSource.setupViewModel(ctx)
         viewModel = dataSource.provideViewModel()
         binding = FragmentTodayBinding.inflate(inflater, container, false)
@@ -149,7 +151,6 @@ class TodayFragment : Fragment() {
         if (viewModel.selectedWeekCalendarDate.value ==  null) {
             weekCalendarAdapter.setSelectionMark(cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH))
         }
-
         return binding.root
     }
 

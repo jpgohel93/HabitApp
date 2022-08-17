@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.Animator
+import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentHistoryAchievementsBinding
 import com.tjcg.habitapp.databinding.RecyclerItemAchievementBadgeBinding
@@ -33,13 +35,13 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
     private lateinit var ctx: Context
     private var colorBlack : Int = 0
     private var colorWhite : Int = 0
-    private var totalAchievementCount = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryAchievementsBinding.inflate(
             inflater, container, false
         )
@@ -54,6 +56,8 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
             var finishedHabits = 0
             var totalHabits = 0
             var perfectDays = 0
+            var currentStreak = 0
+            var bestStreak = 0
             for (calendar in (fullCalendar ?: emptyList())) {
                 val allHabits = calendar.habitsInADay
                 Log.d("Habits", "${allHabits.size}")
@@ -68,12 +72,18 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                 }
                 if (perfectDay) {
                     perfectDays += 1
+                    currentStreak += 1
+                    if (bestStreak < currentStreak) {
+                        bestStreak = currentStreak
+                    }
+                } else {
+                    currentStreak = 0
                 }
             }
             generateHabitAchievementBadges(finishedHabits)
             generatePerfectDaysBadges(perfectDays)
-            generateBestStreaksBadges(0)
-            calculateTotalAchievement(finishedHabits, perfectDays, 0)
+            generateBestStreaksBadges(bestStreak)
+            calculateTotalAchievement(finishedHabits, perfectDays, bestStreak)
         }
 
         return binding.root
@@ -283,6 +293,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
     private fun generateBestStreaksBadges(bestStreak: Int) {
         val list = ArrayList<BadgePreview>()
         if (bestStreak >= 3) {
+            binding.textView2A3.text = "1/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_3_fin, ctx.theme)!!,
@@ -294,6 +305,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "3 ${resources.getString(R.string.day_streak)}"))
         }
         if (bestStreak >= 10) {
+            binding.textView2A3.text = "2/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_10_fin, ctx.theme)!!,
@@ -305,6 +317,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "10 ${resources.getString(R.string.day_streak)}"))
         }
         if (bestStreak >= 20) {
+            binding.textView2A3.text = "3/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_20_fin, ctx.theme)!!,
@@ -316,6 +329,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "20 ${resources.getString(R.string.day_streak)}"))
         }
         if (bestStreak >= 50) {
+            binding.textView2A3.text = "4/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_50_fin, ctx.theme)!!,
@@ -327,6 +341,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "50 ${resources.getString(R.string.day_streak)}"))
         }
         if (bestStreak >= 100) {
+            binding.textView2A3.text = "5/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_100_fin, ctx.theme)!!,
@@ -338,6 +353,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
                     "100 ${resources.getString(R.string.day_streak)}"))
         }
         if (bestStreak >= 300) {
+            binding.textView2A3.text = "6/6"
             list.add(
                 BadgePreview(
                     ResourcesCompat.getDrawable(ctx.resources, R.drawable.streak_300_fin, ctx.theme)!!,

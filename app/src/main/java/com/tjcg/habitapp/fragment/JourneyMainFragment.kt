@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,7 @@ import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.adapter.AllJourneyAdapter
 import com.tjcg.habitapp.adapter.MyJourneyAdapter
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.data_class.Journey
 import com.tjcg.habitapp.data.data_class.JourneyKeyResult
 import com.tjcg.habitapp.data.repository.JourneyRepository
@@ -36,6 +38,7 @@ class JourneyMainFragment : Fragment() {
             MainActivity.showBottomNavigation()
         }
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_2
         binding = FragmentJourneyMainBinding.inflate(inflater, container, false)
         val journeyViewModel = ViewModelProvider(this)[JourneyViewModel::class.java]
         JourneyRepository.setRepository(journeyViewModel)

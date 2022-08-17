@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tjcg.habitapp.MainActivity
+import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentIconSelectBinding
 import com.tjcg.habitapp.databinding.RecyclerItemHabitIconBinding
@@ -32,6 +34,7 @@ class IconListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
+        MainActivity.currentPage = Constant.PAGE_IN
         habitViewModel = dataSource.provideViewModel()
         selectedIcon = habitViewModel.habitIcon.value ?: "calendar-check"
         binding = FragmentIconSelectBinding.inflate(inflater, container, false)
