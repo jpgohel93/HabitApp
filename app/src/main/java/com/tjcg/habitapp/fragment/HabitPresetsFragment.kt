@@ -7,20 +7,33 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
+import com.tjcg.habitapp.data.HabitDataSource
+import com.tjcg.habitapp.data.HabitPreset
 import com.tjcg.habitapp.databinding.FragmentHabitPresetsBinding
+import com.tjcg.habitapp.databinding.RecyclerItemHabitInGridBinding
+import com.tjcg.habitapp.databinding.RecyclerItemHabitPresetBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 
 const val CATEGORY_REGULAR = 1
 const val CATEGORY_NEGATIVE = 2
 const val CATEGORY_ONE_TIME = 3
 
+@AndroidEntryPoint
 class HabitPresetsFragment : Fragment() {
 
     private lateinit var binding: FragmentHabitPresetsBinding
+    @Inject lateinit var dataSource: HabitDataSource
     private lateinit var ctx : Context
+    private var regularHabitPresets : List<HabitPreset>? = null
+    private var negativeHabitPresets : List<HabitPreset>? = null
+    private var oneTimeHabitPresets : List<HabitPreset>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +46,6 @@ class HabitPresetsFragment : Fragment() {
         ctx = findNavController().context
         MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHabitPresetsBinding.inflate(inflater, container, false)
-        selectCategoryCard(CATEGORY_REGULAR)
         binding.regularHabitCard.setOnClickListener {
             selectCategoryCard(CATEGORY_REGULAR)
         }
@@ -46,23 +58,67 @@ class HabitPresetsFragment : Fragment() {
         binding.newHabitButton.setOnClickListener {
             findNavController().navigate(R.id.action_habitPresetsFragment_to_navigation_new_habit)
         }
+        binding.habitPresetRecycler.layoutManager = GridLayoutManager(ctx, 3)
+        regularHabitPresets = dataSource.getHabitPresets(Constant.PRESET_REGULAR)
+        negativeHabitPresets = dataSource.getHabitPresets(Constant.PRESET_NEGATIVE)
+        oneTimeHabitPresets = dataSource.getHabitPresets(Constant.PRESET_ONE_TIME)
+        selectCategoryCard(CATEGORY_REGULAR)
         return binding.root
     }
 
     private fun selectCategoryCard(category: Int) {
+        binding.regularHabitCard.isSelected = false
+        binding.negativeHabitCard.isSelected = false
+        binding.oneTimeHabitCard.isSelected = false
         when(category) {
             CATEGORY_REGULAR -> {
+                binding.regularHabitCard.isSelected = true
                 binding.presetCategorryText.text = "REGULAR"
                 binding.categoryInfoText.text = getString(R.string.habit_regular_discr)
+                if (!regularHabitPresets.isNullOrEmpty())
+                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(regularHabitPresets!!)
             }
             CATEGORY_NEGATIVE -> {
+                binding.negativeHabitCard.isSelected = true
                 binding.presetCategorryText.text = "NEGATIVE"
                 binding.categoryInfoText.text = getString(R.string.habit_negative_discr)
+                if (!negativeHabitPresets.isNullOrEmpty())
+                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(negativeHabitPresets!!)
             }
             CATEGORY_ONE_TIME -> {
+                binding.oneTimeHabitCard.isSelected = true
                 binding.presetCategorryText.text = "ONE TIME"
                 binding.categoryInfoText.text = getString(R.string.habit_one_time_discr)
+                if (!oneTimeHabitPresets.isNullOrEmpty())
+                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(oneTimeHabitPresets!!)
             }
         }
+    }
+
+    inner class HabitPresetAdapter(private val presets: List<HabitPreset>) :
+        RecyclerView.Adapter<HabitPresetAdapter.PresetHolder>() {
+
+            inner class PresetHolder(val binding: RecyclerItemHabitPresetBinding) :
+                    RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PresetHolder =
+            PresetHolder(RecyclerItemHabitPresetBinding.inflate(layoutInflater, parent, false))
+
+        override fun onBindViewHolder(holder: PresetHolder, position: Int) {
+            val preset = presets[position]
+            holder.binding.habitTitle.text = preset.title
+            holder.binding.habitIcon.text = preset.iconAwesome
+            if (preset.iconImage != null) {
+                holder.binding.habitIcon.visibility = View.GONE
+                holder.binding.habitImage.visibility = View.VISIBLE
+                holder.binding.habitImage.setImageBitmap(preset.iconImage)
+            }
+            holder.binding.habitInGrid.setOnClickListener {
+                HabitsInPresetFragment.currentPreset = preset
+                findNavController().navigate(R.id.action_habitPresetsFragment_to_habitsInPresetFragment)
+            }
+        }
+
+        override fun getItemCount(): Int = presets.size
     }
 }

@@ -45,6 +45,10 @@ object Constant {
     const val CURRENT_TIME_AFTERNOON = 2
     const val CURRENT_TIME_EVENING = 3
 
+    const val PRESET_REGULAR = 0
+    const val PRESET_NEGATIVE = 1
+    const val PRESET_ONE_TIME = 2
+
     const val BAR_WIDTH_360 = 30
     const val BAR_WIDTH_410 = 50
 

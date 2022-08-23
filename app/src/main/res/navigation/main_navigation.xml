@@ -103,6 +103,9 @@
         <action
             android:id="@+id/action_habitPresetsFragment_to_navigation_new_habit"
             app:destination="@id/navigation_new_habit" />
+        <action
+            android:id="@+id/action_habitPresetsFragment_to_habitsInPresetFragment"
+            app:destination="@id/habitsInPresetFragment" />
     </fragment>
     <fragment
         android:id="@+id/timerFragment"
@@ -124,4 +127,9 @@
         android:name="com.tjcg.habitapp.fragment.MyProfileTimePeriodSettings"
         tools:layout="@layout/fragment_my_profile_time_periods"
         android:label="MyProfileTimePeriodSettings" />
+    <fragment
+        android:id="@+id/habitsInPresetFragment"
+        android:name="com.tjcg.habitapp.fragment.HabitsInPresetFragment"
+        tools:layout="@layout/fragment_preset_habits"
+        android:label="HabitsInPresetFragment" />
 </navigation>
