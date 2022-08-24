@@ -32,7 +32,7 @@ class HistoryCalendarFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MainActivity.currentPage = Constant.PAGE_IN
+ //       MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryCalendarBinding.inflate(
             inflater, container, false
         )

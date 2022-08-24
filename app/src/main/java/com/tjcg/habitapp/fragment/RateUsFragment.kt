@@ -25,7 +25,7 @@ class RateUsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentRateUsBinding.inflate(
             inflater, container, false)
         binding.rate1.setOnClickListener {

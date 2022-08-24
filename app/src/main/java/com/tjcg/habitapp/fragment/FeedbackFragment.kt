@@ -24,7 +24,7 @@ class FeedbackFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx= findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+   //     MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentFeedbackBinding.inflate(
             inflater, container, false)
         binding.sendBtn.setOnClickListener {

@@ -2,8 +2,8 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation_today">
+    android:id="@+id/main_navigation">
+
     <fragment
         android:id="@+id/navigation_new_habit"
         tools:layout="@layout/fragment_create_habit"
@@ -12,24 +12,6 @@
         <action
             android:id="@+id/action_navigation_new_habit_to_iconListFragment"
             app:destination="@id/iconListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/navigation_today"
-        tools:layout="@layout/fragment_today"
-        android:name="com.tjcg.habitapp.fragment.TodayFragment"
-        android:label="TodayFragment" >
-        <action
-            android:id="@+id/action_navigation_today_to_timerFragment"
-            app:destination="@id/timerFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/naviation_journey_main"
-        android:name="com.tjcg.habitapp.fragment.JourneyMainFragment"
-        tools:layout="@layout/fragment_journey_main"
-        android:label="JourneyMainFragment" >
-        <action
-            android:id="@+id/action_naviation_journey_main_to_navigation_journey_desc"
-            app:destination="@id/navigation_journey_desc" />
     </fragment>
 
     <fragment android:id="@+id/navigation_journey_desc"
@@ -50,24 +32,6 @@
         android:name="com.tjcg.habitapp.fragment.HistoryMainFragment"
         tools:layout="@layout/fragment_history_main"
         android:label="History"/>
-
-    <fragment android:id="@+id/navigation_profile"
-        android:name="com.tjcg.habitapp.fragment.MyProfileMainFragment"
-        android:label="My Profile"
-        tools:layout="@layout/fragment_my_profile_main">
-        <action
-            android:id="@+id/action_navigation_profile_to_navigation_profile_g_settings"
-            app:destination="@id/navigation_profile_g_settings" />
-        <action
-            android:id="@+id/action_navigation_profile_to_rateUsFragment"
-            app:destination="@id/rateUsFragment" />
-        <action
-            android:id="@+id/action_navigation_profile_to_feedbackFragment"
-            app:destination="@id/feedbackFragment" />
-        <action
-            android:id="@+id/action_navigation_profile_to_myProfileNotificationFragment"
-            app:destination="@id/myProfileNotificationFragment" />
-    </fragment>
 
     <fragment android:id="@+id/navigation_profile_g_settings"
         android:name="com.tjcg.habitapp.fragment.MyProfileGeneralSettingsFragment"

@@ -57,7 +57,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+ //       MainActivity.currentPage = Constant.PAGE_IN
         bindingMain = FragmentCreateHabitBinding.inflate(layoutInflater)
         binding = bindingMain.content
         morningCardsBinding = binding.morningCardLayout

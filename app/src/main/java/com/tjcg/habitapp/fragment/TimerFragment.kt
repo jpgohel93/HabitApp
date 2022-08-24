@@ -55,7 +55,7 @@ class TimerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         mainBinding = FragmentTimerTabsBinding.inflate(inflater, container, false)
         mainViewPager = mainBinding.timerViewPager
         mainViewPager.adapter = TimerAdapter(this)
@@ -96,7 +96,7 @@ class TimerFragment : Fragment() {
         ): View {
             ctx = findNavController().context
             binding = FragmentTimerBinding.inflate(inflater, container, false)
-            MainActivity.hideBottomNavigation()
+//            MainActivity.hideBottomNavigation()
             binding.habitTitle.text = habitName
             binding.timeText.text = "Total ${convertSecondsToText(habitGoalDuration, true)}"
             binding.countDownTime.text = convertSecondsToText(habitGoalDuration - habitDurationFinished)

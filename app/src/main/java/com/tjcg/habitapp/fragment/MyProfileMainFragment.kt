@@ -36,11 +36,11 @@ class MyProfileMainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        ctx = findNavController().context
-        if (!MainActivity.isNavShowing) {
+   /*     if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        MainActivity.currentPage = Constant.PAGE_4
+        MainActivity.currentPage = Constant.PAGE_4  */
+        ctx = findNavController().context
         binding = FragmentMyProfileMainBinding.inflate(
             inflater, container, false)
         generateProfileOptions(binding.myProfileOptionsRecycler)
@@ -116,20 +116,20 @@ class MyProfileMainFragment : Fragment() {
             holder.binding.myProfileOptionLayout.setOnClickListener {
                 when(position) {
                     POS_NOTIFICATION -> {
-                        findNavController().navigate(
-                            R.id.action_navigation_profile_to_myProfileNotificationFragment)
+                 /*       findNavController().navigate(
+                            R.id.action_navigation_home_to_myProfileNotificationFragment)  */
                     }
                     POS_G_SETTINGS -> {
-                        findNavController().navigate(
-                            R.id.action_navigation_profile_to_navigation_profile_g_settings)
+                /*        findNavController().navigate(
+                            R.id.action_navigation_home_to_navigation_profile_g_settings)  */
                     }
                     POS_RATE_US -> {
-                        findNavController().navigate(
-                            R.id.action_navigation_profile_to_rateUsFragment)
+                /*        findNavController().navigate(
+                            R.id.action_navigation_home_to_rateUsFragment)  */
                     }
                     POS_FEEDBACK -> {
-                        findNavController().navigate(
-                            R.id.action_navigation_profile_to_feedbackFragment)
+                 /*       findNavController().navigate(
+                            R.id.action_navigation_home_to_feedbackFragment)  */
                     }
                     else -> {
                         Toast.makeText(ctx, "Yet to be implemented", Toast.LENGTH_SHORT).show()
@@ -140,5 +140,13 @@ class MyProfileMainFragment : Fragment() {
 
         override fun getItemCount(): Int = options.size
 
+    }
+
+    companion object {
+        fun getInstance(ctx: Context) : MyProfileMainFragment {
+            val fragment = MyProfileMainFragment()
+            fragment.ctx = ctx
+            return fragment
+        }
     }
 }

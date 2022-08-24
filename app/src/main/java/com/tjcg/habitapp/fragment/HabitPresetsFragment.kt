@@ -43,8 +43,8 @@ class HabitPresetsFragment : Fragment() {
         if (MainActivity.isNavShowing) {
             MainActivity.hideBottomNavigation()
         }
-        ctx = findNavController().context
         MainActivity.currentPage = Constant.PAGE_IN
+        ctx = findNavController().context
         binding = FragmentHabitPresetsBinding.inflate(inflater, container, false)
         binding.regularHabitCard.setOnClickListener {
             selectCategoryCard(CATEGORY_REGULAR)
@@ -56,7 +56,7 @@ class HabitPresetsFragment : Fragment() {
             selectCategoryCard(CATEGORY_ONE_TIME)
         }
         binding.newHabitButton.setOnClickListener {
-            findNavController().navigate(R.id.action_habitPresetsFragment_to_navigation_new_habit)
+            findNavController().navigate(R.id.action_bottom_habitPresetsFragment_to_bottom_createNewHabitFragment)
         }
         binding.habitPresetRecycler.layoutManager = GridLayoutManager(ctx, 3)
         regularHabitPresets = dataSource.getHabitPresets(Constant.PRESET_REGULAR)
@@ -115,7 +115,7 @@ class HabitPresetsFragment : Fragment() {
             }
             holder.binding.habitInGrid.setOnClickListener {
                 HabitsInPresetFragment.currentPreset = preset
-                findNavController().navigate(R.id.action_habitPresetsFragment_to_habitsInPresetFragment)
+                findNavController().navigate(R.id.action_bottom_habitPresetsFragment_to_bottom_habitsInPresetFragment)
             }
         }
 

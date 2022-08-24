@@ -64,11 +64,11 @@ class TodayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        ctx = findNavController().context
-        if (!MainActivity.isNavShowing) {
+   /*     if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        MainActivity.currentPage = Constant.PAGE_1
+        MainActivity.currentPage = Constant.PAGE_1  */
+        ctx = findNavController().context
         dataSource.setupViewModel(ctx)
         viewModel = dataSource.provideViewModel()
         binding = FragmentTodayBinding.inflate(inflater, container, false)
@@ -559,7 +559,7 @@ class TodayFragment : Fragment() {
                             TimerFragment.habitName = habit.habit.title
                             TimerFragment.selectedDate = selectedDate
                             TimerFragment.habitId = habit.habit.id
-                            findNavController().navigate(R.id.action_navigation_today_to_timerFragment)
+                  //          findNavController().navigate(R.id.action_navigation_home_to_timerFragment)
                         }
                         binding.extraFinishButton.setOnClickListener {
                             updateCounters(false, -(habit.durationCount.toFloat()/habit.habit.repetitionGoalDuration))

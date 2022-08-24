@@ -21,7 +21,7 @@ class PrivacyPolicyFragment : Fragment() {
     ): View {
         binding = FragmentPrivacyPolicyBinding.inflate(
             inflater, container, false)
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding.closeBtn.setOnClickListener {
             findNavController().navigateUp()
         }

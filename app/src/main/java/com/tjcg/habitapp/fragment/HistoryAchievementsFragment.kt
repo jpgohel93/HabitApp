@@ -41,7 +41,7 @@ class HistoryAchievementsFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryAchievementsBinding.inflate(
             inflater, container, false
         )

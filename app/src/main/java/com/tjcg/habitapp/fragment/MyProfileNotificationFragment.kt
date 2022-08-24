@@ -41,9 +41,9 @@ class MyProfileNotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileNotificationBinding.inflate(inflater, container,false)
-        MainActivity.hideBottomNavigation()
+//        MainActivity.hideBottomNavigation()
         notificationData = dataSource.getNotificationData() ?: NotificationData()
         binding.morningReminderLayout.notificationTitle.text = "Morning Notification"
         binding.afternoonReminderLayout.notificationTitle.text = "Afternoon Notification"

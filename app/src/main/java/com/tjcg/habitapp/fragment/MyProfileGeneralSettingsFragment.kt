@@ -26,8 +26,8 @@ class MyProfileGeneralSettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MainActivity.hideBottomNavigation()
-        MainActivity.currentPage = Constant.PAGE_IN
+  /*      MainActivity.hideBottomNavigation()
+        MainActivity.currentPage = Constant.PAGE_IN  */
         binding = FragmentMyProfileGeneralSettingsBinding.inflate(
             inflater, container, false)
         deleteDialog = DeleteDialog.getInstance()

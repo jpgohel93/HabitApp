@@ -31,8 +31,8 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+  //      MainActivity.currentPage = Constant.PAGE_3
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_3
         binding = FragmentHistoryMainBinding.inflate(inflater,
             container, false)
         tab1 = binding.tabs.tab1
@@ -100,6 +100,14 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
                 2 -> HistoryAchievementsFragment.getInstance(ctx)
                 else ->  HistoryCalendarFragment.getInstance()
             }
+        }
+    }
+
+    companion object {
+        fun getInstance(ctx: Context) : HistoryMainFragment {
+            val fragment = HistoryMainFragment()
+            fragment.ctx = ctx
+            return fragment
         }
     }
 }
