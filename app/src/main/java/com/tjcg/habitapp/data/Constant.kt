@@ -59,6 +59,17 @@ object Constant {
     var notificationDataFile = "NOTIFICATION_SETTINGS"
     var timePeriodDataFile = "TIME_PERIOD_DATA"
 
+    // for remote server
+    const val BASE_URL = "https://habit.tjcg.in/api/"
+    const val CONNECTION_TIMEOUT = 30L
+    const val READ_TIMEOUT = 30L
+    const val WRITE_TIMEOUT = 30L
+    var authorizationToken = ""
+
+    // shared preferences
+    const val PREFS_APP = "app_preferences"
+    const val PREFS_AUTHORIZATION = "auth_token"
+
     fun generateDateString(cal : Calendar) : String {
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)

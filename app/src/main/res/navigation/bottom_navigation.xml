@@ -18,13 +18,13 @@
     </fragment>
     <fragment
         android:id="@+id/bottom_historyMainFragment"
-        android:name="com.tjcg.habitapp.fragment.HistoryMainFragment"
-        tools:layout="@layout/fragment_history_main"
+        android:name="com.tjcg.habitapp.fragment.HistoryNavigatorFragment"
+        tools:layout="@layout/fragment_history_navigator"
         android:label="HistoryMainFragment" />
     <fragment
         android:id="@+id/bottom_myProfileMainFragment"
-        android:name="com.tjcg.habitapp.fragment.MyProfileMainFragment"
-        tools:layout="@layout/fragment_my_profile_main"
+        android:name="com.tjcg.habitapp.fragment.MyProfileNavigator"
+        tools:layout="@layout/fragment_my_profile_navigator"
         android:label="MyProfileMainFragment" />
     <fragment
         android:id="@+id/bottom_habitPresetsFragment"
@@ -42,10 +42,19 @@
         android:id="@+id/bottom_createNewHabitFragment"
         tools:layout="@layout/fragment_create_habit"
         android:name="com.tjcg.habitapp.fragment.CreateNewHabitFragment"
-        android:label="CreateNewHabitFragment" />
+        android:label="CreateNewHabitFragment" >
+        <action
+            android:id="@+id/action_bottom_createNewHabitFragment_to_bottom_iconListFragment"
+            app:destination="@id/bottom_iconListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bottom_habitsInPresetFragment"
         tools:layout="@layout/fragment_preset_habits"
         android:name="com.tjcg.habitapp.fragment.HabitsInPresetFragment"
         android:label="HabitsInPresetFragment" />
+    <fragment
+        android:id="@+id/bottom_iconListFragment"
+        tools:layout="@layout/fragment_icon_select"
+        android:name="com.tjcg.habitapp.fragment.IconListFragment"
+        android:label="IconListFragment" />
 </navigation>

@@ -63,7 +63,7 @@ class MyProfileMainFragment : Fragment() {
             // TODO("perform facebook login here")
         }
         binding.goPremiumBtn.setOnClickListener {
-            findNavController().navigate(R.id.navigation_premium)
+    //        findNavController().navigate(R.id.navigation_premium)
         }
         return binding.root
     }
@@ -116,20 +116,20 @@ class MyProfileMainFragment : Fragment() {
             holder.binding.myProfileOptionLayout.setOnClickListener {
                 when(position) {
                     POS_NOTIFICATION -> {
-                 /*       findNavController().navigate(
-                            R.id.action_navigation_home_to_myProfileNotificationFragment)  */
+                        findNavController().navigate(
+                            R.id.action_navigation_myProfileMainFragment_to_navigation_myProfileNotificationFragment)
                     }
                     POS_G_SETTINGS -> {
-                /*        findNavController().navigate(
-                            R.id.action_navigation_home_to_navigation_profile_g_settings)  */
+                        findNavController().navigate(
+                            R.id.action_navigation_myProfileMainFragment_to_navigation_myProfileGeneralSettingsFragment)
                     }
                     POS_RATE_US -> {
-                /*        findNavController().navigate(
-                            R.id.action_navigation_home_to_rateUsFragment)  */
+                        findNavController().navigate(
+                            R.id.action_navigation_myProfileMainFragment_to_navigation_rateUsFragment)
                     }
                     POS_FEEDBACK -> {
-                 /*       findNavController().navigate(
-                            R.id.action_navigation_home_to_feedbackFragment)  */
+                        findNavController().navigate(
+                            R.id.action_navigation_myProfileMainFragment_to_navigation_feedbackFragment)
                     }
                     else -> {
                         Toast.makeText(ctx, "Yet to be implemented", Toast.LENGTH_SHORT).show()

@@ -101,7 +101,7 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             bindingMain.habitIcon.text = icon
         }
         bindingMain.habitIcon.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_new_habit_to_iconListFragment)
+            findNavController().navigate(R.id.action_bottom_createNewHabitFragment_to_bottom_iconListFragment)
         }
 
         // handle repetition options

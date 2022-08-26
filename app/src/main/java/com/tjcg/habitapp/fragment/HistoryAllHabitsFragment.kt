@@ -101,7 +101,7 @@ class HistoryAllHabitsFragment : Fragment() {
        //         MainActivity.hideBottomNavigation()
                 CreateNewHabitFragment.editHabit = true
                 CreateNewHabitFragment.editHabitId = habit.id
-                findNavController().navigate(R.id.navigation_new_habit)
+          //      findNavController().navigate(R.id.navigation_new_habit)
             }
         }
 

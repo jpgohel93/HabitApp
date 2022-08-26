@@ -1,7 +1,9 @@
 package com.tjcg.habitapp.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +11,20 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tjcg.habitapp.LoginActivity
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.data.HabitPreset
 import com.tjcg.habitapp.databinding.FragmentHabitPresetsBinding
-import com.tjcg.habitapp.databinding.RecyclerItemHabitInGridBinding
 import com.tjcg.habitapp.databinding.RecyclerItemHabitPresetBinding
+import com.tjcg.habitapp.remote.ApiService
+import com.tjcg.habitapp.remote.PresetResponse
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 
@@ -32,8 +39,6 @@ class HabitPresetsFragment : Fragment() {
     @Inject lateinit var dataSource: HabitDataSource
     private lateinit var ctx : Context
     private var regularHabitPresets : List<HabitPreset>? = null
-    private var negativeHabitPresets : List<HabitPreset>? = null
-    private var oneTimeHabitPresets : List<HabitPreset>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,10 +64,39 @@ class HabitPresetsFragment : Fragment() {
             findNavController().navigate(R.id.action_bottom_habitPresetsFragment_to_bottom_createNewHabitFragment)
         }
         binding.habitPresetRecycler.layoutManager = GridLayoutManager(ctx, 3)
-        regularHabitPresets = dataSource.getHabitPresets(Constant.PRESET_REGULAR)
-        negativeHabitPresets = dataSource.getHabitPresets(Constant.PRESET_NEGATIVE)
-        oneTimeHabitPresets = dataSource.getHabitPresets(Constant.PRESET_ONE_TIME)
-        selectCategoryCard(CATEGORY_REGULAR)
+        ApiService.apiService?.getHabitPresets("Bearer "+Constant.authorizationToken)?.enqueue(
+            object : Callback<PresetResponse> {
+                override fun onResponse(
+                    call: Call<PresetResponse>,
+                    response: Response<PresetResponse>
+                ) {
+                    binding.progressBar.visibility = View.GONE
+                    Log.d("PresetResponse", "${response.body()?.status}")
+                    if (response.isSuccessful && response.body()?.status == true) {
+                        if(!response.body()?.data.isNullOrEmpty()) {
+                            Log.d("PresetResponse", "Found ${response.body()?.data?.size}")
+                            regularHabitPresets = response.body()?.data
+                            binding.habitPresetRecycler.adapter = HabitPresetAdapter(regularHabitPresets ?: emptyList())
+                        }
+                    } else if (!response.body()?.message.isNullOrBlank() &&
+                            (response.body()?.message?.lowercase()?.contains("token")==true)) {
+                        dataSource.sharedPreferences.edit().putString(Constant.PREFS_AUTHORIZATION, "").apply()
+                        (ctx as MainActivity).finish()
+                        (ctx as MainActivity).startActivity(Intent(ctx, LoginActivity::class.java))
+                    } else {
+                        Log.e("PresetResponse", "${response.body()?.message}")
+                    }
+                }
+
+                override fun onFailure(call: Call<PresetResponse>, t: Throwable) {
+                    Log.e("PresetResponse", "${t.message}")
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+        )
+     //   regularHabitPresets = dataSource.getHabitPresets(Constant.PRESET_REGULAR)
+
+    //    selectCategoryCard(CATEGORY_REGULAR)
         return binding.root
     }
 
@@ -75,22 +109,16 @@ class HabitPresetsFragment : Fragment() {
                 binding.regularHabitCard.isSelected = true
                 binding.presetCategorryText.text = "REGULAR"
                 binding.categoryInfoText.text = getString(R.string.habit_regular_discr)
-                if (!regularHabitPresets.isNullOrEmpty())
-                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(regularHabitPresets!!)
             }
             CATEGORY_NEGATIVE -> {
                 binding.negativeHabitCard.isSelected = true
                 binding.presetCategorryText.text = "NEGATIVE"
                 binding.categoryInfoText.text = getString(R.string.habit_negative_discr)
-                if (!negativeHabitPresets.isNullOrEmpty())
-                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(negativeHabitPresets!!)
             }
             CATEGORY_ONE_TIME -> {
                 binding.oneTimeHabitCard.isSelected = true
                 binding.presetCategorryText.text = "ONE TIME"
                 binding.categoryInfoText.text = getString(R.string.habit_one_time_discr)
-                if (!oneTimeHabitPresets.isNullOrEmpty())
-                    binding.habitPresetRecycler.adapter = HabitPresetAdapter(oneTimeHabitPresets!!)
             }
         }
     }

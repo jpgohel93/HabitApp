@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_profile_navigation"
+    app:startDestination="@id/navigation_myProfileMainFragment">
+
+    <fragment
+        android:id="@+id/navigation_myProfileMainFragment"
+        tools:layout="@layout/fragment_my_profile_main"
+        android:name="com.tjcg.habitapp.fragment.MyProfileMainFragment"
+        android:label="MyProfileMainFragment" >
+        <action
+            android:id="@+id/action_navigation_myProfileMainFragment_to_navigation_myProfileGeneralSettingsFragment"
+            app:destination="@id/navigation_myProfileGeneralSettingsFragment" />
+        <action
+            android:id="@+id/action_navigation_myProfileMainFragment_to_navigation_myProfileNotificationFragment"
+            app:destination="@id/navigation_myProfileNotificationFragment" />
+        <action
+            android:id="@+id/action_navigation_myProfileMainFragment_to_navigation_rateUsFragment"
+            app:destination="@id/navigation_rateUsFragment" />
+        <action
+            android:id="@+id/action_navigation_myProfileMainFragment_to_navigation_feedbackFragment"
+            app:destination="@id/navigation_feedbackFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_myProfileTimePeriodSettings"
+        tools:layout="@layout/fragment_my_profile_time_periods"
+        android:name="com.tjcg.habitapp.fragment.MyProfileTimePeriodSettings"
+        android:label="MyProfileTimePeriodSettings" />
+    <fragment
+        android:id="@+id/navigation_privacyPolicyFragment"
+        tools:layout="@layout/fragment_privacy_policy"
+        android:name="com.tjcg.habitapp.fragment.PrivacyPolicyFragment"
+        android:label="PrivacyPolicyFragment" />
+    <fragment
+        android:id="@+id/navigation_myProfileGeneralSettingsFragment"
+        tools:layout="@layout/fragment_my_profile_general_settings"
+        android:name="com.tjcg.habitapp.fragment.MyProfileGeneralSettingsFragment"
+        android:label="MyProfileGeneralSettingsFragment" >
+        <action
+            android:id="@+id/action_navigation_myProfileGeneralSettingsFragment_to_navigation_myProfileTimePeriodSettings"
+            app:destination="@id/navigation_myProfileTimePeriodSettings" />
+        <action
+            android:id="@+id/action_navigation_myProfileGeneralSettingsFragment_to_navigation_privacyPolicyFragment"
+            app:destination="@id/navigation_privacyPolicyFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_my_profile_notification"
+        android:id="@+id/navigation_myProfileNotificationFragment"
+        android:name="com.tjcg.habitapp.fragment.MyProfileNotificationFragment"
+        android:label="MyProfileNotificationFragment" />
+    <fragment
+        android:id="@+id/navigation_rateUsFragment"
+        tools:layout="@layout/fragment_rate_us"
+        android:name="com.tjcg.habitapp.fragment.RateUsFragment"
+        android:label="RateUsFragment" />
+    <fragment
+        android:id="@+id/navigation_feedbackFragment"
+        tools:layout="@layout/fragment_feedback"
+        android:name="com.tjcg.habitapp.fragment.FeedbackFragment"
+        android:label="FeedbackFragment" />
+</navigation>

@@ -1,6 +1,7 @@
 package com.tjcg.habitapp.data
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
@@ -10,8 +11,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.remote.ApiService
+import com.tjcg.habitapp.remote.PresetResponse
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.Executors
@@ -27,6 +33,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     private lateinit var ctx: Context
     private lateinit var viewModel : HabitViewModel
     private lateinit var storageDir : File
+    lateinit var sharedPreferences: SharedPreferences
     private lateinit var gson: Gson
 
     private val mainHandler by lazy {
@@ -37,6 +44,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         this.ctx = ctx
         viewModel = ViewModelProvider(ctx as MainActivity)[HabitViewModel::class.java]
         storageDir = ctx.getExternalFilesDir("Data")!!
+        sharedPreferences = ctx.getSharedPreferences(Constant.PREFS_APP, Context.MODE_PRIVATE)
         gson = Gson()
     }
 
@@ -221,61 +229,5 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         } catch (e: IOException) {
             return null
         }
-    }
-
-    fun getHabitPresets(mode : Int) : List<HabitPreset> {
-        val presetList = ArrayList<HabitPreset>()
-
-        when(mode) {
-            Constant.PRESET_REGULAR -> {
-                val habitPreset1 = HabitPreset("Habit in Trends").apply {
-                    iconAwesome = "hands"
-                }
-                habitPreset1.habits.apply {
-                    add(Habit("dog", "Take a walk with pet", 0,
-                        encouragementText = "Enjoy life with the pet"))
-                    add(Habit("book", "Read A Book", 0,
-                        encouragementText = "Get mote knowledge"))
-                    add(Habit("carrot", "Eat Vegetables", 0,
-                        encouragementText = "Live a healthy life"))
-                    add(Habit("running", "Exercise", 0,
-                        encouragementText = "Make your body looks perfect"))
-                }
-                presetList.add(habitPreset1)
-
-                val habitPreset2 = HabitPreset("Eat healthy").apply {
-                    iconAwesome = "pizza-slice"
-                }
-                presetList.add(habitPreset2)
-
-                val habitPreset3 = HabitPreset("Stay Fit").apply {
-                    iconAwesome = "running"
-                }
-                presetList.add(habitPreset3)
-
-                val habitPreset4 = HabitPreset("Mood").apply {
-                    iconAwesome = "brain"
-                }
-                presetList.add(habitPreset4)
-
-                val habitPreset5 = HabitPreset("Budget Money").apply {
-                    iconAwesome = "dollar"
-                }
-                presetList.add(habitPreset5)
-
-                val habitPreset6 = HabitPreset("Study").apply {
-                    iconImage = BitmapFactory.decodeResource( ctx.resources ,R.drawable.study)
-                }
-                presetList.add(habitPreset6)
-            }
-            Constant.PRESET_NEGATIVE -> {
-
-            }
-            Constant.PRESET_ONE_TIME -> {
-
-            }
-        }
-
-        return presetList
     }
 }
