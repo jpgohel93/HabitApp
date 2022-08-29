@@ -15,8 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
+import com.tjcg.habitapp.data.HabitDataSource
 import com.tjcg.habitapp.databinding.FragmentMyProfileMainBinding
 import com.tjcg.habitapp.databinding.RecyclerItemMyProfileOptionBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 const val POS_NOTIFICATION = 0
 const val POS_G_SETTINGS = 1
@@ -25,8 +31,10 @@ const val POS_SHARE = 3
 const val POS_RATE_US= 4
 const val POS_FEEDBACK = 5
 
+@AndroidEntryPoint
 class MyProfileMainFragment : Fragment() {
 
+    @Inject lateinit var dataSource: HabitDataSource
     lateinit var binding : FragmentMyProfileMainBinding
     lateinit var ctx: Context
     private var isSignInCardExpand = false
@@ -36,22 +44,25 @@ class MyProfileMainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-   /*     if (!MainActivity.isNavShowing) {
+        if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        MainActivity.currentPage = Constant.PAGE_4  */
+        MainActivity.currentPage = Constant.PAGE_4
         ctx = findNavController().context
         binding = FragmentMyProfileMainBinding.inflate(
             inflater, container, false)
         generateProfileOptions(binding.myProfileOptionsRecycler)
         binding.backAndRestLayout.setOnClickListener {
-            if (isSignInCardExpand) {
+            CoroutineScope(Dispatchers.Main).launch {
+                dataSource.generateBackupDataAsync().await()
+            }
+         /*   if (isSignInCardExpand) {
                 binding.loginCollapsedLayout.visibility = View.GONE
                 isSignInCardExpand = false
             } else {
                 binding.loginCollapsedLayout.visibility = View.VISIBLE
                 isSignInCardExpand = true
-            }
+            }  */
         }
         binding.loginCollapsedLayout.setOnClickListener(null)
         binding.loginGoogleBtn.setOnClickListener {

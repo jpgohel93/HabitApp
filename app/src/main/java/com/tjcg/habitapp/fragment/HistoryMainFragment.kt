@@ -31,7 +31,10 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-  //      MainActivity.currentPage = Constant.PAGE_3
+        if (!MainActivity.isNavShowing) {
+            MainActivity.showBottomNavigation()
+        }
+        MainActivity.currentPage = Constant.PAGE_3
         ctx = findNavController().context
         binding = FragmentHistoryMainBinding.inflate(inflater,
             container, false)
@@ -42,7 +45,7 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         tab2.setOnClickListener(this)
         tab3.setOnClickListener(this)
         changeTab(0)
-        binding.historyViewPager.adapter = ViewPagerAdapter(parentFragmentManager)
+        binding.historyViewPager.adapter = ViewPagerAdapter(childFragmentManager)
         binding.historyViewPager.isUserInputEnabled = false
         return binding.root
     }

@@ -61,6 +61,8 @@ class HabitPresetsFragment : Fragment() {
             selectCategoryCard(CATEGORY_ONE_TIME)
         }
         binding.newHabitButton.setOnClickListener {
+            CreateNewHabitFragment.editHabit = false
+            CreateNewHabitFragment.editHabitId = -1
             findNavController().navigate(R.id.action_bottom_habitPresetsFragment_to_bottom_createNewHabitFragment)
         }
         binding.habitPresetRecycler.layoutManager = GridLayoutManager(ctx, 3)
@@ -96,7 +98,7 @@ class HabitPresetsFragment : Fragment() {
         )
      //   regularHabitPresets = dataSource.getHabitPresets(Constant.PRESET_REGULAR)
 
-    //    selectCategoryCard(CATEGORY_REGULAR)
+        selectCategoryCard(CATEGORY_REGULAR)
         return binding.root
     }
 

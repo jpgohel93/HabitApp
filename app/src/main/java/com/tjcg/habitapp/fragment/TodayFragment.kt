@@ -64,10 +64,10 @@ class TodayFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-   /*     if (!MainActivity.isNavShowing) {
+        if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        MainActivity.currentPage = Constant.PAGE_1  */
+        MainActivity.currentPage = Constant.PAGE_1
         ctx = findNavController().context
         dataSource.setupViewModel(ctx)
         viewModel = dataSource.provideViewModel()

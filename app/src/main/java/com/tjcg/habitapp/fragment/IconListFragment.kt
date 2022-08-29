@@ -127,6 +127,7 @@ class IconListFragment : Fragment() {
             }
             holder.binding.iconText.setOnClickListener { 
                 habitViewModel.habitIcon.value = icon
+                CreateNewHabitFragment.iconChanged = true
                 findNavController().navigateUp()
             }
         }

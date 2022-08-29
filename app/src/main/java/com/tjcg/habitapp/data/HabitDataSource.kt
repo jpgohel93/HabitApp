@@ -1,6 +1,10 @@
 package com.tjcg.habitapp.data
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Context.ALARM_SERVICE
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.os.Handler
@@ -9,6 +13,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.tjcg.habitapp.LoginActivity
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.remote.ApiService
@@ -23,6 +28,7 @@ import java.io.IOException
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.system.exitProcess
 
 @Singleton
 class HabitDataSource @Inject constructor(private val habitDao: HabitDao, private val
@@ -73,6 +79,15 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
                 return@async habitDao.getHabitById(id)
             }
         }
+
+    override suspend fun updateHabitAsync(habit: Habit): Unit =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                habitDao.updateHabit(habit)
+                Log.d("HabitUpdate", "${habit.title} updated")
+            }
+        }
+
 
     private fun updateHabitList() {
         mainScope.launch {
@@ -229,5 +244,35 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         } catch (e: IOException) {
             return null
         }
+    }
+
+    suspend fun generateBackupDataAsync() =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                val allHabits = habitDao.getAllHabits()
+                val gson = Gson()
+                val typeT = object : TypeToken<List<Habit>>() { }
+                val backStr = gson.toJson(allHabits, typeT.type)
+                Log.d("habitJson", backStr)
+
+                val calendarData: List<HabitCalendar>? = calendarDao.getFullCalendar()
+                val typeT2 = object : TypeToken<List<HabitCalendar>>() { }
+                val calendarStr = gson.toJson(calendarData, typeT2.type)
+                Log.d("habitCalendar", calendarStr)
+            }
+        }
+
+    fun restartApp(applicationContext: Context) {
+        val intent = Intent(applicationContext, LoginActivity::class.java)
+        val mPendingIntentId = 10000
+        val mPendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            mPendingIntentId,
+            intent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
+        val mgr = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
+        mgr[AlarmManager.RTC, System.currentTimeMillis() + 100] = mPendingIntent
+        exitProcess(0)
     }
 }

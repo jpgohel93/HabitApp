@@ -86,6 +86,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/card_black"
         android:text="Login"
+        android:textColor="@color/white"
         app:backgroundTint="@null"
         android:layout_marginTop="@dimen/app_vertical_margin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +101,6 @@
         android:layout_marginTop="@dimen/app_vertical_margin"
         android:background="@drawable/card_black_outline"
         app:backgroundTint="@null"
-        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/loginBtn"
         app:layout_constraintStart_toStartOf="@+id/loginBtn"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />

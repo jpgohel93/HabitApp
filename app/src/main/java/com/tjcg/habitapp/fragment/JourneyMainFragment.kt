@@ -34,10 +34,10 @@ class JourneyMainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-     /*   if (!MainActivity.isNavShowing) {
+        if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        MainActivity.currentPage = Constant.PAGE_2  */
+        MainActivity.currentPage = Constant.PAGE_2
         ctx = findNavController().context
         binding = FragmentJourneyMainBinding.inflate(inflater, container, false)
         val journeyViewModel = ViewModelProvider(this)[JourneyViewModel::class.java]

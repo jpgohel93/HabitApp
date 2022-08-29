@@ -1,6 +1,7 @@
 package com.tjcg.habitapp.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.tjcg.habitapp.LoginActivity
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
@@ -26,6 +28,7 @@ import com.tjcg.habitapp.viewmodel.HabitViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 import java.util.*
@@ -51,11 +54,16 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
     private var daysRepetitionCount = 1
     private var habitToEdit : Habit? = null
 
+    private val mainScope = CoroutineScope(Dispatchers.Main)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        if (MainActivity.isNavShowing) {
+            MainActivity.hideBottomNavigation()
+        }
         ctx = findNavController().context
  //       MainActivity.currentPage = Constant.PAGE_IN
         bindingMain = FragmentCreateHabitBinding.inflate(layoutInflater)
@@ -65,12 +73,16 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         animationHandler = Handler(Looper.getMainLooper())
 
         //get habit to edit if in edit mode
-        CoroutineScope(Dispatchers.Main).launch {
+        mainScope.launch {
             habitToEdit = dataSource.getHabitByIdAsync(editHabitId).await()
             if (habitToEdit != null) {
                 bindingMain.titleText.text = habitToEdit?.title
                 bindingMain.titleTextEdit.setText(habitToEdit?.title)
-                bindingMain.habitIcon.text = habitToEdit?.icon
+                if (!iconChanged) {
+                    bindingMain.habitIcon.text = habitToEdit?.icon
+                } else {
+                    iconChanged = false
+                }
             }
         }
 
@@ -101,7 +113,11 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             bindingMain.habitIcon.text = icon
         }
         bindingMain.habitIcon.setOnClickListener {
-            findNavController().navigate(R.id.action_bottom_createNewHabitFragment_to_bottom_iconListFragment)
+            if (editHabit) {
+                findNavController().navigate(R.id.action_navigation_habitEdit_to_navigation_habitIcons)
+            } else {
+                findNavController().navigate(R.id.action_bottom_createNewHabitFragment_to_bottom_iconListFragment)
+            }
         }
 
         // handle repetition options
@@ -288,6 +304,38 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         repetitionBinding.repChecked2.setOnClickListener(this)
         repetitionBinding.repChecked3.setOnClickListener(this)
         repetitionBinding.repChecked4.setOnClickListener(this)
+        // already set for edit mode
+        if (editHabit) {
+            mainScope.launch {
+                while (habitToEdit == null) { delay(500) }
+                Log.d("EditRepetationType", "${habitToEdit?.title} - ${habitToEdit?.repetitionType}")
+                when (habitToEdit?.repetitionType) {
+                    Constant.HABIT_REPEAT_AS_WEEKDAY -> {
+                        val repetitionDaysArray = habitToEdit?.repetitionDaysArray
+                        repetitionBinding.sun.isChecked = repetitionDaysArray?.contains("1") == true
+                        repetitionBinding.mon.isChecked = repetitionDaysArray?.contains("2") == true
+                        repetitionBinding.tue.isChecked = repetitionDaysArray?.contains("3") == true
+                        repetitionBinding.wed.isChecked = repetitionDaysArray?.contains("4") == true
+                        repetitionBinding.thu.isChecked = repetitionDaysArray?.contains("5") == true
+                        repetitionBinding.fri.isChecked = repetitionDaysArray?.contains("6") == true
+                        repetitionBinding.sat.isChecked = repetitionDaysArray?.contains("7") == true
+                    }
+                    Constant.HABIT_REPEAT_IN_WEEK -> {
+                        repetitionBinding.editRepeatation.performClick()
+                        repetitionBinding.repChecked2.performClick()
+                    }
+                    Constant.HABIT_REPEAT_IN_MONTH -> {
+                        repetitionBinding.editRepeatation.performClick()
+                        repetitionBinding.repChecked3.performClick()
+                        repetitionBinding.monthDayPicker.value = habitToEdit?.repetitionDaysCount ?: 2
+                    }
+                    Constant.HABIT_REPEAT_IN_YEAR -> {
+                        repetitionBinding.editRepeatation.performClick()
+                        repetitionBinding.repChecked4.performClick()
+                    }
+                }
+            }
+        }
 
         // handle goal options
         var goalHours = 0
@@ -307,7 +355,13 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         binding.goalRepeatPicker.setOnValueChangedListener { _, _, i2 ->
             goalRepetitionCount = i2
         }
+        var goalSwitchSilentCheck = false
         binding.goalSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            if (goalSwitchSilentCheck) {
+                // Do nothing, required no action when auto on in edit mode
+                goalSwitchSilentCheck = false
+                return@setOnCheckedChangeListener
+            }
             if (b) {
                 BottomSheetDialog(this.requireContext()).apply {
                     val sheetBinding = BottomsheetDailyGoalBinding.inflate(layoutInflater)
@@ -335,6 +389,31 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
                 //   collapseCard(binding.goalCollapseRepeatLayout)
             }
         }
+        // set up for edit mode
+        if (editHabit) {
+            mainScope.launch {
+                while (habitToEdit == null) { delay(500) }
+                if ((habitToEdit?.repetitionGoalCount ?: 1) > 1) {
+                    goalSwitchSilentCheck = true
+                    binding.goalSwitch.isChecked = true
+                    binding.goalCollapseRepeatLayout.visibility = View.VISIBLE
+                    binding.goalRepeatPicker.value = habitToEdit?.repetitionGoalCount ?: 2
+                    return@launch
+                }
+                if ((habitToEdit?.repetitionGoalDuration ?: 0) > 0) {
+                    goalSwitchSilentCheck = true
+                    binding.goalSwitch.isChecked = true
+                    binding.goalCollapseDurationLayout.visibility = View.VISIBLE
+                    val goalDuration = habitToEdit?.repetitionGoalDuration ?: 0
+                    val goalHours1 = goalDuration / 3600
+                    val goalMinutes1 = (goalDuration % 3600) / 60
+                    binding.goalHourPicker.value = goalHours1
+                    binding.goalMinutePicker.value = goalMinutes1
+                }
+            }
+        }
+
+
 
         setUpDoItAtTiming(Constant.HABIT_DO_IT_ANYTIME)
         var doItTime = Constant.HABIT_DO_IT_ANYTIME
@@ -351,6 +430,19 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
         morningCardsBinding.doItEveningCard.setOnClickListener {
             doItTime = setUpDoItAtTiming(Constant.HABIT_DO_IT_EVENING)
         }
+        //set up for edit mode
+        if (editHabit) {
+            mainScope.launch {
+                while (habitToEdit == null) { delay(500) }
+                when(habitToEdit?.doItAtTime) {
+                    Constant.HABIT_DO_IT_ANYTIME -> morningCardsBinding.doItAnytimeCard.performClick()
+                    Constant.HABIT_DO_IT_MORNING -> morningCardsBinding.doItMorningCard.performClick()
+                    Constant.HABIT_DO_IT_AFTERNOON -> morningCardsBinding.doItAfternoonCard.performClick()
+                    Constant.HABIT_DO_IT_EVENING -> morningCardsBinding.doItEveningCard.performClick()
+                }
+            }
+        }
+
 
         // handle advance settings
         binding.advanceSettingsToggleLayout.setOnClickListener {
@@ -371,18 +463,53 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             isAdvanceOpen = true
         }
         // handle reminder settings
+        var reminderSelectedTime = ""
+        var reminderSelectedHour = 0
+        var reminderSelectedMinutes = 0
+        var reminderSilentSwitch = false
         binding.advanceReminderSwitch.setOnCheckedChangeListener { _, b ->
+            if (reminderSilentSwitch) {
+                // do nothing , checked for edit mode
+                reminderSilentSwitch = false
+            }
             // TODO("update user configuration here")
             if (b) {
                 binding.reminderCollapsedLayout.visibility = View.VISIBLE
                 //     expandCard(binding.reminderCollapsedLayout)
             } else {
                 binding.reminderCollapsedLayout.visibility = View.GONE
+                reminderSelectedTime = ""
                 //     collapseCard(binding.reminderCollapsedLayout)
             }
         }
         binding.reminderHourPicker.maxValue = 23
         binding.reminderMinutePicker.maxValue = 59
+        binding.reminderHourPicker.setOnValueChangedListener { numberPicker, i, i2 ->
+            reminderSelectedHour = i2
+            reminderSelectedTime = "$reminderSelectedHour:$reminderSelectedMinutes"
+        }
+        binding.reminderMinutePicker.setOnValueChangedListener { numberPicker, i, i2 ->
+            reminderSelectedMinutes = i2
+            reminderSelectedTime = "$reminderSelectedHour:$reminderSelectedMinutes"
+        }
+        // set up for edit mode
+        if (editHabit) {
+            mainScope.launch {
+                while (habitToEdit == null) { delay(500) }
+                if (!habitToEdit?.habitReminderTime.isNullOrBlank()) {
+                    reminderSilentSwitch = true
+                    binding.advanceReminderSwitch.isChecked = true
+                    reminderSelectedTime = habitToEdit?.habitReminderTime ?: "0:0"
+                    binding.reminderHourPicker.value =
+                        (habitToEdit?.habitReminderTime?.split(":")?.get(0))?.toInt() ?: 0
+                    binding.reminderMinutePicker.value =
+                        (habitToEdit?.habitReminderTime?.split(":")?.get(1))?.toInt() ?: 0
+                }
+                // set encouragement text
+                binding.encouragementEditText.setText(habitToEdit?.encouragementText)
+            }
+        }
+
 
 
         // TODO("handle Ends on selection")
@@ -436,18 +563,65 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
             bottomDialog.setContentView(bBinding.root)
             bottomDialog.show()
         }
+        // for edit mode
+        if (editHabit) {
+            mainScope.launch {
+                while (habitToEdit == null) { delay(500) }
+                when(habitToEdit?.endsOnType) {
+                    Constant.HABIT_END_ON_NULL -> binding.endOnOff.isSelected = true
+                    Constant.HABIT_END_ON_DATE -> {
+                        binding.endOnOff.isSelected = false
+                        binding.endOnDate.isSelected = true
+                        endOnDate = habitToEdit?.endsOnDate ?: "0000-00-00"
+                    }
+                    Constant.HABIT_END_ON_DAYS -> {
+                        binding.endOnOff.isSelected = false
+                        binding.endOnDays.isSelected = true
+                        endOnDays = habitToEdit?.endsOnDays ?: 3
+                    }
+                }
+            }
+        }
 
 
         // save Habit
         bindingMain.saveHabitButton.setOnClickListener {
             val habitTitle = bindingMain.titleText.text.toString()
             val repetitionGoalDuration = ((goalHours * 60) + goalMinutes) * 60 // in seconds
-            val newHabit = Habit(bindingMain.habitIcon.text.toString(), habitTitle, 0,
-            currentlySelectedRepetition, createSelectedWeekdayArray(), daysRepetitionCount,
-            repetitionGoalDuration, goalRepetitionCount, doItTime, "", 0,
-            "none", habitEndType, endOnDate, endOnDays)
-            dataSource.addHabit(newHabit)
-            findNavController().navigateUp()
+            if(editHabit) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (habitToEdit != null) {
+                        habitToEdit?.title = habitTitle
+                        habitToEdit?.icon = bindingMain.habitIcon.text.toString()
+                        habitToEdit?.repetitionType = currentlySelectedRepetition
+                        habitToEdit?.repetitionDaysArray = createSelectedWeekdayArray()
+                        habitToEdit?.repetitionDaysCount = daysRepetitionCount
+                        habitToEdit?.repetitionGoalDuration = repetitionGoalDuration
+                        habitToEdit?.repetitionGoalCount = goalRepetitionCount
+                        habitToEdit?.doItAtTime = doItTime
+                        habitToEdit?.habitReminderTime =reminderSelectedTime
+                        // update sound effect here
+                        habitToEdit?.encouragementText = binding.encouragementEditText.text.toString()
+                        habitToEdit?.endsOnType = habitEndType
+                        habitToEdit?.endsOnDate = endOnDate
+                        habitToEdit?.endsOnDays = endOnDays
+                        dataSource.updateHabitAsync(habitToEdit!!)
+                    } else {
+                        Toast.makeText(ctx, "An Error Occurred, Please try again", Toast.LENGTH_SHORT).show()
+                    }
+                    // restart app
+                 //   dataSource.restartApp(ctx.applicationContext)
+                    (ctx as MainActivity).finishAffinity()
+                    ctx.startActivity(Intent(ctx, LoginActivity::class.java))
+                }
+            } else {
+                val newHabit = Habit(bindingMain.habitIcon.text.toString(), habitTitle, 0,
+                    currentlySelectedRepetition, createSelectedWeekdayArray(), daysRepetitionCount,
+                    repetitionGoalDuration, goalRepetitionCount, doItTime, reminderSelectedTime, 0,
+                    binding.encouragementEditText.text.toString(), habitEndType, endOnDate, endOnDays)
+                dataSource.addHabit(newHabit)
+                findNavController().navigateUp()
+            }
         }
 
         // set up view model observers
@@ -566,5 +740,6 @@ class CreateNewHabitFragment : Fragment(), View.OnClickListener {
     companion object {
         var editHabit = false
         var editHabitId = -1
+        var iconChanged = false
     }
 }
