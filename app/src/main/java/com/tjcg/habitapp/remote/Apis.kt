@@ -20,4 +20,12 @@ interface Apis {
 
     @GET("presets")
     fun getHabitPresets(@Header("Authorization") authToken: String) : Call<PresetResponse>
+
+    @POST("backup")
+    @FormUrlEncoded
+    fun backupNow(@Header("Authorization") authToken: String,
+            @Field("json") json: String) : Call<BackupResponse>
+
+    @GET("restore")
+    fun restoreNow(@Header("Authorization") authToken: String) : Call<RestoreResponse>
 }

@@ -64,7 +64,11 @@ object Constant {
     const val CONNECTION_TIMEOUT = 30L
     const val READ_TIMEOUT = 30L
     const val WRITE_TIMEOUT = 30L
+    const val HABIT_BACKUP_JSON = "habits"
+    const val CALENDAR_BACKUP_JSON = "calendars"
     var authorizationToken = ""
+    var habitAndCalendarBackupSeparator = "---"
+
 
     // shared preferences
     const val PREFS_APP = "app_preferences"

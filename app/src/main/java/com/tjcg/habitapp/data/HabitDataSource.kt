@@ -20,11 +20,15 @@ import com.tjcg.habitapp.remote.ApiService
 import com.tjcg.habitapp.remote.PresetResponse
 import com.tjcg.habitapp.viewmodel.HabitViewModel
 import kotlinx.coroutines.*
+import org.json.JSONArray
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
+import java.lang.reflect.Type
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -246,7 +250,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         }
     }
 
-    suspend fun generateBackupDataAsync() =
+    suspend fun generateBackupDataAsync() : Deferred<String> =
         coroutineScope {
             async(Dispatchers.IO) {
                 val allHabits = habitDao.getAllHabits()
@@ -259,20 +263,40 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
                 val typeT2 = object : TypeToken<List<HabitCalendar>>() { }
                 val calendarStr = gson.toJson(calendarData, typeT2.type)
                 Log.d("habitCalendar", calendarStr)
+
+                val jsonObject = JSONObject()
+                jsonObject.put(Constant.HABIT_BACKUP_JSON, backStr)
+                jsonObject.put(Constant.CALENDAR_BACKUP_JSON, calendarStr)
+                Log.d("Final Backup", jsonObject.toString())
+                return@async jsonObject.toString()
             }
         }
 
-    fun restartApp(applicationContext: Context) {
-        val intent = Intent(applicationContext, LoginActivity::class.java)
-        val mPendingIntentId = 10000
-        val mPendingIntent = PendingIntent.getActivity(
-            applicationContext,
-            mPendingIntentId,
-            intent,
-            PendingIntent.FLAG_CANCEL_CURRENT
-        )
-        val mgr = applicationContext.getSystemService(ALARM_SERVICE) as AlarmManager
-        mgr[AlarmManager.RTC, System.currentTimeMillis() + 100] = mPendingIntent
-        exitProcess(0)
-    }
+    suspend fun restoreHabitsAsync(restoreJson : String) : Deferred<Boolean> =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                try {
+                    val restoreObject = JSONObject(restoreJson)
+                    val habitsJson = restoreObject.get(Constant.HABIT_BACKUP_JSON)
+                    val calendarJson = restoreObject.get(Constant.CALENDAR_BACKUP_JSON)
+                    val gson = Gson()
+                    val typeT1 = object : TypeToken<List<Habit>>() { }
+                    val typeT2 = object : TypeToken<List<HabitCalendar>>() { }
+                    val allHabits = gson.fromJson<List<Habit>>(habitsJson.toString(), typeT1.type)
+                    val allCalendar = gson.fromJson<List<HabitCalendar>>(calendarJson.toString(), typeT2.type)
+                    Log.d("RestoreHabits", "${allHabits.size}")
+                    Log.d("RestoreCalendar", "${allCalendar.size}")
+
+                    habitDao.deleteAllHabits()
+                    habitDao.insertAllHabits(allHabits)
+
+                    calendarDao.deleteAllCalendar()
+                    calendarDao.insertAllCalendar(allCalendar)
+                    return@async true
+                } catch (e: Exception) {
+                    Log.e("RestoreError", "$e")
+                    return@async false
+                }
+            }
+        }
 }

@@ -1,15 +1,15 @@
 package com.tjcg.habitapp.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface HabitDao {
 
     @Insert
     fun insertNewHabits(habit: Habit)
+
+    @Insert
+    fun insertAllHabits(allHabits : List<Habit>)
 
     @Query("select * from Habits")
     fun getAllHabits() : List<Habit>
@@ -19,4 +19,7 @@ interface HabitDao {
 
     @Update
     fun updateHabit(habit: Habit)
+
+    @Query("delete from Habits")
+    fun deleteAllHabits()
 }

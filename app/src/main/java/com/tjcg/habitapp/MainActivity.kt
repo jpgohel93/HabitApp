@@ -1,6 +1,8 @@
 package com.tjcg.habitapp
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -155,5 +157,10 @@ class MainActivity : AppCompatActivity() {
             }, collapseExpandDuration)
         }
 
+        fun loginAgain(ctx: Context, dataSource: HabitDataSource) {
+            dataSource.sharedPreferences.edit().putString(Constant.PREFS_AUTHORIZATION, "").apply()
+            (ctx as MainActivity).finish()
+            (ctx as MainActivity).startActivity(Intent(ctx, LoginActivity::class.java))
+        }
     }
 }

@@ -1,8 +1,11 @@
 package com.tjcg.habitapp.fragment
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +15,25 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.tjcg.habitapp.LoginActivity
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.HabitDataSource
+import com.tjcg.habitapp.databinding.DialogBackupAndRestoreBinding
 import com.tjcg.habitapp.databinding.FragmentMyProfileMainBinding
 import com.tjcg.habitapp.databinding.RecyclerItemMyProfileOptionBinding
+import com.tjcg.habitapp.remote.ApiService
+import com.tjcg.habitapp.remote.Apis
+import com.tjcg.habitapp.remote.BackupResponse
+import com.tjcg.habitapp.remote.RestoreResponse
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 const val POS_NOTIFICATION = 0
@@ -53,9 +65,114 @@ class MyProfileMainFragment : Fragment() {
             inflater, container, false)
         generateProfileOptions(binding.myProfileOptionsRecycler)
         binding.backAndRestLayout.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                dataSource.generateBackupDataAsync().await()
+          //  dataSource.generateBackupDataAsync().await()
+            var aDialog : AlertDialog? = null
+            val builder  = AlertDialog.Builder(ctx).apply {
+                val dBinding : DialogBackupAndRestoreBinding =
+                    DialogBackupAndRestoreBinding.inflate(layoutInflater)
+                dBinding.backupButton.setOnClickListener {
+                    dBinding.backupButtonsLayout.visibility = View.GONE
+                    dBinding.backupProgressLayout.visibility = View.VISIBLE
+                    CoroutineScope(Dispatchers.Main).launch {
+                        val backupData = dataSource.generateBackupDataAsync().await()
+                        ApiService.apiService?.backupNow(
+                            "Bearer " + Constant.authorizationToken,
+                            backupData
+                        )?.enqueue(object : Callback<BackupResponse> {
+                            override fun onResponse(
+                                call: Call<BackupResponse>,
+                                response: Response<BackupResponse>
+                            ) {
+                                dBinding.backupProgressLayout.visibility = View.GONE
+                                Log.d("HabitBackupResponse", "${response.body()?.message}")
+                                if (response.isSuccessful && response.body()?.status == true) {
+                                    dBinding.backupSuccessLayout.visibility = View.VISIBLE
+                                    dBinding.backupFinishButton.setOnClickListener {
+                                        aDialog?.dismiss()
+                                    }
+                                } else if (
+                                    response.body()?.message?.lowercase()
+                                        ?.contains("token") == true
+                                ) {
+                                    MainActivity.loginAgain(ctx, dataSource)
+                                } else {
+                                    dBinding.backupErrorLayout.visibility = View.VISIBLE
+                                    dBinding.errorCloseButton.setOnClickListener {
+                                        aDialog?.dismiss()
+                                    }
+                                }
+                            }
+
+                            override fun onFailure(call: Call<BackupResponse>, t: Throwable) {
+                                dBinding.backupProgressLayout.visibility = View.GONE
+                                dBinding.backupErrorLayout.visibility = View.VISIBLE
+                                dBinding.errorCloseButton.setOnClickListener {
+                                    aDialog?.dismiss()
+                                }
+                            }
+                        })
+                    }
+                }
+                dBinding.restoreButton.setOnClickListener {
+                    dBinding.backupButtonsLayout.visibility = View.GONE
+                    dBinding.backupWarningLayout.visibility = View.VISIBLE
+                    dBinding.restoreCancelButton.setOnClickListener {
+                        aDialog?.dismiss()
+                    }
+                    dBinding.restoreProceedButton.setOnClickListener {
+                        dBinding.backupWarningLayout.visibility = View.GONE
+                        dBinding.backupProgressLayout.visibility = View.VISIBLE
+                        ApiService.apiService?.restoreNow("Bearer "+Constant.authorizationToken)
+                            ?.enqueue(object : Callback<RestoreResponse> {
+                                override fun onResponse(
+                                    call: Call<RestoreResponse>,
+                                    response: Response<RestoreResponse>
+                                ) {
+                                    Log.d("RestoreResponse", "${response.body()?.message}")
+                                    dBinding.backupProgressLayout.visibility = View.GONE
+                                    if (response.isSuccessful && response.body()?.status == true) {
+                                        val restoreData = response.body()?.data
+                                        if (restoreData != null) {
+                                            if (!restoreData.restoreJson.isNullOrBlank()) {
+                                                CoroutineScope(Dispatchers.Main).launch {
+                                                    val success = dataSource.restoreHabitsAsync(restoreData.restoreJson!!).await()
+                                                    if (success) {
+                                                        (ctx as MainActivity).finishAffinity()
+                                                        ctx.startActivity(Intent(ctx, LoginActivity::class.java))
+                                                    } else {
+                                                        dBinding.backupErrorLayout.visibility = View.VISIBLE
+                                                        dBinding.errorCloseButton.setOnClickListener {
+                                                            aDialog?.dismiss()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else if (response.body()?.message?.lowercase()?.contains("token") == true) {
+                                        MainActivity.loginAgain(ctx, dataSource)
+                                    } else {
+                                        dBinding.backupErrorLayout.visibility = View.VISIBLE
+                                        dBinding.errorCloseButton.setOnClickListener {
+                                            aDialog?.dismiss()
+                                        }
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<RestoreResponse>, t: Throwable) {
+                                    dBinding.backupProgressLayout.visibility = View.GONE
+                                    dBinding.backupErrorLayout.visibility = View.VISIBLE
+                                    dBinding.errorCloseButton.setOnClickListener {
+                                        aDialog?.dismiss()
+                                    }
+                                }
+                            })
+                    }
+                }
+                setView(dBinding.root)
             }
+            aDialog = builder.create()
+            aDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            aDialog.show()
          /*   if (isSignInCardExpand) {
                 binding.loginCollapsedLayout.visibility = View.GONE
                 isSignInCardExpand = false

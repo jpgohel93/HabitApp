@@ -82,9 +82,7 @@ class HabitPresetsFragment : Fragment() {
                         }
                     } else if (!response.body()?.message.isNullOrBlank() &&
                             (response.body()?.message?.lowercase()?.contains("token")==true)) {
-                        dataSource.sharedPreferences.edit().putString(Constant.PREFS_AUTHORIZATION, "").apply()
-                        (ctx as MainActivity).finish()
-                        (ctx as MainActivity).startActivity(Intent(ctx, LoginActivity::class.java))
+                        MainActivity.loginAgain(ctx, dataSource)
                     } else {
                         Log.e("PresetResponse", "${response.body()?.message}")
                     }
