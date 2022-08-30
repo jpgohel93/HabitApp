@@ -55,7 +55,10 @@ class TimerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-//        MainActivity.currentPage = Constant.PAGE_IN
+        if (MainActivity.isNavShowing) {
+            MainActivity.hideBottomNavigation()
+        }
+        MainActivity.currentPage = Constant.PAGE_IN
         mainBinding = FragmentTimerTabsBinding.inflate(inflater, container, false)
         mainViewPager = mainBinding.timerViewPager
         mainViewPager.adapter = TimerAdapter(this)

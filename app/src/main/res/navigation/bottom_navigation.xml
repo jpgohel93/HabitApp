@@ -9,7 +9,11 @@
         android:id="@+id/bottom_todayFragment"
         android:name="com.tjcg.habitapp.fragment.TodayFragment"
         tools:layout="@layout/fragment_today"
-        android:label="TodayFragment" />
+        android:label="TodayFragment" >
+        <action
+            android:id="@+id/action_bottom_todayFragment_to_bottom_timerFragment"
+            app:destination="@id/bottom_timerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bottom_journeyMainFragment"
         android:name="com.tjcg.habitapp.fragment.JourneyNavigatorFragment"
@@ -57,4 +61,9 @@
         tools:layout="@layout/fragment_icon_select"
         android:name="com.tjcg.habitapp.fragment.IconListFragment"
         android:label="IconListFragment" />
+    <fragment
+        android:id="@+id/bottom_timerFragment"
+        android:name="com.tjcg.habitapp.fragment.TimerFragment"
+        tools:layout="@layout/fragment_timer"
+        android:label="TimerFragment" />
 </navigation>

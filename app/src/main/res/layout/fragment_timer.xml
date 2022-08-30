@@ -102,6 +102,7 @@
         android:layout_marginBottom="32dp"
         android:text="Start"
         app:backgroundTint="@null"
+        android:textColor="@color/white"
         android:textAllCaps="false"
         android:background="@drawable/button_background"
         app:layout_constraintBottom_toTopOf="@+id/reloadButton"

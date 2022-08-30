@@ -559,7 +559,7 @@ class TodayFragment : Fragment() {
                             TimerFragment.habitName = habit.habit.title
                             TimerFragment.selectedDate = selectedDate
                             TimerFragment.habitId = habit.habit.id
-                  //          findNavController().navigate(R.id.action_navigation_home_to_timerFragment)
+                            findNavController().navigate(R.id.action_bottom_todayFragment_to_bottom_timerFragment)
                         }
                         binding.extraFinishButton.setOnClickListener {
                             updateCounters(false, -(habit.durationCount.toFloat()/habit.habit.repetitionGoalDuration))
