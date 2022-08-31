@@ -22,7 +22,13 @@ class Habit(
     var endsOnDays : Int = -1,
 
     // for day based calculations
-    var repetitionDaysCompleted : Int= 0
+    var repetitionDaysCompleted : Int= 0,
+
+    // for timer
+    var timerNotificationActive: Boolean = false,
+    var timerNotificationSound : String = "",
+    var timerMusicActive: Boolean = false,
+    var timerMusicSound : String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0

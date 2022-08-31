@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
+import com.tjcg.habitapp.adapter.SoundEffectAdapter
 import com.tjcg.habitapp.adapter.WeekCalendarAdapter
 import com.tjcg.habitapp.data.*
 import com.tjcg.habitapp.databinding.FragmentTodayBinding
@@ -559,6 +560,10 @@ class TodayFragment : Fragment() {
                             TimerFragment.habitName = habit.habit.title
                             TimerFragment.selectedDate = selectedDate
                             TimerFragment.habitId = habit.habit.id
+                            TimerFragment.habitNotificationActive = habit.habit.timerNotificationActive
+                            SoundEffectAdapter.selectedSoundName = habit.habit.timerNotificationSound
+                            TimerFragment.habitMusicActive = habit.habit.timerMusicActive
+                            TimerFragment.habitMusicSound = habit.habit.timerMusicSound
                             findNavController().navigate(R.id.action_bottom_todayFragment_to_bottom_timerFragment)
                         }
                         binding.extraFinishButton.setOnClickListener {

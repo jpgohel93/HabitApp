@@ -45,6 +45,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
     private lateinit var storageDir : File
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var gson: Gson
+    private val notificationSounds = ArrayList<SoundEffect>()
 
     private val mainHandler by lazy {
         Handler(Looper.getMainLooper())
@@ -296,6 +297,84 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
                 } catch (e: Exception) {
                     Log.e("RestoreError", "$e")
                     return@async false
+                }
+            }
+        }
+
+    private fun prepareSoundEffects() {
+        notificationSounds.add(SoundEffect("Analog Tom", R.raw.analog_tom))
+        notificationSounds.add(SoundEffect("Announcement", R.raw.announcement))
+        notificationSounds.add(SoundEffect("Boeing", R.raw.boing))
+        notificationSounds.add(SoundEffect("Ding Idea", R.raw.ding_idea))
+        notificationSounds.add(SoundEffect("Fail fare", R.raw.failfare))
+        notificationSounds.add(SoundEffect("Flourish", R.raw.flourish))
+        notificationSounds.add(SoundEffect("Fragment", R.raw.fragment_retrievewav))
+        notificationSounds.add(SoundEffect("Glad Piano", R.raw.glad_piano))
+        notificationSounds.add(SoundEffect("Happy", R.raw.happy))
+        notificationSounds.add(SoundEffect("Hip Hop", R.raw.hip_hop_beat))
+        notificationSounds.add(SoundEffect("Knocking", R.raw.knocking))
+        notificationSounds.add(SoundEffect("Microwave Timer", R.raw.microwave_timer))
+        notificationSounds.add(SoundEffect("Pop", R.raw.pop))
+        notificationSounds.add(SoundEffect("Positive", R.raw.positive))
+        notificationSounds.add(SoundEffect("Punch", R.raw.punch))
+        notificationSounds.add(SoundEffect("Rising", R.raw.rising))
+        notificationSounds.add(SoundEffect("Short Choir", R.raw.short_choir))
+        notificationSounds.add(SoundEffect("Soft Alert", R.raw.soft_alert))
+        notificationSounds.add(SoundEffect("Success", R.raw.success))
+        notificationSounds.add(SoundEffect("Tada Fanfare", R.raw.tada_fanfare))
+        notificationSounds.add(SoundEffect("Trumpet", R.raw.trumpet))
+        notificationSounds.add(SoundEffect("Simple Sound", R.raw.ukulele_simple_sound))
+        notificationSounds.add(SoundEffect("Wood Destroy", R.raw.wood_crate_destory))
+        notificationSounds.add(SoundEffect("Wrong Answer", R.raw.wrong_answer))
+    }
+
+    fun getNotificationSounds() : ArrayList<SoundEffect> {
+        return if (notificationSounds.isEmpty()) {
+            prepareSoundEffects()
+            notificationSounds
+        } else {
+            notificationSounds
+        }
+    }
+
+    fun getSoundResource(name: String) : Int {
+        return when(name) {
+            "Analog Tom" -> R.raw.analog_tom
+            "Announcement" -> R.raw.announcement
+            "Boeing" -> R.raw.boing
+            "Ding Idea" -> R.raw.ding_idea
+            "Fail fare"-> R.raw.failfare
+            "Flourish" -> R.raw.flourish
+            "Fragment" -> R.raw.fragment_retrievewav
+            "Glad Piano" -> R.raw.glad_piano
+            "Happy" -> R.raw.happy
+            "Hip Hop" -> R.raw.hip_hop_beat
+            "Knocking" -> R.raw.knocking
+            "Microwave Timer" -> R.raw.microwave_timer
+            "Pop" -> R.raw.pop
+            "Positive" -> R.raw.positive
+            "Punch" -> R.raw.punch
+            "Rising" -> R.raw.rising
+            "Short Choir" -> R.raw.short_choir
+            "Soft Alert" -> R.raw.soft_alert
+            "Success" -> R.raw.success
+            "Tada Fanfare" -> R.raw.tada_fanfare
+            "Trumpet" -> R.raw.trumpet
+            "Simple Sound" -> R.raw.ukulele_simple_sound
+            "Wood Destroy" -> R.raw.wood_crate_destory
+            "Wrong Answer" -> R.raw.wrong_answer
+            else -> R.raw.analog_tom
+        }
+    }
+
+    suspend fun changeHabitTimerNotificationAsync(habitId: Int, notificationActive: Boolean, sound: String) =
+        coroutineScope {
+            async(Dispatchers.IO) {
+                val habit = habitDao.getHabitById(habitId)
+                if (habit != null) {
+                    habit.timerNotificationActive = notificationActive
+                    habit.timerNotificationSound = sound
+                    habitDao.updateHabit(habit)
                 }
             }
         }

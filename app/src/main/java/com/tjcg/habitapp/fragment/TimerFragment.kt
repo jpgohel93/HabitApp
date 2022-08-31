@@ -2,33 +2,34 @@ package com.tjcg.habitapp.fragment
 
 import android.app.AlertDialog
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.adapter.SimpleItemAdapter
+import com.tjcg.habitapp.adapter.SoundEffectAdapter
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.Constant.convertSecondsToText
 import com.tjcg.habitapp.data.HabitDataSource
+import com.tjcg.habitapp.data.SoundEffect
 import com.tjcg.habitapp.databinding.FragmentTimerBinding
 import com.tjcg.habitapp.databinding.FragmentTimerTabsBinding
 import com.tjcg.habitapp.databinding.SubFragmentTimerMusicSettingsBinding
 import com.tjcg.habitapp.databinding.SubFragmentTimerNotificationSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,16 +39,19 @@ class TimerFragment : Fragment() {
 
     lateinit var ctx: Context
 
+    private lateinit var mainBinding : FragmentTimerTabsBinding
+
     companion object {
         var habitName = ""
         var habitId = 0
         var selectedDate = ""
         var habitGoalDuration = 0
         var habitDurationFinished = 0
+        var habitNotificationActive = false
+        var habitMusicActive = false
+        var habitMusicSound = ""
         lateinit var mainViewPager : ViewPager2
     }
-
-    private lateinit var mainBinding : FragmentTimerTabsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,13 +77,12 @@ class TimerFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when(position) {
-                0 -> TimerNotificationSettingsFragment.getInstance(ctx)
+                0 -> TimerNotificationSettingsFragment.getInstance(ctx, dataSource)
                 1 -> TimerMainFragment.getInstance(ctx, dataSource)
                 2 -> TimerMusicSettingsFragment.getInstance(ctx)
                 else -> TimerMainFragment.getInstance(ctx, dataSource)
             }
         }
-
     }
 
     class TimerMainFragment : Fragment() {
@@ -201,6 +204,11 @@ class TimerFragment : Fragment() {
             isFinished = true
             binding.countDownTime.text = "Complete"
             binding.pauseButton.text = "Finish"
+            val mediaPlayer = MediaPlayer.create(ctx, dataSource.getSoundResource(SoundEffectAdapter.selectedSoundName))
+            mediaPlayer.start()
+            mediaPlayer.setOnCompletionListener {
+                mediaPlayer.release()
+            }
         }
 
         companion object {
@@ -218,6 +226,7 @@ class TimerFragment : Fragment() {
 
         private lateinit var tBinding : SubFragmentTimerNotificationSettingsBinding
         private lateinit var ctx: Context
+        private lateinit var dataSource: HabitDataSource
 
         override fun onCreateView(
             inflater: LayoutInflater,
@@ -229,37 +238,40 @@ class TimerFragment : Fragment() {
             )
             tBinding.habitTitle.text = habitName
             tBinding.habitTimeText.text = convertSecondsToText(habitGoalDuration)
+            tBinding.notificationSwitch.setOnCheckedChangeListener { compoundButton, b ->
+                if (b) {
+                    habitNotificationActive = true
+                    tBinding.soundSwitch.isEnabled = true
+                } else {
+                    habitNotificationActive = false
+                    SoundEffectAdapter.selectedSoundName = ""
+                    tBinding.soundSwitch.isEnabled = false
+                    tBinding.recyclerView.isEnabled = false
+                }
+            }
+            if (habitNotificationActive) {
+                tBinding.notificationSwitch.isChecked = true
+            }
+            if (SoundEffectAdapter.selectedSoundName.isNotBlank()) {
+                tBinding.soundSwitch.isChecked = true
+            }
             tBinding.closeBtn.setOnClickListener {
                 mainViewPager.setCurrentItem(1, true)
+                CoroutineScope(Dispatchers.Main).launch {
+                    dataSource.changeHabitTimerNotificationAsync(habitId, habitNotificationActive,
+                        SoundEffectAdapter.selectedSoundName).await()
+                }
             }
-            val dummyContent = ArrayList<String>()
-            dummyContent.add("A")
-            dummyContent.add("B")
-            dummyContent.add("C")
-            dummyContent.add("D")
-            dummyContent.add("E")
-            dummyContent.add("F")
-            dummyContent.add("G")
-            dummyContent.add("H")
-            dummyContent.add("I")
-            dummyContent.add("J")
-            dummyContent.add("K")
-            dummyContent.add("L")
-            dummyContent.add("M")
-            dummyContent.add("N")
-            dummyContent.add("O")
-            dummyContent.add("P")
-            dummyContent.add("Q")
-            dummyContent.add("R")
             tBinding.recyclerView.layoutManager = LinearLayoutManager(ctx)
-            tBinding.recyclerView.adapter = SimpleItemAdapter(ctx, dummyContent)
+            tBinding.recyclerView.adapter = SoundEffectAdapter(ctx,  dataSource.getNotificationSounds())
             return tBinding.root
         }
 
         companion object {
-            fun getInstance(ctx: Context) : TimerNotificationSettingsFragment {
+            fun getInstance(ctx: Context, dataSource: HabitDataSource) : TimerNotificationSettingsFragment {
                 return TimerNotificationSettingsFragment().apply {
                     this.ctx = ctx
+                    this.dataSource = dataSource
                 }
             }
         }

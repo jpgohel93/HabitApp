@@ -47,16 +47,16 @@
            android:layout_height="wrap_content"
            android:text="We will notify you when you reach your time goal"
            android:textColor="@color/white"
-           app:layout_constraintEnd_toStartOf="@+id/musicSwitch"
+           app:layout_constraintEnd_toStartOf="@+id/notificationSwitch"
            app:layout_constraintStart_toStartOf="@+id/musicText"
            app:layout_constraintTop_toBottomOf="@+id/musicText" />
 
        <Switch
-           android:id="@+id/musicSwitch"
+           android:id="@+id/notificationSwitch"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginEnd="16dp"
-           android:text="Switch"
+           android:theme="@style/Theme.AppCompat"
            app:layout_constraintBottom_toBottomOf="@+id/notificationInfo"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintTop_toTopOf="@+id/musicText" />
@@ -88,9 +88,9 @@
            android:id="@+id/soundSwitch"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:text="Switch"
+           android:theme="@style/Theme.AppCompat"
            app:layout_constraintBottom_toBottomOf="@+id/soundInfoText"
-           app:layout_constraintEnd_toEndOf="@+id/musicSwitch"
+           app:layout_constraintEnd_toEndOf="@+id/notificationSwitch"
            app:layout_constraintTop_toTopOf="@+id/soundText" />
 
        <androidx.recyclerview.widget.RecyclerView
