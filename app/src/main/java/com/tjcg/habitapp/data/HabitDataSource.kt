@@ -1,38 +1,30 @@
 package com.tjcg.habitapp.data
 
-import android.app.AlarmManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Context.ALARM_SERVICE
-import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tjcg.habitapp.LoginActivity
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.R
-import com.tjcg.habitapp.remote.ApiService
-import com.tjcg.habitapp.remote.PresetResponse
 import com.tjcg.habitapp.viewmodel.HabitViewModel
+import com.tjcg.habitapp.worker.NotificationWorker
 import kotlinx.coroutines.*
-import org.json.JSONArray
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
-import java.lang.reflect.Type
+import java.util.*
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.system.exitProcess
+import kotlin.Exception
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 @Singleton
 class HabitDataSource @Inject constructor(private val habitDao: HabitDao, private val
@@ -65,6 +57,20 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
 
     override fun addHabit(habit: Habit) {
         exeService.execute {
+            // schedule habit reminder notification if available
+            if (habit.repetitionType == Constant.HABIT_REPEAT_AS_WEEKDAY ||
+                    habit.repetitionType == Constant.HABIT_REPEAT_IN_WEEK) {
+                val wManager = WorkManager.getInstance(ctx)
+                if(habit.habitReminderTime.split(":")[0] != "0") {
+                    val activeMap = HashMap<Int, Boolean>()
+                    for(i in habit.repetitionDaysArray.split(",")) {
+                        activeMap[i.toInt()] = true
+                    }
+                    scheduleNewNotification(wManager, habit.title,
+                        habit.encouragementText, habit.habitReminderTime, activeMap)
+                    Log.d("Notification", "For ${habit.title} set")
+                }
+            }
             habitDao.insertNewHabits(habit)
             updateHabitList()
         }
@@ -218,6 +224,7 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
         val dataInJson = gson.toJson(notificationData, typeT.type)
         val outputFile = File(storageDir, Constant.notificationDataFile)
         outputFile.writeText(dataInJson)
+        setupNotificationSchedule(notificationData)
         Log.d("NotificationData","Written to $outputFile")
     }
 
@@ -378,4 +385,113 @@ class HabitDataSource @Inject constructor(private val habitDao: HabitDao, privat
                 }
             }
         }
+
+ /*   fun setNotificationAlarms(context: Context) {
+        val notificationIntent = Intent(context, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, 10, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val aManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
+        aManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, System.currentTimeMillis() + 10000,
+            pendingIntent)
+        Log.d("AlarmManager", "Alarm set")
+    } */
+
+    private fun setupNotificationSchedule(notificationData: NotificationData) {
+        val wManager = WorkManager.getInstance(ctx)
+        val oldUUIds = sharedPreferences.getString(Constant.PREFS_GLOBAL_NOTIFICATION_IDS, "")
+        Log.d("OldUUIDs", oldUUIds.toString())
+        if (!oldUUIds.isNullOrEmpty()) {
+            for(uid in oldUUIds.split(Constant.UUID_SEPARATOR)) {
+                if(uid.isNotBlank()) {
+                    wManager.cancelWorkById(UUID.fromString(uid))
+                    Log.d("Work Cancelled", uid)
+                }
+            }
+        }
+        var uuidNewStr = ""
+        if (notificationData.globalReminderActive == true) {
+            val uuid = scheduleNewNotification(wManager, Constant.GLOBAL_NOTI_TITLE, Constant.GLOBAL_NOTI_SUB,
+                notificationData.globalNotificationTime, notificationData.globalNotificationDaysActive)
+            uuidNewStr += Constant.UUID_SEPARATOR + uuid.toString()
+            Log.d("Global", notificationData.globalNotificationTime)
+        }
+        if (notificationData.morningReminderActive == true) {
+            val uuid = scheduleNewNotification(wManager, Constant.MORNING_NOTI_TITLE, Constant.MORNING_NOTI_SUB,
+                notificationData.morningNotificationTime, notificationData.morningNotificationDaysActive)
+            uuidNewStr += Constant.UUID_SEPARATOR + uuid.toString()
+            Log.d("Morning", notificationData.morningNotificationTime)
+        }
+        if (notificationData.afternoonReminderActive == true) {
+            val uuid = scheduleNewNotification(wManager, Constant.AFTERNOON_NOTI_TITLE, Constant.AFTERNOON_NOTI_SUB,
+                notificationData.afternoonNotificationTime, notificationData.afternoonNotificationDaysActive)
+            uuidNewStr += Constant.UUID_SEPARATOR + uuid.toString()
+            Log.d("Afternoon", notificationData.afternoonNotificationTime)
+        }
+        if (notificationData.eveningReminderActive == true) {
+            val uuid = scheduleNewNotification(wManager, Constant.EVENING_NOTI_TITLE, Constant.EVENING_NOTI_SUB,
+                notificationData.eveningNotificationTime, notificationData.eveningNotificationDaysActive)
+            uuidNewStr += Constant.UUID_SEPARATOR + uuid.toString()
+            Log.d("Evening", notificationData.eveningNotificationTime)
+        }
+        Log.d("FinalUUIDString", uuidNewStr)
+        sharedPreferences.edit().putString(Constant.PREFS_GLOBAL_NOTIFICATION_IDS, uuidNewStr).apply()
+    }
+
+    private fun scheduleNewNotification(wManager: WorkManager,
+                                        title: String,
+                                        subTitle: String,
+                                        notificationTime: String,
+                                        active: Map<Int, Boolean>) : UUID? {
+        try {
+            val newHour = notificationTime.split(":")[0].toInt()
+            val newMinute = notificationTime.split(":")[1].toInt()
+            val inputData = Data.Builder().apply {
+                putString(NotificationWorker.NOTIFICATION_TITLE, title)
+                putString(NotificationWorker.NOTIFICATION_SUBTITLE, subTitle)
+                putBoolean(NotificationWorker.ACTIVE+"-1", active[1] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-2", active[2] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-3", active[3] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-4", active[4] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-5", active[5] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-6", active[6] ?: false)
+                putBoolean(NotificationWorker.ACTIVE+"-7", active[7] ?: false)
+            }.build()
+            var currentDelayInSec = 10L
+            val cal = Calendar.getInstance()
+            val currentTime = cal.timeInMillis
+            Log.d("Current: ", "${cal.get(Calendar.HOUR_OF_DAY)} and ${cal.get(Calendar.MINUTE)}")
+            val currentHour = cal.get(Calendar.HOUR_OF_DAY)
+            val currentMinute = cal.get(Calendar.MINUTE)
+            var notificationTimePassed = false
+            if (currentHour <= newHour) {
+                if (currentHour == newHour && currentMinute > newMinute) {
+                    notificationTimePassed = true
+                } else{
+                    Log.d("Global", "upcoming time")
+                    cal.set(Calendar.HOUR_OF_DAY, newHour)
+                    cal.set(Calendar.MINUTE, newMinute)
+                    val diff = cal.timeInMillis - currentTime
+                    currentDelayInSec = diff / 1000
+                    Log.d("GlobalDiff & delay", "$diff and $currentDelayInSec")
+                }
+            } else {
+                notificationTimePassed = true
+            }
+            if (notificationTimePassed) {
+                val totalHours = (24 - currentHour - 1) + newHour
+                val totalMinutes = (totalHours * 60) + ((60 - currentMinute) + newMinute)
+                Log.d("Next Notification", "after $totalMinutes minutes")
+                currentDelayInSec = totalMinutes * 60L
+            }
+            val pRequest = PeriodicWorkRequest.Builder(NotificationWorker::class.java, 24, TimeUnit.HOURS).apply {
+                setInputData(inputData)
+                setInitialDelay(currentDelayInSec, TimeUnit.SECONDS)
+            }.build()
+            wManager.enqueue(pRequest)
+            return pRequest.id
+        } catch (e: Exception) {
+            Log.e("NotificationScheduleError", "$e")
+            return null
+        }
+
+    }
 }

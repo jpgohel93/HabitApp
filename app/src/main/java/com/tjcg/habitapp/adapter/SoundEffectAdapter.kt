@@ -6,7 +6,6 @@ import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tjcg.habitapp.R
 import com.tjcg.habitapp.data.SoundEffect
 import com.tjcg.habitapp.databinding.RecyclerItemSimpleBinding
 

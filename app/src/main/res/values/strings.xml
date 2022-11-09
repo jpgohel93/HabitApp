@@ -144,4 +144,8 @@
     <string name="rate_4">We like you too!\nThanks for your feedback.</string>
     <string name="rate_5">We love you, too!\nThank you for your feedback.</string>
 
+
+    <!-- auto start permission -->
+    <string name="autostart_permission">Kindly provide permission of auto start for the App, So it can send notification about your habits.\n\nPress Next button to continue</string>
+
 </resources>

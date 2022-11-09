@@ -21,7 +21,6 @@ import com.tjcg.habitapp.adapter.SoundEffectAdapter
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.data.Constant.convertSecondsToText
 import com.tjcg.habitapp.data.HabitDataSource
-import com.tjcg.habitapp.data.SoundEffect
 import com.tjcg.habitapp.databinding.FragmentTimerBinding
 import com.tjcg.habitapp.databinding.FragmentTimerTabsBinding
 import com.tjcg.habitapp.databinding.SubFragmentTimerMusicSettingsBinding

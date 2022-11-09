@@ -95,6 +95,13 @@ class MyProfileNotificationFragment : Fragment() {
                 when(layoutType) {
                     LAYOUT_GLOBAL -> {
                         notificationData.globalNotificationTime = "$newHour:$newMinuteStr"
+                     /*   Log.d("Global Notification", "set $newHour : $newMinuteStr")
+                        dataSource.scheduleGlobalNotification(
+                            "HabitApp",
+                            "Global Notification",
+                            newHour,
+                            newMinute
+                        )  */
                     }
                     LAYOUT_MORNING -> {
                         notificationData.morningNotificationTime = "$newHour:$newMinuteStr"

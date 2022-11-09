@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tjcg.habitapp.data.Constant
 import com.tjcg.habitapp.databinding.ActivityLogin2Binding
 import com.tjcg.habitapp.remote.ApiService
@@ -159,6 +160,13 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             }
+
+        }
+
+        // get firebase token id
+        val fMessaging = FirebaseMessaging.getInstance()
+        fMessaging.token.addOnSuccessListener {
+            Log.d("Firebase Token", it)
         }
      /*   Constant.authorizationToken = sharedPreferences.getString(
             Constant.PREFS_AUTHORIZATION, "") ?: ""

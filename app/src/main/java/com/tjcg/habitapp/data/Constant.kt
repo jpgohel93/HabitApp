@@ -52,8 +52,10 @@ object Constant {
     const val BAR_WIDTH_360 = 30
     const val BAR_WIDTH_410 = 50
 
+    const val UUID_SEPARATOR = " ; "
+
     var dateToday = -1
-    var monthToday = -1
+    private var monthToday = -1
     var todayString : String= ""
 
     var notificationDataFile = "NOTIFICATION_SETTINGS"
@@ -73,6 +75,20 @@ object Constant {
     // shared preferences
     const val PREFS_APP = "app_preferences"
     const val PREFS_AUTHORIZATION = "auth_token"
+    const val PREFS_GLOBAL_NOTIFICATION_IDS = "globalNotificationUUIds"
+    const val PREFS_ASKED_AUTORUN = "autoRunAsked"
+
+
+    //notification messages
+    const val GLOBAL_NOTI_TITLE = "Habit global notification"
+    const val GLOBAL_NOTI_SUB = "Habit global Subtitle"
+    const val MORNING_NOTI_TITLE = "Habit morning notification"
+    const val MORNING_NOTI_SUB = "Habit morning Subtitle"
+    const val AFTERNOON_NOTI_TITLE = "Habit afternoon notification"
+    const val AFTERNOON_NOTI_SUB = "Habit afternoon Subtitle"
+    const val EVENING_NOTI_TITLE = "Habit evening notification"
+    const val EVENING_NOTI_SUB = "Habit evening Subtitle"
+
 
     fun generateDateString(cal : Calendar) : String {
         val year = cal.get(Calendar.YEAR)
@@ -88,9 +104,9 @@ object Constant {
         cal.set(Calendar.WEEK_OF_YEAR, 1)
         val thatWeekday = cal.get(Calendar.DAY_OF_WEEK)
         cal.add(Calendar.DAY_OF_MONTH, 1 - thatWeekday)
-        Log.d("Firstdat", "${cal.get(Calendar.DAY_OF_MONTH)}, ${cal.get(Calendar.MONTH)}, ${cal.get(Calendar.WEEK_OF_YEAR)}" +
+        Log.d("FirstDate", "${cal.get(Calendar.DAY_OF_MONTH)}, ${cal.get(Calendar.MONTH)}, ${cal.get(Calendar.WEEK_OF_YEAR)}" +
                 ", $thatWeekday")
-        var yearAfter = 0
+        var yearAfter : Int
         val wholeCalendar = ArrayList<ArrayList<WeekCalendarRow>>()
         do {
             val myCalendars = ArrayList<WeekCalendarRow>()
@@ -109,21 +125,20 @@ object Constant {
     }
 
     fun getDisplayWidth(ctx: Context) : Int {
-        var displayWidth = 0
-        var displayHeight = 0
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        //     var displayHeight = 0
+        val displayWidth : Int = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val winManager = (ctx as MainActivity).getSystemService(WINDOW_SERVICE) as WindowManager
             val winMetrics = winManager.currentWindowMetrics
             val bounds = winMetrics.bounds
-            displayWidth = bounds.width()
-            displayHeight = bounds.height()
+            bounds.width()
+            //       displayHeight = bounds.height()
         } else {
             val displayManager = (ctx as MainActivity).getSystemService(DISPLAY_SERVICE) as DisplayManager
             val display = displayManager.getDisplay(0)
             val point = Point()
             display.getSize(point)
-            displayWidth = point.x
-            displayHeight = point.y
+            point.x
+            //        displayHeight = point.y
         }
         return displayWidth
     }
