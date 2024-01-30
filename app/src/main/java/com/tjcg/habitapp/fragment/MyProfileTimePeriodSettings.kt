@@ -39,7 +39,7 @@ class MyProfileTimePeriodSettings : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileTimePeriodsBinding.inflate(inflater, container, false)
         periodData = dataSource.getTimePeriodData() ?: TimePeriodData()
         setCardValues(binding.morningPeriodCard, CARD_MORNING)

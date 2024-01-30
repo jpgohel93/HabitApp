@@ -26,14 +26,14 @@ class MyProfileGeneralSettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        MainActivity.hideBottomNavigation()
-        MainActivity.currentPage = Constant.PAGE_IN
+  /*      MainActivity.hideBottomNavigation()
+        MainActivity.currentPage = Constant.PAGE_IN  */
         binding = FragmentMyProfileGeneralSettingsBinding.inflate(
             inflater, container, false)
         deleteDialog = DeleteDialog.getInstance()
         binding.timePeriodLayout.setOnClickListener {
             findNavController().navigate(
-                R.id.action_navigation_profile_g_settings_to_myProfileTimePeriodSettings)
+                R.id.action_navigation_myProfileGeneralSettingsFragment_to_navigation_myProfileTimePeriodSettings)
         }
         binding.firstDayExpandLayout.setOnClickListener {
             if (isFirstDayExpanded) {
@@ -51,7 +51,7 @@ class MyProfileGeneralSettingsFragment : Fragment() {
             "Thursday", "Friday", "Saturday")
         binding.privacyPolicyCard.setOnClickListener {
             findNavController().navigate(
-                R.id.action_navigation_profile_g_settings_to_navigation_privacy_policy)
+                R.id.action_navigation_myProfileGeneralSettingsFragment_to_navigation_privacyPolicyFragment)
         }
         binding.deleteDataCard.setOnClickListener {
             deleteDialog.show(parentFragmentManager, "delete")

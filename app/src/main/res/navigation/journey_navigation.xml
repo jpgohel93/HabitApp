@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/journey_navigation"
+    app:startDestination="@id/navigation_journeyMainFragment">
+
+    <fragment
+        android:id="@+id/navigation_journeyMainFragment"
+        tools:layout="@layout/fragment_journey_main"
+        android:name="com.tjcg.habitapp.fragment.JourneyMainFragment"
+        android:label="JourneyMainFragment" >
+        <action
+            android:id="@+id/action_navigation_journeyMainFragment_to_navigation_journeyDescriptionFragment"
+            app:destination="@id/navigation_journeyDescriptionFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_journey_description"
+        android:id="@+id/navigation_journeyDescriptionFragment"
+        android:name="com.tjcg.habitapp.fragment.JourneyDescriptionFragment"
+        android:label="JourneyDescriptionFragment" />
+</navigation>

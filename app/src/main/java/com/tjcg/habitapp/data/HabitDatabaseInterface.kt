@@ -6,4 +6,5 @@ interface HabitDatabaseInterface {
     fun addHabit(habit: Habit)
     suspend fun getAllHabitsAsync() : Deferred<List<Habit>>
     suspend fun getHabitByIdAsync(id: Int) : Deferred<Habit?>
+    suspend fun updateHabitAsync(habit: Habit)
 }

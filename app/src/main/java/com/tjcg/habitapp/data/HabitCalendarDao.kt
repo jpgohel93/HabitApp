@@ -12,6 +12,9 @@ interface HabitCalendarDao {
     @Insert(onConflict = REPLACE)
     fun insertInCalendar(habitCalendar : HabitCalendar)
 
+    @Insert(onConflict = REPLACE)
+    fun insertAllCalendar(calendars: List<HabitCalendar>)
+
     @Query("select * from HabitCalendar where calendarDate=:dateStr")
     fun getHabitsByDate(dateStr : String) : HabitCalendar?
 
@@ -23,4 +26,7 @@ interface HabitCalendarDao {
 
     @Query("update HabitCalendar set completed=:completed where calendarDate=:dateStr")
     fun updateCompletionRate(dateStr: String, completed: Int) : Int
+
+    @Query("delete from HabitCalendar")
+    fun deleteAllCalendar()
 }

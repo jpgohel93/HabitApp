@@ -45,6 +45,16 @@
     <dimen name="habit_icon_in_selection">90dp</dimen>
     <dimen name="habit_icon_selection_font_size">55sp</dimen>
 
+    <!-- habit presets screen -->
+    <dimen name="habit_preset_padding">15dp</dimen>
+    <dimen name="habit_preset_card_gif">60dp</dimen>
+    <dimen name="habit_preset_card_text">10sp</dimen>
+    <dimen name="habit_preset_recycler_item_size">110dp</dimen>
+    <dimen name="habit_preset_icon_size">40sp</dimen>
+    <dimen name="habit_preset_icon_padding">15dp</dimen>
+    <dimen name="habit_preset_title_size">12sp</dimen>
+    <dimen name="habit_preset_recycler_item_margin">8dp</dimen>
+
     <!-- History Screens -->
     <dimen name="history_calendar_4cards_margin">6dp</dimen>
     <dimen name="history_calendar_4card_title_size">15sp</dimen>

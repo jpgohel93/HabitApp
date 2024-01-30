@@ -42,7 +42,7 @@ class JourneyDescriptionFragment : Fragment() {
         jvModel = ViewModelProvider(this)[JourneyViewModel::class.java]
         setViewModelObservers()
         bindingMain.startJourneyButton.setOnClickListener {
-             findNavController().navigate(R.id.action_navigation_journey_desc_to_navigation_premium)
+       //      findNavController().navigate(R.id.action_navigation_journey_desc_to_navigation_premium)
         }
         bindingMain.backBtn.setOnClickListener {
             findNavController().navigateUp()

@@ -215,6 +215,7 @@
     <dimen name="root_title_text">22sp</dimen>
     <dimen name="root_regular_text">16sp</dimen>
     <dimen name="root_card_title">19sp</dimen>
+    <dimen name="close_cross_button_size">40dp</dimen>
 
     <!-- morning cards -->
     <dimen name="morning_root_card_length">130dp</dimen>
@@ -233,6 +234,19 @@
     <dimen name="habit_icon_in_selection">100dp</dimen>
     <dimen name="habit_icon_selection_font_size">60sp</dimen>
 
+    <!-- habit presets screen -->
+    <dimen name="habit_preset_padding">15dp</dimen>
+    <dimen name="habit_preset_card_gif">60dp</dimen>
+    <dimen name="habit_preset_card_text">10sp</dimen>
+    <dimen name="habit_preset_recycler_item_size">110dp</dimen>
+    <dimen name="habit_preset_icon_size">40sp</dimen>
+    <dimen name="habit_preset_icon_padding">15dp</dimen>
+    <dimen name="habit_preset_title_size">12sp</dimen>
+    <dimen name="habit_preset_recycler_item_margin">8dp</dimen>
+    <dimen name="habit_preset_icon_as_image_size">40dp</dimen>
+
+    <!-- preset habits -->
+    <dimen name="preset_habit_icon_size">25sp</dimen>
 
     <!-- History Screens -->
     <dimen name="history_calendar_4cards_margin">8dp</dimen>
@@ -302,4 +316,12 @@
     <dimen name="journey_white_card_logo_padding">4dp</dimen>
     <dimen name="journey_white_card_title_size">22sp</dimen>
     <dimen name="journey_white_card_next_button_size">40dp</dimen>
+
+
+    <!-- Login screen -->
+    <dimen name="login_image_height">450dp</dimen>
+    <dimen name="question_layout_top_margin">60dp</dimen>
+    <dimen name="login_question_text_size">24sp</dimen>
+    <dimen name="login_progress_bar_size">90dp</dimen>
+
 </resources>

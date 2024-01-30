@@ -9,8 +9,8 @@ class Habit(
     var title: String,
     var habitType: Int,
     var repetitionType : Int = Constant.HABIT_REPEAT_AS_WEEKDAY,
-    var repetitionDaysArray : String,
-    var repetitionDaysCount : Int,
+    var repetitionDaysArray : String = "",
+    var repetitionDaysCount : Int = 1,
     var repetitionGoalDuration : Int = 0,  // in seconds
     var repetitionGoalCount : Int = 1,
     var doItAtTime : Int = Constant.HABIT_DO_IT_ANYTIME,
@@ -22,7 +22,13 @@ class Habit(
     var endsOnDays : Int = -1,
 
     // for day based calculations
-    var repetitionDaysCompleted : Int= 0
+    var repetitionDaysCompleted : Int= 0,
+
+    // for timer
+    var timerNotificationActive: Boolean = false,
+    var timerNotificationSound : String = "",
+    var timerMusicActive: Boolean = false,
+    var timerMusicSound : String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0

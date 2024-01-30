@@ -29,7 +29,7 @@ class AllJourneyAdapter(private val ctx: Context,
         holder.binding.journeyText.text = journeys[position].title
         holder.binding.journeyNext.setOnClickListener {
             JourneyRepository.setIdForDescription(journeys[position].id)
-            navController.navigate(R.id.action_naviation_journey_main_to_navigation_journey_desc)
+            navController.navigate(R.id.action_navigation_journeyMainFragment_to_navigation_journeyDescriptionFragment)
         }
     }
 

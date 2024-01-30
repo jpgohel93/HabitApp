@@ -41,9 +41,9 @@ class MyProfileNotificationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentMyProfileNotificationBinding.inflate(inflater, container,false)
-        MainActivity.hideBottomNavigation()
+//        MainActivity.hideBottomNavigation()
         notificationData = dataSource.getNotificationData() ?: NotificationData()
         binding.morningReminderLayout.notificationTitle.text = "Morning Notification"
         binding.afternoonReminderLayout.notificationTitle.text = "Afternoon Notification"
@@ -95,6 +95,13 @@ class MyProfileNotificationFragment : Fragment() {
                 when(layoutType) {
                     LAYOUT_GLOBAL -> {
                         notificationData.globalNotificationTime = "$newHour:$newMinuteStr"
+                     /*   Log.d("Global Notification", "set $newHour : $newMinuteStr")
+                        dataSource.scheduleGlobalNotification(
+                            "HabitApp",
+                            "Global Notification",
+                            newHour,
+                            newMinute
+                        )  */
                     }
                     LAYOUT_MORNING -> {
                         notificationData.morningNotificationTime = "$newHour:$newMinuteStr"

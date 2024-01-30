@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/history_navigation"
+    app:startDestination="@id/navigation_historyMainFragment">
+
+    <fragment
+        android:id="@+id/navigation_historyMainFragment"
+        android:name="com.tjcg.habitapp.fragment.HistoryMainFragment"
+        tools:layout="@layout/fragment_history_main"
+        android:label="HistoryMainFragment" >
+        <action
+            android:id="@+id/action_navigation_historyMainFragment_to_navigation_habitEdit"
+            app:destination="@id/navigation_habitEdit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_habitEdit"
+        android:name="com.tjcg.habitapp.fragment.CreateNewHabitFragment"
+        tools:layout="@layout/fragment_create_habit"
+        android:label="editHabit">
+        <action
+            android:id="@+id/action_navigation_habitEdit_to_navigation_habitIcons"
+            app:destination="@id/navigation_habitIcons" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_habitIcons"
+        android:name="com.tjcg.habitapp.fragment.IconListFragment"
+        android:label="Icons"
+        tools:layout="@layout/fragment_icon_select"/>
+</navigation>

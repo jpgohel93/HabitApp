@@ -37,8 +37,8 @@ class JourneyMainFragment : Fragment() {
         if (!MainActivity.isNavShowing) {
             MainActivity.showBottomNavigation()
         }
-        ctx = findNavController().context
         MainActivity.currentPage = Constant.PAGE_2
+        ctx = findNavController().context
         binding = FragmentJourneyMainBinding.inflate(inflater, container, false)
         val journeyViewModel = ViewModelProvider(this)[JourneyViewModel::class.java]
         JourneyRepository.setRepository(journeyViewModel)
@@ -125,5 +125,13 @@ class JourneyMainFragment : Fragment() {
             "Efficient Use Of Fragmented Time",
             "Inspire Confidence And Lift The Mood",
             "Better Relationships With Co-Workers")
+    }
+
+    companion object {
+        fun getInstance(ctx: Context) : JourneyMainFragment {
+            val fragment = JourneyMainFragment()
+            fragment.ctx = ctx
+            return fragment
+        }
     }
 }

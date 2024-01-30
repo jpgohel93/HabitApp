@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/habit_preset_recycler_item_size"
+    android:orientation="vertical"
+    android:background="@drawable/card_default"
+    android:id="@+id/habitInGrid"
+    android:layout_margin="@dimen/habit_preset_recycler_item_margin"
+    android:layout_height="@dimen/habit_preset_recycler_item_size">
+
+    <ImageView
+        android:layout_width="@dimen/habit_preset_icon_as_image_size"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:id="@+id/habitImage"
+        android:layout_gravity="center"
+        android:src="@drawable/study"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="carrot"
+        android:fontFamily="@font/icons"
+        android:gravity="center"
+        android:textSize="@dimen/habit_preset_icon_size"
+        android:id="@+id/habitIcon"
+        android:layout_weight="1"
+        android:padding="@dimen/habit_preset_icon_padding"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Habit Name"
+        android:id="@+id/habitTitle"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:textSize="@dimen/habit_preset_title_size"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"/>
+
+</LinearLayout>

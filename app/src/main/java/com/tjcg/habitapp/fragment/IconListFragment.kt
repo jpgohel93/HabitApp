@@ -34,7 +34,7 @@ class IconListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         habitViewModel = dataSource.provideViewModel()
         selectedIcon = habitViewModel.habitIcon.value ?: "calendar-check"
         binding = FragmentIconSelectBinding.inflate(inflater, container, false)
@@ -127,6 +127,7 @@ class IconListFragment : Fragment() {
             }
             holder.binding.iconText.setOnClickListener { 
                 habitViewModel.habitIcon.value = icon
+                CreateNewHabitFragment.iconChanged = true
                 findNavController().navigateUp()
             }
         }

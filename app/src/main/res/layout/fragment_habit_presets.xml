@@ -19,74 +19,74 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/app_horizontal_margin"
             android:layout_weight="1"
-            android:background="@drawable/card_light"
+            android:background="@drawable/card_selector"
             android:gravity="center"
             android:id="@+id/regularHabitCard"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/habit_preset_padding">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar" />
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/habit_preset_card_gif"
+                android:layout_height="@dimen/habit_preset_card_gif"
+                android:src="@drawable/regular"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/habit_type_select_card_text"
+                android:textSize="@dimen/habit_preset_card_text"
                 android:text="REGULAR" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/app_horizontal_margin"
             android:layout_weight="1"
             android:id="@+id/negativeHabitCard"
-            android:background="@drawable/card_light"
+            android:background="@drawable/card_selector"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/habit_preset_padding">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar" />
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/habit_preset_card_gif"
+                android:layout_height="@dimen/habit_preset_card_gif"
+                android:src="@drawable/negative"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/habit_type_select_card_text"
+                android:textSize="@dimen/habit_preset_card_text"
                 android:text="NEGATIVE" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
+            android:layout_margin="@dimen/app_horizontal_margin"
             android:layout_weight="1"
-            android:background="@drawable/card_light"
+            android:background="@drawable/card_selector"
             android:gravity="center"
             android:id="@+id/oneTimeHabitCard"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:padding="@dimen/habit_preset_padding">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar" />
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="@dimen/habit_preset_card_gif"
+                android:layout_height="@dimen/habit_preset_card_gif"
+                android:src="@drawable/onetime"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/habit_type_select_card_text"
+                android:textSize="@dimen/habit_preset_card_text"
                 android:text="ONE TIME" />
         </LinearLayout>
 
@@ -156,4 +156,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newSubText" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/habitPresetRecycler"
+        app:layout_constraintEnd_toEndOf="@+id/habitPresetRecycler"
+        app:layout_constraintStart_toStartOf="@+id/habitPresetRecycler"
+        app:layout_constraintTop_toTopOf="@+id/habitPresetRecycler" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,7 +35,7 @@ class HistoryAllHabitsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+//        MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentHistoryAllHabitsBinding.inflate(
             inflater, container, false
         )
@@ -98,10 +98,10 @@ class HistoryAllHabitsFragment : Fragment() {
             holder.binding.habitTitle.isSelected = true
             holder.binding.habitIcon.text = habit.icon
             holder.binding.habitInGrid.setOnClickListener {
-                MainActivity.hideBottomNavigation()
+       //         MainActivity.hideBottomNavigation()
                 CreateNewHabitFragment.editHabit = true
                 CreateNewHabitFragment.editHabitId = habit.id
-                findNavController().navigate(R.id.navigation_new_habit)
+                findNavController().navigate(R.id.action_navigation_historyMainFragment_to_navigation_habitEdit)
             }
         }
 

@@ -31,8 +31,11 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        ctx = findNavController().context
+        if (!MainActivity.isNavShowing) {
+            MainActivity.showBottomNavigation()
+        }
         MainActivity.currentPage = Constant.PAGE_3
+        ctx = findNavController().context
         binding = FragmentHistoryMainBinding.inflate(inflater,
             container, false)
         tab1 = binding.tabs.tab1
@@ -42,7 +45,7 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
         tab2.setOnClickListener(this)
         tab3.setOnClickListener(this)
         changeTab(0)
-        binding.historyViewPager.adapter = ViewPagerAdapter(parentFragmentManager)
+        binding.historyViewPager.adapter = ViewPagerAdapter(childFragmentManager)
         binding.historyViewPager.isUserInputEnabled = false
         return binding.root
     }
@@ -100,6 +103,14 @@ class HistoryMainFragment : Fragment(), View.OnClickListener {
                 2 -> HistoryAchievementsFragment.getInstance(ctx)
                 else ->  HistoryCalendarFragment.getInstance()
             }
+        }
+    }
+
+    companion object {
+        fun getInstance(ctx: Context) : HistoryMainFragment {
+            val fragment = HistoryMainFragment()
+            fragment.ctx = ctx
+            return fragment
         }
     }
 }

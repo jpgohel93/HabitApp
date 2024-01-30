@@ -26,7 +26,7 @@ class GoPremiumFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         ctx = findNavController().context
-        MainActivity.currentPage = Constant.PAGE_IN
+   //     MainActivity.currentPage = Constant.PAGE_IN
         binding = FragmentGoPremiumBinding.inflate(
             inflater, container, false
         )

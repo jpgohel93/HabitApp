@@ -1,10 +1,10 @@
 package com.tjcg.habitapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.tjcg.habitapp.MainActivity
 import com.tjcg.habitapp.data.WeekCalendarRow
@@ -84,6 +84,7 @@ class WeekCalendarAdapter(private val ctx: Context, private val dates : ArrayLis
 
     override fun getItemCount(): Int = dates.size
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setObserver() {
         viewModel.selectedWeekCalendarDate.observe((ctx as MainActivity)) { dates1 ->
             sDate = dates1[0]

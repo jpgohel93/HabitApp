@@ -92,8 +92,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_margin="@dimen/root_view_padding"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:background="@drawable/button_background"
-        android:text="start my journey"
+        android:text="Start My Journey"
         app:backgroundTint="@null" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
